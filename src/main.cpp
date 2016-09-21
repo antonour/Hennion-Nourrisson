@@ -1,6 +1,6 @@
 #include <iostream>
 
-//kfef Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
+//hhhhLes lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
 void testSFML() {
