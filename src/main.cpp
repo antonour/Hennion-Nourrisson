@@ -20,6 +20,6 @@ int main(int argc,char* argv[])
     exemple.setX(3);
 
     cout << "It works So Well !" << endl;
-
+    cout << "Bonjour"<< endl;
     return 0;
 }
