@@ -1,6 +1,6 @@
 #include <iostream>
 
-// fffLes lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
+// Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
 void testSFML() {
@@ -19,7 +19,7 @@ int main(int argc,char* argv[])
     Exemple exemple;
     exemple.setX(3);
 
-    cout << "It works !" << endl;
+    cout << "It works So Good !" << endl;
 
     return 0;
 }
