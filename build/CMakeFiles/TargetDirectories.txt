@@ -1,3 +1,0 @@
-/home/antonour/Documents/CotCot/build/CMakeFiles/edit_cache.dir
-/home/antonour/Documents/CotCot/build/CMakeFiles/rebuild_cache.dir
-/home/antonour/Documents/CotCot/build/CMakeFiles/run.dir
