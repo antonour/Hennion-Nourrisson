@@ -1,1 +1,0 @@
-/usr/bin/c++    -Wall -std=c++11 -pthread -g -O3 -DNDEBUG   CMakeFiles/run.dir/src/state/Exemple.cpp.o CMakeFiles/run.dir/src/main.cpp.o  -o ../bin/run /usr/lib/i386-linux-gnu/libsfml-graphics.so /usr/lib/i386-linux-gnu/libsfml-window.so /usr/lib/i386-linux-gnu/libsfml-system.so 
