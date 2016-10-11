@@ -30,18 +30,17 @@ namespace state {
   public:
     State ();
     ~State ();
-    State* const clone ();
+    State* clone () const;
     void copy (const State& other);
-    bool const equals (const State& other);
-    int const getTurn ();
-    int count getDeathCount ();
-    int const getTurnCount ();
-     ();
-    const ElementGrid& const getGrid ();
+    bool equals (const State& other) const;
+    int getTurn () const;
+    int getDeathCount () const;
+    int getTurnCount () const;
+    const ElementGrid& getGrid () const;
     ElementGrid& getGrid ();
-    const ElementList& const getList ();
+    const ElementList& getList () const;
     ElementList& getList ();
-    const MobileElement* const getChars (int i);
+    const MobileElement* getChars (int i) const;
     MobileElement* getChars (int i);
     void setElementFactory (ElementFactory* f);
     void setTurn (int i);

@@ -2,9 +2,11 @@
 #ifndef STATE__ELEMENTFACTORY__H
 #define STATE__ELEMENTFACTORY__H
 
+#include <string>
 #include <map>
 
 namespace state {
+  class Element;
   class AElementAlloc;
 }
 
@@ -17,12 +19,12 @@ namespace state {
     // Associations
     // Attributes
   protected:
-    std::map<String,AElementAlloc*> list;
+    std::map<std::string,AElementAlloc*> list;
     // Operations
   public:
     ~ElementFactory ();
-    Element* const newInstance (String id);
-    void registerType (String id, AElementAlloc* a);
+    Element* newInstance (std::string id) const;
+    void registerType (std::string id, AElementAlloc* a);
   };
 
 };

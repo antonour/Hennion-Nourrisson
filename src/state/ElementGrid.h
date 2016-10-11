@@ -10,6 +10,7 @@ namespace state {
   class ElementList;
 }
 
+#include "Direction.h"
 #include "ElementList.h"
 
 namespace state {
@@ -23,14 +24,14 @@ namespace state {
     // Operations
   public:
     ElementGrid (State& s);
-    ElementGrid* const clone ();
+    ElementGrid* clone () const;
     void copy (const ElementGrid& other);
-    bool const equals (const ElementGrid& other);
-    bool const hasCell (int i, int j);
-    int const getWidth ();
-    int const getHeight ();
-    Element* const getCell (int i, int j);
-    bool const isMovable (int i, int j, Direction=NONE d);
+    bool equals (const ElementGrid& other) const;
+    bool hasCell (int i, int j) const;
+    int getWidth () const;
+    int getHeight () const;
+    Element* getCell (int i, int j) const;
+    bool isMovable (int i, int j, Direction d = NONE) const;
     void setCell (int i, int j, Element* e);
     void load (const char* file_name);
   };

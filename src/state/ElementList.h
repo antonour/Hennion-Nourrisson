@@ -28,12 +28,12 @@ namespace state {
   public:
     ElementList (State& s);
     ~ElementList ();
-    ElementList* const clone ();
+    ElementList* clone () const;
     void copy (const ElementList& list);
-    bool const equals (const ElementList& other);
-    const State& const getState ();
-    int const size ();
-    Element* const get (int i);
+    bool equals (const ElementList& other) const;
+    const State& getState () const;
+    int size () const;
+    Element* get (int i) const;
     void clear ();
     void setElementFactory (ElementFactory f);
     void set (int i, Element* e);

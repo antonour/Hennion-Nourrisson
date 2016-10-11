@@ -25,13 +25,13 @@ namespace state {
     // Operations
   public:
     MobileElement ();
-    bool const isStatic ();
-    virtual bool const isFowl () = 0;
-    virtual Direction const getDirection () = 0;
+    bool isStatic () const;
+    virtual bool isFowl () const = 0;
+    virtual Direction getDirection () const = 0;
     virtual void setDirection (Direction dir) = 0;
-    virtual void setSpeed (size_t s) = 0;
+    void setSpeed (size_t s);
     void setPosition (size_t p);
-    virtual bool const equals (const Element& other);
+    virtual bool equals (const Element& other) const;
   };
 
 };

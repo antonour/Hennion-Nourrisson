@@ -112,7 +112,7 @@
         <dia:point val="-22.336,-7.5679"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="16.670000000000002"/>
+        <dia:real val="16.669999999999998"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="13.800000000000001"/>
@@ -7404,13 +7404,13 @@
                 <dia:string>#d#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#Direction=NONE#</dia:string>
+                <dia:string>#Direction#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
-                <dia:string>##</dia:string>
+                <dia:string>#NONE#</dia:string>
               </dia:attribute>
               <dia:attribute name="comment">
-                <dia:string>##</dia:string>
+                <dia:string>#	#</dia:string>
               </dia:attribute>
               <dia:attribute name="kind">
                 <dia:enum val="0"/>

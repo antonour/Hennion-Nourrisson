@@ -26,16 +26,16 @@ namespace state {
   public:
     Element ();
     virtual ~Element ();
-    virtual TypeID const getTypeID () = 0;
-    int const getX ();
-    int const getY ();
-    Direction const getOrientation ();
+    virtual TypeID getTypeID () const = 0;
+    int getX () const;
+    int getY () const;
+    Direction getOrientation () const;
     void setX (int x);
     void setY (int y);
     void setOrientation (Direction direction);
-    virtual bool const isStatic () = 0;
-    virtual Element* const clone () = 0;
-    virtual bool const equals (const Element& other);
+    virtual bool isStatic () const = 0;
+    virtual Element* clone () const = 0;
+    virtual bool equals (const Element& other) const;
   };
 
 };

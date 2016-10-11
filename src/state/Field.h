@@ -9,6 +9,7 @@ namespace state {
 }
 
 #include "FieldTypeID.h"
+#include "TypeID.h"
 #include "StaticElement.h"
 
 namespace state {
@@ -20,12 +21,12 @@ namespace state {
     // Operations
   public:
     Field (FieldTypeID id);
-    bool const isSpace ();
-    TypeID const getTypeID ();
-    FieldTypeID const getFieldTypeID ();
+    bool isSpace () const;
+    TypeID getTypeID () const;
+    FieldTypeID getFieldTypeID () const;
     void setFieldTypeID (FieldTypeID id);
-    Element* const clone ();
-    bool const equals (const Element& other);
+    Element* clone () const;
+    bool equals (const Element& other) const;
   };
 
 };
