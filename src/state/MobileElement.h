@@ -2,6 +2,7 @@
 #ifndef STATE__MOBILEELEMENT__H
 #define STATE__MOBILEELEMENT__H
 
+#include <stdlib.h>
 
 namespace state {
   class Element;
@@ -19,8 +20,8 @@ namespace state {
     // Attributes
   protected:
     /// 												
-    size-t speed;
-    size-t position;
+    size_t speed;
+    size_t position;
     // Operations
   public:
     MobileElement ();
@@ -28,8 +29,8 @@ namespace state {
     virtual bool const isFowl () = 0;
     virtual Direction const getDirection () = 0;
     virtual void setDirection (Direction dir) = 0;
-    virtual void setSpeed (size-t s) = 0;
-    void setPosition (size-t p);
+    virtual void setSpeed (size_t s) = 0;
+    void setPosition (size_t p);
     virtual bool const equals (const Element& other);
   };
 

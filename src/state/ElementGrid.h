@@ -4,9 +4,35 @@
 
 
 namespace state {
+  class State;
+  class ElementGrid;
+  class Element;
+  class ElementList;
+}
+
+#include "ElementList.h"
+
+namespace state {
 
   /// class ElementGrid - 
-  class ElementGrid {
+  class ElementGrid : public state::ElementList {
+    // Attributes
+  protected:
+    int width;
+    int height;
+    // Operations
+  public:
+    ElementGrid (State& s);
+    ElementGrid* const clone ();
+    void copy (const ElementGrid& other);
+    bool const equals (const ElementGrid& other);
+    bool const hasCell (int i, int j);
+    int const getWidth ();
+    int const getHeight ();
+    Element* const getCell (int i, int j);
+    bool const isMovable (int i, int j, Direction=NONE d);
+    void setCell (int i, int j, Element* e);
+    void load (const char* file_name);
   };
 
 };

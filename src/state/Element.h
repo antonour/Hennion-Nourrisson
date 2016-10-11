@@ -2,6 +2,7 @@
 #ifndef STATE__ELEMENT__H
 #define STATE__ELEMENT__H
 
+#include <stdlib.h>
 
 namespace state {
   class Element;
@@ -18,8 +19,8 @@ namespace state {
     state::TypeID type;
     // Attributes
   protected:
-    size-t X;
-    size-t Y;
+    size_t X;
+    size_t Y;
     Direction direction;
     // Operations
   public:

@@ -23,7 +23,7 @@ namespace state {
     int turns;
     int ammo;
   protected:
-    String name;
+    std::string name;
     int power;
     int weight;
     // Operations
@@ -31,7 +31,7 @@ namespace state {
     Weapon ();
     bool const isFowl ();
     TypeID const getTypeID ();
-    String getName ();
+    std::string getName ();
     int getPower ();
     int getWeight ();
     void setName (String name);

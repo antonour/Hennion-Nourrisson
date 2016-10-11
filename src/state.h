@@ -15,9 +15,10 @@
 #include "state/Fowl.h"
 #include "state/SpaceTypeID.h"
 #include "state/Space.h"
-#include "state/ElementList.h"
-#include "state/ElementGrid.h"
 #include "state/AElementAlloc.h"
 #include "state/ElementFactory.h"
+#include "state/ElementList.h"
+#include "state/ElementGrid.h"
 #include "state/ElementAlloc.h"
+#include "state/State.h"
 #endif

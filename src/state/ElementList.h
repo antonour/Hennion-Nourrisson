@@ -2,11 +2,41 @@
 #ifndef STATE__ELEMENTLIST__H
 #define STATE__ELEMENTLIST__H
 
+#include <vector>
+
+namespace state {
+  class State;
+  class ElementFactory;
+  class Element;
+  class ElementList;
+}
+
+#include "ElementFactory.h"
+#include "Element.h"
 
 namespace state {
 
   /// class ElementList - 
   class ElementList {
+    // Associations
+    // Attributes
+  protected:
+    State& s;
+    ElementFactory* factory;
+    std::vector<Element*> elements;
+    // Operations
+  public:
+    ElementList (State& s);
+    ~ElementList ();
+    ElementList* const clone ();
+    void copy (const ElementList& list);
+    bool const equals (const ElementList& other);
+    const State& const getState ();
+    int const size ();
+    Element* const get (int i);
+    void clear ();
+    void setElementFactory (ElementFactory f);
+    void set (int i, Element* e);
   };
 
 };
