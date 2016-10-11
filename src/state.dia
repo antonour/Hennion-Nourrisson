@@ -112,7 +112,7 @@
         <dia:point val="-22.336,-7.5679"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="16.669999999999998"/>
+        <dia:real val="16.670000000000002"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="13.800000000000001"/>
@@ -1068,7 +1068,7 @@
                 <dia:string>#s#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#size-t#</dia:string>
+                <dia:string>#size_t#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
@@ -1116,7 +1116,7 @@
                 <dia:string>#p#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#size-t#</dia:string>
+                <dia:string>#size_t#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
