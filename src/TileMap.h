@@ -4,13 +4,6 @@
  * and open the template in the editor.
  */
 
-/* 
- * File:   TileMap.h
- * Author: jimmy
- *
- * Created on 12 octobre 2016, 09:32
- */
-
 #ifndef TILEMAP_H
 #define TILEMAP_H
 
