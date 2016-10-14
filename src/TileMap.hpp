@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-#ifndef TILEMAP_H
-#define TILEMAP_H
+
+#ifndef TILEMAP_HPP
+#define TILEMAP_HPP
 
 class TileMap : public sf::Drawable, public sf::Transformable
 {
@@ -69,5 +70,5 @@ private:
     sf::Texture m_tileset;
 };
 
-#endif /* TILEMAP_H */
+#endif /* TILEMAP_HPP */
 
