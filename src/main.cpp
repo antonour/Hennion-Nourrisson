@@ -13,15 +13,15 @@ int testSFML() {
     // on définit le niveau à l'aide de numéro de tuiles
     const int level[] =
     {
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-        11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-        30, 31, 32, 33, 34, 35, 36, 37, 38
+        0,1,2,3,4,5,6,7,8,
+        9,10,11,12,13,14,15,16,17,
+        18,19,20,21,22,23,24,25,26,
+        27,28,29,30,31,32,33,34,35
     };
 
     // on crée la tilemap avec le niveau précédemment défini
     TileMap map;
-    if (!map.load("../res/tileset.png", sf::Vector2u(136, 111), level, 10, 4))
+    if (!map.load("../res/tileset.png", sf::Vector2u(125, 97), level, 9, 4))
         return -1;
 
     // on fait tourner la boucle principale
