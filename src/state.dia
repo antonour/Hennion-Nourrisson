@@ -5035,13 +5035,13 @@
         <dia:point val="23.8648,2.76689"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="23.8148,2.71689;51.7498,7.01689"/>
+        <dia:rectangle val="23.8148,2.71689;42.5098,7.01689"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="23.8648,2.76689"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="27.835000000000001"/>
+        <dia:real val="18.594999999999999"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="4.2000000000000002"/>
@@ -5226,7 +5226,7 @@
         </dia:composite>
         <dia:composite type="umloperation">
           <dia:attribute name="name">
-            <dia:string>#register#</dia:string>
+            <dia:string>#enregistrer#</dia:string>
           </dia:attribute>
           <dia:attribute name="stereotype">
             <dia:string>##</dia:string>
@@ -5272,10 +5272,10 @@
             </dia:composite>
             <dia:composite type="umlparameter">
               <dia:attribute name="name">
-                <dia:string>#list#</dia:string>
+                <dia:string>#creator#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#std::map&lt;int, std::unique_ptr&lt;IElement&gt;&gt;#</dia:string>
+                <dia:string>#IElement*#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
@@ -7636,18 +7636,18 @@
     </dia:object>
     <dia:object type="UML - Dependency" version="1" id="O47">
       <dia:attribute name="obj_pos">
-        <dia:point val="23.8144,4.86689"/>
+        <dia:point val="23.8145,4.86689"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-12.523,-1.17195;23.8644,4.91689"/>
+        <dia:rectangle val="-12.523,-1.17195;23.8645,4.91689"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="23.8144,4.86689"/>
-        <dia:point val="6.07069,4.86689"/>
-        <dia:point val="6.07069,-0.72195"/>
+        <dia:point val="23.8145,4.86689"/>
+        <dia:point val="6.07076,4.86689"/>
+        <dia:point val="6.07076,-0.72195"/>
         <dia:point val="-12.073,-0.72195"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
@@ -7861,7 +7861,7 @@
     </dia:object>
     <dia:object type="UML - Association" version="2" id="O52">
       <dia:attribute name="name">
-        <dia:string>#liste#</dia:string>
+        <dia:string>##</dia:string>
       </dia:attribute>
       <dia:attribute name="direction">
         <dia:enum val="1"/>
@@ -7897,19 +7897,19 @@
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="37.7823,7.01716"/>
+        <dia:point val="33.1623,7.01656"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="37.0323,6.26716;44.9784,21.4001"/>
+        <dia:rectangle val="32.4123,6.26656;44.9784,21.4008"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="37.7823,7.01716"/>
-        <dia:point val="37.7823,13.7586"/>
+        <dia:point val="33.1623,7.01656"/>
+        <dia:point val="33.1623,13.7586"/>
         <dia:point val="44.7784,13.7586"/>
-        <dia:point val="44.7784,19.8001"/>
+        <dia:point val="44.7784,19.8008"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -7917,7 +7917,7 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="text_colour">
         <dia:color val="#000000"/>
