@@ -5334,7 +5334,7 @@
         <dia:string>#liste#</dia:string>
       </dia:attribute>
       <dia:attribute name="direction">
-        <dia:enum val="1"/>
+        <dia:enum val="2"/>
       </dia:attribute>
       <dia:attribute name="show_direction">
         <dia:boolean val="false"/>
@@ -5370,7 +5370,7 @@
         <dia:point val="44.7784,19.8001"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="34.6523,7.7672;45.5284,20.6001"/>
+        <dia:rectangle val="33.9523,7.0672;44.9784,20.6001"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -7933,13 +7933,13 @@
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O53">
       <dia:attribute name="obj_pos">
-        <dia:point val="80.9484,6.20771"/>
+        <dia:point val="68.8789,5.67261"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="80.8984,6.15771;87.4484,11.8577"/>
+        <dia:rectangle val="68.8289,5.62261;75.3789,11.3226"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="80.9484,6.20771"/>
+        <dia:point val="68.8789,5.67261"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="6.4500000000000002"/>
