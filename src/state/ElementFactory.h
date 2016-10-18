@@ -2,6 +2,7 @@
 #ifndef STATE__ELEMENTFACTORY__H
 #define STATE__ELEMENTFACTORY__H
 
+#include <string>
 #include <map>
 #include <memory>
 
@@ -21,11 +22,11 @@ namespace state {
     // Associations
     // Attributes
   private:
-    std::map<int, std::unique_ptr<IElement>> list;
+    std::map<std::string, std::unique_ptr<IElement>> list;
     // Operations
   public:
-    Element* create (int clef, TypeID id);
-    void enregistrer (int clef, IElement* creator);
+    Element* create (std::string& clef, TypeID id);
+    void enregistrer (std::string& clef, IElement* creator);
   };
 
 };
