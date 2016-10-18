@@ -4,7 +4,6 @@
 
 
 namespace state {
-  class Element;
   class StaticElement;
 }
 
@@ -25,8 +24,6 @@ namespace state {
     TypeID getTypeID () const;
     SpaceTypeID getSpaceTypeID ();
     void setSpaceTypeID (SpaceTypeID id);
-    Element* clone () const;
-    bool equals (const Element& other) const;
   };
 
 };

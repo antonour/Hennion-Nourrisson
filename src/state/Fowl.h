@@ -2,19 +2,13 @@
 #ifndef STATE__FOWL__H
 #define STATE__FOWL__H
 
-#include <string>
-#include <vector>
 
 namespace state {
-  class Weapon;
-  class Element;
   class MobileElement;
 }
 
-#include "Weapon.h"
 #include "TypeID.h"
 #include "FowlStatus.h"
-#include "Direction.h"
 #include "MobileElement.h"
 
 namespace state {
@@ -27,28 +21,15 @@ namespace state {
   protected:
     /// 		
     int HP;
-    int color;
-    std::string name;
-    std::vector<Weapon> weapons;
     // Operations
   public:
     Fowl ();
     bool isFowl () const;
     TypeID getTypeID () const;
-    int getColor ();
-    std::string getName ();
     int getHP ();
-    void setColor (int c);
-    void setName (std::string name);
     void setHP (int hp);
     FowlStatus getFowlStatus () const;
     void setFowlStatus (FowlStatus status);
-    void getBox ();
-    Direction getDirection ();
-    void setDirection (Direction dir);
-    void addWeapon (Weapon weapon, std::vector<Weapon> weapons);
-    Element* clone () const;
-    bool equals (const Element& other) const;
   };
 
 };

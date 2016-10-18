@@ -4,15 +4,11 @@
 
 #include <stdlib.h>
 
-namespace state {
-  class Element;
-}
-
-#include "Direction.h"
 #include "TypeID.h"
 
 namespace state {
 
+  // Interface
   /// class Element - 
   class Element {
     // Associations
@@ -21,7 +17,6 @@ namespace state {
   protected:
     size_t X;
     size_t Y;
-    Direction direction;
     // Operations
   public:
     Element ();
@@ -29,13 +24,9 @@ namespace state {
     virtual TypeID getTypeID () const = 0;
     int getX () const;
     int getY () const;
-    Direction getOrientation () const;
     void setX (int x);
     void setY (int y);
-    void setOrientation (Direction direction);
     virtual bool isStatic () const = 0;
-    virtual Element* clone () const = 0;
-    virtual bool equals (const Element& other) const;
   };
 
 };

@@ -2,15 +2,17 @@
 #ifndef STATE__ELEMENTFACTORY__H
 #define STATE__ELEMENTFACTORY__H
 
-#include <string>
 #include <map>
+#include <memory>
 
 namespace state {
   class Element;
-  class AElementAlloc;
+  class IElement;
 }
 
-#include "AElementAlloc.h"
+#include "TypeID.h"
+#include "Element.h"
+#include "IElement.h"
 
 namespace state {
 
@@ -18,13 +20,12 @@ namespace state {
   class ElementFactory {
     // Associations
     // Attributes
-  protected:
-    std::map<std::string,AElementAlloc*> list;
+  private:
+    std::map<int, std::unique_ptr<IElement>> list;
     // Operations
   public:
-    ~ElementFactory ();
-    Element* newInstance (std::string id) const;
-    void registerType (std::string id, AElementAlloc* a);
+    Element* create (int clef, TypeID id);
+    void enregistrer (int clef, IElement* creator);
   };
 
 };

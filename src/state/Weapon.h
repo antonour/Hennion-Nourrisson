@@ -2,16 +2,13 @@
 #ifndef STATE__WEAPON__H
 #define STATE__WEAPON__H
 
-#include <string>
 
 namespace state {
-  class Element;
   class MobileElement;
 }
 
 #include "TypeID.h"
 #include "WeaponStatus.h"
-#include "Direction.h"
 #include "MobileElement.h"
 
 namespace state {
@@ -21,34 +18,21 @@ namespace state {
     // Associations
     state::WeaponStatus status;
     // Attributes
-  public:
-    int turns;
-    int ammo;
   protected:
-    std::string name;
     int power;
     int weight;
+    int ammo;
     // Operations
   public:
     Weapon ();
     bool isFowl () const;
     TypeID getTypeID () const;
-    std::string getName ();
     int getPower () const;
     int getWeight () const;
-    void setName (std::string name);
     void setPower (int power);
     void setWeight (int weight);
     WeaponStatus getWeaponStatus () const;
     void setWeaponStatus (WeaponStatus status);
-    int getTurns () const;
-    void setTurns (int turns);
-    int getAmmo () const;
-    void setAmmo (int ammo);
-    Direction getDirection () const;
-    void setDirection (Direction dir);
-    Element* clone () const;
-    bool equals (const Element& other) const;
   };
 
 };
