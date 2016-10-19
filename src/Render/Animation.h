@@ -7,13 +7,12 @@ namespace Render {
   class Tile;
 }
 
-#include "Tile.h"
+#include "state/Direction.h"
 
 namespace Render {
 
   /// class Animation - 
   class Animation {
-    // Associations
     // Attributes
   public:
     int i;
@@ -21,7 +20,7 @@ namespace Render {
     int x;
     int y;
     const Tile* tile;
-    state::direction direction;
+    state::Direction direction;
     float speed;
     // Operations
   public:

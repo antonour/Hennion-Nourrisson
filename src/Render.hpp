@@ -1,5 +1,5 @@
-#ifndef __RENDU_HPP__
-#define __RENDU_HPP__
+#ifndef __RENDER_HPP__
+#define __RENDER_HPP__
 
 #include "Render.h"
 

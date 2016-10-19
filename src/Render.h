@@ -4,9 +4,10 @@
 
 #include "Render/Tile.h"
 #include "Render/StaticTile.h"
-#include "Render/TypeTileID.h"
 #include "Render/MobileTile.h"
-#include "Render/Tileset.h"
+#include "Render/TileSet.h"
+#include "Render/Surface.h"
 #include "Render/Animation.h"
 #include "Render/Layer.h"
+#include "Render/Scene.h"
 #endif

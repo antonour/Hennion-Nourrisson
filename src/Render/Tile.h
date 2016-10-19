@@ -7,11 +7,25 @@ namespace Render {
 
   /// class Tile - 
   class Tile {
+    // Attributes
+  public:
+    int x;
+    int y;
+    int width;
+    int height;
     // Operations
   public:
-    virtual int getWidth () const = 0;
-    virtual int getHeight () const = 0;
+    Tile (int x, int y, int w, int h);
+    ~Tile ();
     virtual bool isMovable () const = 0;
+    int getX ();
+    int getY ();
+    int getWidth () const;
+    int getHeight () const;
+    void setX (int x);
+    void setY (int y);
+    void setWidth (int const w);
+    void setHeight (int const h);
   };
 
 };

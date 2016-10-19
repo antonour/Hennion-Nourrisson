@@ -13,19 +13,9 @@ namespace Render {
 
   /// class StaticTile - 
   class StaticTile : public Render::Tile {
-    // Attributes
-  protected:
-    int width;
-    int height;
-    int X;
-    int Y;
     // Operations
   public:
-    bool isMovable () const;
-    int getWidth () const;
-    int getHeight () const;
-    int getX () const;
-    int getY () const;
+    bool  isMovable () const;
   };
 
 };

@@ -5,12 +5,20 @@
 #include <map>
 
 namespace Render {
+  class Surface;
+  class Tile;
+  class TileSet;
   class Animation;
-  class Tileset;
+};
+namespace state {
+  class StateEvent;
+  class IObserver;
 }
 
+#include "state/IObserver.h"
 #include "Animation.h"
-#include "Tileset.h"
+#include "TileSet.h"
+#include "Surface.h"
 
 namespace Render {
 
@@ -18,18 +26,22 @@ namespace Render {
   class Layer {
     // Associations
     // Attributes
+  public:
+    Surface* surface;
   private:
-    <std::map<int,Animation*> animations;
+    std::map<int,Animation*> animations;
   protected:
-    const TileSet* tileset;
+    const Tile* tileset;
     // Operations
   public:
     Layer ();
     virtual ~Layer ();
-    const TileSet* getTileSet () const;
+    const TileSet* getTileSet ();
     void setTileSet (const TileSet* tileset);
+    void setSurface (Surface* surface);
     void setAnimation (int i, Animation* a);
     void printText (int x, int y, const char* msg, int spriteIdx, int w, int h);
+    void stateChanged (const state::StateEvent& e);
   };
 
 };

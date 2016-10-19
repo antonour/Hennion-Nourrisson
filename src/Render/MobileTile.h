@@ -8,25 +8,14 @@ namespace Render {
 }
 
 #include "Tile.h"
-#include "TypeTileID.h"
 
 namespace Render {
 
   /// class MobileTile - 
   class MobileTile : public Render::Tile {
-    // Associations
-    Render::TypeTileID status;
-    // Attributes
-  protected:
-    int width;
-    int height;
     // Operations
   public:
-    MobileTile (TileTypeID id);
-    TileTypeID getTileTypeID () const;
     bool isMovable () const;
-    int getHeight () const;
-    int getWidth () const;
   };
 
 };

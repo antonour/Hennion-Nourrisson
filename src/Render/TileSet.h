@@ -5,18 +5,21 @@
 
 namespace Render {
   class Tile;
+};
+namespace state {
+  class Element;
 }
 
 #include "Tile.h"
 
 namespace Render {
 
-  /// class Tileset - 
-  class Tileset {
+  /// class TileSet - 
+  class TileSet {
     // Associations
-    Render::Tile tile;
     // Operations
   public:
+    ~TileSet ();
     const char* getImageFile () const;
     const Tile* getElementTile (const state::Element* e) const;
     const Tile* getCharTile (char c) const;

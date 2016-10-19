@@ -21,4 +21,9 @@
 #include "state/WeaponCreator.h"
 #include "state/FieldCreator.h"
 #include "state/SpaceCreator.h"
+#include "state/IObserver.h"
+#include "state/Observable.h"
+#include "state/State.h"
+#include "state/StateEventID.h"
+#include "state/StateEvent.h"
 #endif
