@@ -8,6 +8,8 @@
 #include"../Render.hpp"
 
 namespace state{
+    Observable::~Observable(){}
+    
     void Observable::registerObserver(IObserver* observer){
         observers.push_back(observer);
     }

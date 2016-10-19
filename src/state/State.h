@@ -3,6 +3,7 @@
 #define STATE__STATE__H
 
 #include <vector>
+#include <string>
 
 namespace state {
   class MobileElement;
@@ -28,14 +29,13 @@ namespace state {
     std::vector<StaticElement*> background;
     // Operations
   public:
-    State ();
-    ~State ();
     void setElementFactory (ElementFactory* f);
     std::vector<MobileElement*> getMobileElements ();
     MobileElement* getMobileElement (int idx);
     std::vector<StaticElement*> getStaticElements ();
     StaticElement* getStaticElement (int idx);
-    void loadLevel (const char* file_name);
+    int * loadLevel (const std::string& file_name);
+    virtual ~State ();
   };
 
 };
