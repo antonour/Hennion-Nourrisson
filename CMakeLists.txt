@@ -20,7 +20,7 @@ ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
 # Generate headers
 set(DIA2CODE "${PROJECT_SOURCE_DIR}/dia2code/bin/dia2code")
-exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/Render.dia -cl Scene -cl Animation -cl Layer -cl Tileset -cl Tile -cl StaticTile -cl MobileTile -cl TypeTileID)
+exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/Render.dia -cl Scene,Animation,Layer,Tileset,Tile,StaticTile,MobileTile,TypeTileID,Surface)
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/state.dia)
 
 # Sources
