@@ -68,7 +68,7 @@
         <dia:point val="-41.4729,-16.5962"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-41.5229,-17.6462;28.977,43.6547"/>
+        <dia:rectangle val="-41.5229,-17.6462;28.977,43.6548"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -2672,7 +2672,7 @@
                 <dia:string>#e#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#const StateEvent&amp;#</dia:string>
+                <dia:string>#const state::StateEvent&amp;#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
@@ -4184,7 +4184,7 @@
         <dia:point val="-0.955279,3.264"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-1.70528,-5.72434;3.33463,4.864"/>
+        <dia:rectangle val="-1.70528,-6.42434;3.33464,4.114"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4193,7 +4193,7 @@
         <dia:point val="-0.955279,3.264"/>
         <dia:point val="1.51468,3.264"/>
         <dia:point val="1.51468,-5.67434"/>
-        <dia:point val="3.28463,-5.67434"/>
+        <dia:point val="3.28464,-5.67434"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
