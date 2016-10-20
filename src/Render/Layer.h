@@ -6,7 +6,6 @@
 
 namespace Render {
   class Surface;
-  class Tile;
   class TileSet;
   class Animation;
 };
@@ -31,7 +30,7 @@ namespace Render {
   private:
     std::map<int,Animation*> animations;
   protected:
-    const Tile* tileset;
+    const TileSet* tileset;
     // Operations
   public:
     Layer ();

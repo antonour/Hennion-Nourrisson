@@ -10472,7 +10472,7 @@
             <dia:string>#tileset#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#const Tile*#</dia:string>
+            <dia:string>#const TileSet*#</dia:string>
           </dia:attribute>
           <dia:attribute name="value">
             <dia:string>##</dia:string>
