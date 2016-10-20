@@ -1,18 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+#include <SFML/Graphics.hpp>
+#include <string>
+#include "Surface.hpp"
 
+sf::VertexArray m_vertices;
+sf::Texture m_tileset;
 
-#ifndef TILEMAP_HPP
-#define TILEMAP_HPP
-
-class TileMap : public sf::Drawable, public sf::Transformable
-{
-public:
-
-    bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height)
+ bool Surface::load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height)
     {
         // on charge la texture du tileset
         if (!m_tileset.loadFromFile(tileset))
@@ -52,12 +46,11 @@ public:
         return true;
     }
 
-private:
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+    void Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         // on applique la transformation
-        states.transform *= getTransform();
+        states.transform *= sf::Transformable::getTransform();
 
         // on applique la texture du tileset
         states.texture = &m_tileset;
@@ -66,9 +59,5 @@ private:
         target.draw(m_vertices, states);
     }
 
-    sf::VertexArray m_vertices;
-    sf::Texture m_tileset;
-};
-
-#endif /* TILEMAP_HPP */
-
+    
+*/

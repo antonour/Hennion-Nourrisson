@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-#include "../Render.hpp"
+#include "Tile.h"
 
 namespace Render{
     
