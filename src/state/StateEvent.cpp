@@ -16,4 +16,8 @@ namespace state {
     StateEventID StateEvent::getStateEventID () const{
         return this->stateevent;
     }
+    
+    void StateEvent::setStateEventID (StateEventID id){
+        this->stateevent=id;
+    }
 }
