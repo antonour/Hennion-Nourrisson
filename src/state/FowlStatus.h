@@ -6,10 +6,12 @@
 namespace state {
 
   enum FowlStatus {
-    ALIVE     = 1,
-    DEAD     = 2,
-    TOUCHED     = 3,
-    WAITING     = 4
+    ALIVE_FACE     = 1,
+    ALIVE_LEFT     = 2,
+    ALIVE_RIGHT     = 3,
+    DEAD     = 4,
+    TOUCHED     = 5,
+    WAITING     = 6
   };
 
 };

@@ -11,7 +11,6 @@ namespace state {
   class IElement;
 }
 
-#include "TypeID.h"
 #include "Element.h"
 #include "IElement.h"
 
@@ -22,11 +21,13 @@ namespace state {
     // Associations
     // Attributes
   private:
-    std::map<std::string, std::unique_ptr<IElement>> list;
+    std::map<std::string, std::unique_ptr<IElement>> staticList;
+    std::map<std::string, std::unique_ptr<IElement>> mobileList;
     // Operations
   public:
-    Element* create (std::string& clef, TypeID id);
-    void enregistrer (std::string& clef, IElement* creator);
+    ElementFactory ();
+    Element* create (std::string clef, bool movable);
+    void enregistrer (std::string clef, IElement* creator, bool movable);
   };
 
 };

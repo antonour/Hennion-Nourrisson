@@ -8,8 +8,9 @@
 namespace state {
   class MobileElement;
   class ElementFactory;
-  class StaticElement;
+  class Element;
   class Observable;
+  class StaticElement;
 }
 
 #include "Observable.h"
@@ -26,15 +27,15 @@ namespace state {
   protected:
     std::vector<MobileElement*> elements;
     ElementFactory* factory;
-    std::vector<StaticElement*> background;
+    std::vector<Element*> background;
     // Operations
   public:
     void setElementFactory (ElementFactory* f);
     std::vector<MobileElement*> getMobileElements ();
     MobileElement* getMobileElement (int idx);
-    std::vector<StaticElement*> getStaticElements ();
-    StaticElement* getStaticElement (int idx);
-    int * loadLevel (const std::string& file_name);
+    std::vector<Element*> getStaticElements ();
+    Element* getStaticElement (int idx);
+    std::vector<Element*> loadLevel (const std::string& file_name);
     virtual ~State ();
   };
 

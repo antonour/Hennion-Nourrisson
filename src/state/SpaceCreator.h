@@ -2,6 +2,7 @@
 #ifndef STATE__SPACECREATOR__H
 #define STATE__SPACECREATOR__H
 
+#include <string>
 
 namespace state {
   class Element;
@@ -18,7 +19,7 @@ namespace state {
   class SpaceCreator : public state::IElement {
     // Operations
   public:
-    Element* create ();
+    Element* create (std::string st);
   };
 
 };

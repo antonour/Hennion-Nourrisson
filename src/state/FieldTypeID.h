@@ -25,7 +25,23 @@ namespace state {
     CIRCLESTONE1     = 17,
     CIRCLESTONE2     = 18,
     CIRCLESTONE3     = 19,
-    CIRCLESTONE4     = 20
+    CIRCLESTONE4     = 20,
+    SMALLBROWN1     = 21,
+    SMALLBROWN2     = 22,
+    SMALLBROWN3     = 23,
+    SMALLBROWN4     = 24,
+    SMALLBROWN5     = 25,
+    SMALLBROWN6     = 26,
+    SMALLBROWN7     = 27,
+    SMALLBROWN8     = 28,
+    SMALLSTONE1     = 29,
+    SMALLSTONE2     = 30,
+    SMALLSTONE3     = 31,
+    SMALLSTONE4     = 32,
+    SMALLSTONE5     = 33,
+    SMALLSTONE6     = 34,
+    SMALLSTONE7     = 35,
+    SMALLSTONE8     = 36
   };
 
 };

@@ -27,18 +27,17 @@ namespace state{
         return this->elements[idx];
     }
     
-    std::vector<StaticElement*> State::getStaticElements (){
+    std::vector<Element*> State::getStaticElements (){
         return this->background;
     }
     
-    StaticElement* State::getStaticElement (int idx){
+    Element* State::getStaticElement (int idx){
         return this->background[idx];
     }
     
-    std::vector<StaticElement*> State::loadLevel (const std::string& file_name){
+    std::vector<Element*> State::loadLevel (const std::string& file_name){
         int a=1;
         int b=10;
-        int c=0;
         ifstream fichier1(file_name, ios::in);
         if(fichier1){
             int nbrelignes=0;
@@ -66,10 +65,8 @@ namespace state{
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
-        int *level= new int[((b-1)/3)*a];
         ifstream fichier3(file_name, ios::in);
         if(fichier3){
-            int p=0;
             char contenu1,contenu2,poubelle;
             string contenu="";
             for(int j=1;j<a+1;j++){
@@ -84,9 +81,7 @@ namespace state{
                             contenu+=contenu2;
                         }
                         if(i%3==0){
-                            c=stoi(contenu);
-                            level[p]=c;
-                            p++;
+                            background.push_back(factory->create(contenu,false));
                             fichier3.get(poubelle);
                             contenu="";
                         }
@@ -95,24 +90,13 @@ namespace state{
                         fichier3.get(poubelle);
                     }
                 }
-
             }
             //cout << contenu << endl;
             fichier3.close();
-            /*for (int i=0;i<((b-1)/3)*a;i++){
-                if (0<level[i]<9){
-                    
-                }
-                if (9<level[i]<18){
-                    
-                }
-            }
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
-        */
         
-        return level;
+        return this->background;
     }
-    
 }

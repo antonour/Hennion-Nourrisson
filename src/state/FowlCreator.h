@@ -2,6 +2,7 @@
 #ifndef STATE__FOWLCREATOR__H
 #define STATE__FOWLCREATOR__H
 
+#include <string>
 
 namespace state {
   class Element;
@@ -18,7 +19,7 @@ namespace state {
   class FowlCreator : public state::IElement {
     // Operations
   public:
-    Element* create ();
+    Element* create (std::string st);
   };
 
 };

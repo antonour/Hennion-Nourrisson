@@ -2,6 +2,7 @@
 #ifndef STATE__IELEMENT__H
 #define STATE__IELEMENT__H
 
+#include <string>
 
 namespace state {
   class Element;
@@ -14,7 +15,7 @@ namespace state {
   class IElement {
     // Operations
   public:
-    virtual Element* create () = 0;
+    virtual Element* create (std::string st) = 0;
   };
 
 };

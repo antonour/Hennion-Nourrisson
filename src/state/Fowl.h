@@ -9,6 +9,7 @@ namespace state {
 
 #include "TypeID.h"
 #include "FowlStatus.h"
+#include "FowlColor.h"
 #include "MobileElement.h"
 
 namespace state {
@@ -16,6 +17,7 @@ namespace state {
   /// class Fowl - 
   class Fowl : public state::MobileElement {
     // Associations
+    state::FowlColor color;
     state::FowlStatus status;
     // Attributes
   protected:
@@ -30,6 +32,8 @@ namespace state {
     void setHP (int hp);
     FowlStatus getFowlStatus () const;
     void setFowlStatus (FowlStatus status);
+    FowlColor  getFowlColor () const;
+    void setFowlColor (FowlColor color);
   };
 
 };
