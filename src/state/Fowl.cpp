@@ -36,5 +36,13 @@ namespace state{
         this->status=status;
     }
     
+    FowlColor  Fowl::getFowlColor () const{
+        return this->color;
+    }
+    
+    void Fowl::setFowlColor (FowlColor color){
+        this->color=color;
+    }
+    
    
 }
