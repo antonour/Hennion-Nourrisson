@@ -23,7 +23,7 @@ build:
 	@make -s -j4 -C build
 
 run:
-	./bin/run
+	cd bin && ./run
 
 test:
 	docker build -t plt-initial -f docker/plt-initial .
