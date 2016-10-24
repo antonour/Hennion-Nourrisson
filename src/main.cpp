@@ -20,12 +20,18 @@ int main(int argc,char* argv[])
     view.zoom(6.f);
     
     State s;
+    State q;
     int* level=new int[121];
+    int* level1=new int[121];
     level=s.loadLevel("../src/fichiermap.txt");
-    cout << level[2] << endl;
+    level1=q.loadLevel("../src/fichierperso.txt");
     
     Surface map;
-    if (!map.load("../res/tileset.png", sf::Vector2u(125, 97), level, 40, 30))
+    if (!map.load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), level, 40, 30))
+        return -1;
+    
+    Surface perso;
+    if (!perso.load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), level1, 40, 30))
         return -1;
     
 
@@ -59,6 +65,7 @@ int main(int argc,char* argv[])
         window.clear();
         window.setView(view);
         window.draw(map);
+        window.draw(perso);
         window.display();
     }
     
