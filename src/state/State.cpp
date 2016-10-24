@@ -35,7 +35,7 @@ namespace state{
         return this->background[idx];
     }
     
-    int* State::loadLevel (const std::string& file_name){
+    std::vector<StaticElement*> State::loadLevel (const std::string& file_name){
         int a=1;
         int b=10;
         int c=0;
@@ -99,9 +99,19 @@ namespace state{
             }
             //cout << contenu << endl;
             fichier3.close();
+            /*for (int i=0;i<((b-1)/3)*a;i++){
+                if (0<level[i]<9){
+                    
+                }
+                if (9<level[i]<18){
+                    
+                }
+            }
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
+        */
+        
         return level;
     }
     
