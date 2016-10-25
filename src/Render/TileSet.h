@@ -7,7 +7,10 @@ namespace Render {
   class Tile;
 };
 namespace state {
-  class Element;
+  class Fowl;
+  class Weapon;
+  class Space;
+  class Field;
 }
 
 #include "Tile.h"
@@ -21,8 +24,11 @@ namespace Render {
   public:
     ~TileSet ();
     const char* getImageFile () const;
-    const Tile* getElementTile (const state::Element* e) const;
     const Tile* getCharTile (char c) const;
+    const Tile* getFowlTile (const state::Fowl* fo) const;
+    const Tile* getWeaponTile (const state::Weapon* w);
+    const Tile* getSpaceTile (const state::Space* s);
+    const Tile* getFieldTile (const state::Field* fi);
   };
 
 };

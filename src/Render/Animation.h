@@ -8,11 +8,13 @@ namespace Render {
 }
 
 #include "state/Direction.h"
+#include "Tile.h"
 
 namespace Render {
 
   /// class Animation - 
   class Animation {
+    // Associations
     // Attributes
   public:
     int i;
