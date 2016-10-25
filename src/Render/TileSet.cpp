@@ -242,345 +242,230 @@ namespace Render{
     const Tile* TileSet::getFieldTile (const state::Field* fi){
         StaticTile* t = new StaticTile(0,0,0,0);
         //dimensions correspondantes à l'image tileset.png
-        switch (fi->getFieldTypeID()){
-            
-            case NEANT :
-            {
+
+        if(fi->getFieldTypeID()==FieldTypeID::NEANT){
                 t->x=0;
                 t->y=388;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGBROWN1 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGBROWN1){
                 t->x=0;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGBROWN2 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGBROWN2){
                 t->x=125;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-           
-            case BIGBROWN3 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGBROWN3){
                 t->x=250;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGBROWN4 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGBROWN4){
                 t->x=0;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGBROWN5 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGBROWN5){
                 t->x=125;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGBROWN6 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGBROWN6){
                 t->x=250;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGSTONE1 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGSTONE1){
                 t->x=0;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGSTONE2 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGSTONE2){
                 t->x=125;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGSTONE3 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGSTONE3){
                 t->x=250;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGSTONE4 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGSTONE4){
                 t->x=0;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGSTONE5 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGSTONE5){
                 t->x=150;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case BIGSTONE6 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::BIGSTONE6){
                 t->x=250;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case CIRCLEBROWN1 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::CIRCLEBROWN1){
                 t->x=375;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case CIRCLEBROWN2 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::CIRCLEBROWN2){
                 t->x=500;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case CIRCLEBROWN3 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::CIRCLEBROWN3){
                 t->x=375;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case CIRCLEBROWN4 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::CIRCLEBROWN4){
                 t->x=500;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case CIRCLESTONE1 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::CIRCLESTONE1){
                 t->x=375;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case CIRCLESTONE2 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::CIRCLESTONE2){
                 t->x=500;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case CIRCLESTONE3 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::CIRCLESTONE3){
                 t->x=375;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case CIRCLESTONE4 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::CIRCLESTONE4){
                 t->x=500;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLBROWN1 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLBROWN1){
                 t->x=625;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLBROWN2 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLBROWN2){
                 t->x=750;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLBROWN3 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLBROWN3){
                 t->x=875;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLBROWN4 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLBROWN4){
                 t->x=1000;
                 t->y=0;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLBROWN5 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLBROWN5){
                 t->x=625;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLBROWN6 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLBROWN6){
                 t->x=750;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLBROWN7 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLBROWN7){
                 t->x=875;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLBROWN8 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLBROWN8){
                 t->x=1000;
                 t->y=97;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLSTONE1 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLSTONE1){
                 t->x=625;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLSTONE2 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLSTONE2){
                 t->x=750;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLSTONE3 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLSTONE3){
                 t->x=875;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLSTONE4 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLSTONE4){
                 t->x=1000;
                 t->y=194;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLSTONE5 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLSTONE5){
                 t->x=625;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLSTONE6 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLSTONE6){
                 t->x=750;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLSTONE7 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLSTONE7){
                 t->x=875;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }
-            
-            case SMALLSTONE8 :
-            {
+            else if (fi->getFieldTypeID()==FieldTypeID::SMALLSTONE8){
                 t->x=1000;
                 t->y=291;
                 t->width=125;
                 t->height=97;
-                break;
             }      
-                 
-            default :
-                break;
-            
-        }
+            else{}
         
         return t;
     }    

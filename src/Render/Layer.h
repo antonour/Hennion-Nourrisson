@@ -22,7 +22,7 @@ namespace state {
 namespace Render {
 
   /// class Layer - 
-  class Layer {
+  class Layer : public state::IObserver {
     // Associations
     // Attributes
   public:

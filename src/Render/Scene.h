@@ -19,7 +19,7 @@ namespace state {
 namespace Render {
 
   /// class Scene - 
-  class Scene {
+  class Scene : public state::IObserver {
     // Associations
     // Attributes
   public:

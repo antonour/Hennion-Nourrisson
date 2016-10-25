@@ -32,7 +32,7 @@ namespace Render{
         
     }
     
-    void stateChanged (const state::StateEvent& e){
+    void Layer::stateChanged (const state::StateEvent& e){
         
     }
     
