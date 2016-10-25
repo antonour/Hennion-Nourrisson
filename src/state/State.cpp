@@ -78,7 +78,7 @@ namespace state{
                             contenu+=contenu2;
                         }
                         if(i%3==0){
-                            Element* var=factory->create(contenu,true);
+                            Element* var=factory->create(contenu,false);
                             background.push_back(var);
                             fichier3.get(poubelle);
                             contenu="";
