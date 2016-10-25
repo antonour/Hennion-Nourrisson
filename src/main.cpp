@@ -5,7 +5,7 @@
 //Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "Render/Surface.hpp"
+#include "../src/Render/Surface.hpp"
 #include "state.hpp"
 
 using namespace sf;
@@ -14,18 +14,20 @@ using namespace state;
 
 int main(int argc,char* argv[]) 
 {
+    ElementFactory* fac=new ElementFactory();
+    
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
     sf::View view;
     view.setCenter(3000,3000);
     view.zoom(6.f);
     
     State s;
-    State q;
-    int* level=new int[121];
-    int* level1=new int[121];
+    s.setElementFactory(fac);
+    vector<Element*> level;
+    vector<Element*> perso;
     level=s.loadLevel("../src/fichiermap.txt");
-    level1=q.loadLevel("../src/fichierperso.txt");
-    
+    perso=s.loadChar("../src/fichierperso.txt");
+    /*
     Surface map;
     if (!map.load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), level, 40, 30))
         return -1;
@@ -34,7 +36,7 @@ int main(int argc,char* argv[])
     if (!perso.load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), level1, 40, 30))
         return -1;
     
-
+*/
     while (window.isOpen())
     {
           sf::Event event;
@@ -64,8 +66,8 @@ int main(int argc,char* argv[])
         
         window.clear();
         window.setView(view);
-        window.draw(map);
-        window.draw(perso);
+        //window.draw(map);
+        //window.draw(perso);
         window.display();
     }
     
