@@ -8,7 +8,7 @@
 
 namespace state{
     
-    Element* FowlCreator::create (){
+    Element* FowlCreator::create (std:: string st){
         
         Element* p=new Fowl();
         return p;

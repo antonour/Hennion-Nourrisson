@@ -8,7 +8,7 @@
 
 namespace state{
     
-    Element* WeaponCreator::create (){
+    Element* WeaponCreator::create (std:: string st){
         
         Element* p=new Weapon();
         return p;
