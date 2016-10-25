@@ -6,13 +6,14 @@
 namespace state {
 
   enum FowlColor {
-    BLANC     = 1,
-    VERT     = 2,
-    NOIR     = 3,
+    BLANK     = 0,
+    WHITE     = 1,
+    GREEN     = 2,
+    BLACK     = 3,
     BEIGE     = 4,
-    KAKI     = 5,
-    MARRON     = 6,
-    GRIS     = 7,
+    KHAKI     = 5,
+    BROWN     = 6,
+    GREY     = 7,
     ORANGE     = 8
   };
 

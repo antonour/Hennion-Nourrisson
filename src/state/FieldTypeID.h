@@ -6,6 +6,7 @@
 namespace state {
 
   enum FieldTypeID {
+    NEANT     = 0,
     BIGBROWN1     = 1,
     BIGBROWN2     = 2,
     BIGBROWN3     = 3,

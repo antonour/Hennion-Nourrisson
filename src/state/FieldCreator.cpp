@@ -8,9 +8,14 @@
 
 namespace state{
     
-    Element* FieldCreator::create (std:: string st){
+    Element* FieldCreator::create (){
         
-        Element* p=new Field(BIGBROWN1);
+        Element* p=new Field(id);
+        
         return p;
+    }
+    
+    FieldCreator::FieldCreator(FieldTypeID id){
+        this->id=id;
     }
 }

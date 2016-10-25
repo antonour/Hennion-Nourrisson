@@ -6,11 +6,11 @@
 #include <string>
 
 namespace state {
-  class MobileElement;
-  class ElementFactory;
   class Element;
+  class ElementFactory;
   class Observable;
   class StaticElement;
+  class MobileElement;
 }
 
 #include "Observable.h"
@@ -25,17 +25,18 @@ namespace state {
     // Associations
     // Attributes
   protected:
-    std::vector<MobileElement*> elements;
+    std::vector<Element*> elements;
     ElementFactory* factory;
     std::vector<Element*> background;
     // Operations
   public:
     void setElementFactory (ElementFactory* f);
-    std::vector<MobileElement*> getMobileElements ();
-    MobileElement* getMobileElement (int idx);
+    std::vector<Element*> getMobileElements ();
+    Element* getMobileElement (int idx);
     std::vector<Element*> getStaticElements ();
     Element* getStaticElement (int idx);
     std::vector<Element*> loadLevel (const std::string& file_name);
+    std::vector<Element*> loadChar (const std::string& file_name);
     virtual ~State ();
   };
 

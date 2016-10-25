@@ -7,9 +7,9 @@ namespace state {
   class MobileElement;
 }
 
-#include "TypeID.h"
-#include "FowlStatus.h"
 #include "FowlColor.h"
+#include "FowlStatus.h"
+#include "TypeID.h"
 #include "MobileElement.h"
 
 namespace state {
@@ -25,7 +25,7 @@ namespace state {
     int HP;
     // Operations
   public:
-    Fowl ();
+    Fowl (FowlColor color, FowlStatus status);
     bool isFowl () const;
     TypeID getTypeID () const;
     int getHP ();

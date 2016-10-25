@@ -2,7 +2,6 @@
 #ifndef STATE__FIELDCREATOR__H
 #define STATE__FIELDCREATOR__H
 
-#include <string>
 
 namespace state {
   class Element;
@@ -10,6 +9,7 @@ namespace state {
   class Field;
 }
 
+#include "FieldTypeID.h"
 #include "IElement.h"
 #include "Field.h"
 
@@ -17,9 +17,13 @@ namespace state {
 
   /// class FieldCreator - 
   class FieldCreator : public state::IElement {
+    // Attributes
+  private:
+    FieldTypeID id;
     // Operations
   public:
-    Element* create (std::string st);
+    Element* create ();
+    FieldCreator (FieldTypeID id);
   };
 
 };

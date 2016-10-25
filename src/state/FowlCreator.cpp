@@ -8,9 +8,14 @@
 
 namespace state{
     
-    Element* FowlCreator::create (std:: string st){
+    Element* FowlCreator::create (){
         
-        Element* p=new Fowl();
+        Element* p=new Fowl(color,status);
         return p;
+    }
+    
+    FowlCreator::FowlCreator(FowlColor color,FowlStatus status){
+        this->color=color;
+        this->status=status;
     }
 }

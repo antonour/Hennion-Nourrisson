@@ -8,11 +8,11 @@
 
 namespace state{
     
-    Weapon::Weapon (){
+    Weapon::Weapon (WeaponStatus status){
         this->power=1;
         this->weight=10;
         this->ammo=32;
-        this->status=INVISIBLE;
+        this->status=status;
         
     }
     

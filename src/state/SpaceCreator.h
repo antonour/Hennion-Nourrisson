@@ -2,7 +2,6 @@
 #ifndef STATE__SPACECREATOR__H
 #define STATE__SPACECREATOR__H
 
-#include <string>
 
 namespace state {
   class Element;
@@ -10,6 +9,7 @@ namespace state {
   class Space;
 }
 
+#include "SpaceTypeID.h"
 #include "IElement.h"
 #include "Space.h"
 
@@ -17,9 +17,13 @@ namespace state {
 
   /// class SpaceCreator - 
   class SpaceCreator : public state::IElement {
+    // Attributes
+  private:
+    SpaceTypeID id;
     // Operations
   public:
-    Element* create (std::string st);
+    Element* create ();
+    SpaceCreator (SpaceTypeID id);
   };
 
 };

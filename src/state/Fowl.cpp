@@ -8,8 +8,10 @@
 
 namespace state{
 
-    Fowl::Fowl (){
-    this->HP=100;    
+    Fowl::Fowl (FowlColor color,FowlStatus status){
+    this->HP=100;
+    this->color=color;
+    this->status=status;
     }
     
     bool Fowl::isFowl () const{

@@ -2,7 +2,6 @@
 #ifndef STATE__WEAPONCREATOR__H
 #define STATE__WEAPONCREATOR__H
 
-#include <string>
 
 namespace state {
   class Element;
@@ -10,6 +9,7 @@ namespace state {
   class Weapon;
 }
 
+#include "WeaponStatus.h"
 #include "IElement.h"
 #include "Weapon.h"
 
@@ -17,9 +17,13 @@ namespace state {
 
   /// class WeaponCreator - 
   class WeaponCreator : public state::IElement {
+    // Attributes
+  public:
+    WeaponStatus status;
     // Operations
   public:
-    Element* create (std::string st);
+    Element* create ();
+    WeaponCreator (WeaponStatus status);
   };
 
 };

@@ -8,9 +8,14 @@
 
 namespace state{
     
-    Element* SpaceCreator::create (std:: string st){
+    Element* SpaceCreator::create (){
         
-        Element* p=new Space(EMPTY);
+        Element* p=new Space(id);
+        
         return p;
+    }
+    
+    SpaceCreator::SpaceCreator(SpaceTypeID id){
+        this->id=id;
     }
 }

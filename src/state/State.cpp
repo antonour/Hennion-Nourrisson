@@ -19,11 +19,11 @@ namespace state{
         this->factory=f;
     }
 
-    std::vector<MobileElement*> State::getMobileElements (){
+    std::vector<Element*> State::getMobileElements (){
         return this->elements;
     }
     
-    MobileElement* State::getMobileElement (int idx){
+    Element* State::getMobileElement (int idx){
         return this->elements[idx];
     }
     
@@ -46,7 +46,6 @@ namespace state{
                 nbrelignes++;
             }
             a=nbrelignes;
-            cout << a << endl;
             fichier1.close();
         }
         else
@@ -58,9 +57,7 @@ namespace state{
             while(fichier2.get(letter)){
                 nbrechar++;
             }
-            cout << nbrechar << endl;
             b=(nbrechar+1)/a;
-            cout << b << endl;
             fichier2.close();
         }
         else
@@ -81,7 +78,8 @@ namespace state{
                             contenu+=contenu2;
                         }
                         if(i%3==0){
-                            background.push_back(factory->create(contenu,false));
+                            Element* var=factory->create(contenu,true);
+                            background.push_back(var);
                             fichier3.get(poubelle);
                             contenu="";
                         }
@@ -98,5 +96,69 @@ namespace state{
             cerr << "Impossible to open that f***ing file" << endl;
         
         return this->background;
+    }
+    
+    std::vector<Element*> State::loadChar (const std::string& file_name){
+        int a=1;
+        int b=10;
+        ifstream fichier1(file_name, ios::in);
+        if(fichier1){
+            int nbrelignes=0;
+            string line;
+            while(getline(fichier1,line)){
+                nbrelignes++;
+            }
+            a=nbrelignes;
+            fichier1.close();
+        }
+        else
+            cerr << "Impossible to open that f***ing file" << endl;
+        ifstream fichier2(file_name, ios::in);
+        if(fichier2){
+            int nbrechar=0;
+            char letter;
+            while(fichier2.get(letter)){
+                nbrechar++;
+            }
+            b=(nbrechar+1)/a;
+            fichier2.close();
+        }
+        else
+            cerr << "Impossible to open that f***ing file" << endl;
+        ifstream fichier3(file_name, ios::in);
+        if(fichier3){
+            char contenu1,contenu2,poubelle;
+            string contenu="";
+            for(int j=1;j<a+1;j++){
+                for(int i=1;i<b+1;i++){
+                    if(i<b){
+                        if(i%3==1){
+                            fichier3.get(contenu1);
+                            contenu+=contenu1;
+                        }
+                        if(i%3==2){
+                            fichier3.get(contenu2);
+                            contenu+=contenu2;
+                        }
+                        if(i%3==0){
+                            Element* var=factory->create(contenu,true);
+                            elements.push_back(var);
+                            delete var;
+                            fichier3.get(poubelle);
+                            contenu="";
+                        }
+                    }
+                    if(i==b){
+                        fichier3.get(poubelle);
+                    }
+                }
+            }
+            //cout << contenu << endl;
+            fichier3.close();
+        }
+        else
+            cerr << "Impossible to open that f***ing file" << endl;
+        
+        return this->elements;
     }
 }
