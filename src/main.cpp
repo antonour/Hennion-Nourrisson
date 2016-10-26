@@ -5,12 +5,14 @@
 //Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "../src/Render/Surface.hpp"
+#include "Render/Surface.hpp"
 #include "state.hpp"
+#include "Render.hpp"
 
 using namespace sf;
 using namespace std;
 using namespace state;
+using namespace Render;
 
 int main(int argc,char* argv[]) 
 {
@@ -22,6 +24,8 @@ int main(int argc,char* argv[])
     view.zoom(6.f);
     
     State s;
+    Layer l;
+    s.registerObserver(&l);
     s.setElementFactory(fac);
     vector<Element*> level;
     vector<Element*> perso;
