@@ -16,7 +16,7 @@ namespace state{
 
     
     void Observable::notifyObservers(const StateEvent& e){
-        for(auto observer:observers){
+        for(IObserver* observer:observers){
             observer->stateChanged(e);
         }
     }
