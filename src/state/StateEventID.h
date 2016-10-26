@@ -9,7 +9,9 @@ namespace state {
     HP_LOST     = 0,
     FOWL_DEAD     = 1,
     WEAPON_OUT     = 2,
-    WEAPON_IN     = 3
+    WEAPON_IN     = 3,
+    FILEMAP_LOADED     = 4,
+    FILECHAR_LOADED     = 5
   };
 
 };
