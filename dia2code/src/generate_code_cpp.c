@@ -849,7 +849,9 @@ gen_namespace(batch *b,declaration *nsd)
                     }
                 }
                 else {
-                    print ("#include \"%s/%s.%s\"\n", incfile->package, incfile->name, file_ext);
+		    if (incfile->package){
+			if (strcmp(incfile->package,"sf"))
+                    print ("#include \"%s/%s.%s\"\n", incfile->package, incfile->name, file_ext);}
                 }
             }
             else {
