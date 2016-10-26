@@ -8649,7 +8649,7 @@
         <dia:point val="-79.1751,7.09137"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-79.2251,0.990194;-77.9723,7.14137"/>
+        <dia:rectangle val="-79.2251,0.990193;-77.9723,7.14137"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -9052,7 +9052,7 @@
         <dia:point val="-64.4792,-1.54573"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-71.6269,-2.29573;-63.7292,0.639791"/>
+        <dia:rectangle val="-71.6269,-2.29573;-63.7292,0.63979"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -9060,8 +9060,8 @@
       <dia:attribute name="orth_points">
         <dia:point val="-64.4792,-1.54573"/>
         <dia:point val="-68.378,-1.54573"/>
-        <dia:point val="-68.378,-0.210209"/>
-        <dia:point val="-71.5769,-0.210209"/>
+        <dia:point val="-68.378,-0.21021"/>
+        <dia:point val="-71.5769,-0.21021"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -14061,17 +14061,17 @@
     </dia:object>
     <dia:object type="UML - Generalization" version="1" id="O76">
       <dia:attribute name="obj_pos">
-        <dia:point val="-85.2678,-0.210209"/>
+        <dia:point val="-85.2677,-0.21021"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-101.568,-1.06021;-85.2178,24.6313"/>
+        <dia:rectangle val="-101.568,-1.06021;-85.2177,24.6313"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="-85.2678,-0.210209"/>
-        <dia:point val="-93.7927,-0.210209"/>
+        <dia:point val="-85.2677,-0.21021"/>
+        <dia:point val="-93.7927,-0.21021"/>
         <dia:point val="-93.7927,24.5813"/>
         <dia:point val="-101.518,24.5813"/>
       </dia:attribute>
