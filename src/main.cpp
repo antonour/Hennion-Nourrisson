@@ -25,6 +25,10 @@ int main(int argc,char* argv[])
     
     State s;
     Layer l;
+    //Surface* area=new Surface;
+    TileSet* ts=new TileSet;
+    //l.setSurface(area);
+    l.setTileSet(ts);
     s.registerObserver(&l);
     s.setElementFactory(fac);
     vector<Element*> level;
