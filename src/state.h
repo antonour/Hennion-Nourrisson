@@ -9,6 +9,7 @@
 #include "state/StaticElement.h"
 #include "state/FieldTypeID.h"
 #include "state/Field.h"
+#include "state/FowlColor.h"
 #include "state/FowlStatus.h"
 #include "state/Fowl.h"
 #include "state/WeaponStatus.h"

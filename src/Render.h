@@ -4,7 +4,7 @@
 
 #include "Render/Tile.h"
 #include "Render/StaticTile.h"
-#include "Render/MobileTile.h"
+#include "Render/AnimatedTile.h"
 #include "Render/TileSet.h"
 #include "Render/Surface.h"
 #include "Render/Animation.h"
