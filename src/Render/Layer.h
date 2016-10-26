@@ -40,7 +40,7 @@ namespace Render {
     void setSurface (Surface* surface);
     void setAnimation (int i, Animation* a);
     void printText (int x, int y, const char* msg, int spriteIdx, int w, int h);
-    void stateChanged (const state::StateEvent& e);
+    void stateChanged (state::StateEvent* e);
   };
 
 };

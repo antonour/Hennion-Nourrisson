@@ -23,7 +23,7 @@ namespace state {
   public:
     virtual ~Observable ();
     void registerObserver (IObserver* o);
-    void notifyObservers (const StateEvent& e);
+    void notifyObservers (StateEvent* e);
   };
 
 };
