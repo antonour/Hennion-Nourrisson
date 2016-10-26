@@ -26,6 +26,13 @@ namespace state{
         this->direction=dir;
     }
     
+    Orientation getOrientation () const{
+        return this->orientation;
+    }
+    void setOrientation (Orientation ori){
+        this->orientation=ori;
+    }
+    
     void MobileElement::setSpeed (size_t s){
         this->speed=s;
     }
