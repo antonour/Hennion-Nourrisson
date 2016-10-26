@@ -36,7 +36,7 @@ namespace Render{
         
     }
     
-    void Scene::stateChanged (const state::StateEvent& e){
+    void Scene::stateChanged (state::StateEvent* e){
         
     }
     

@@ -5,6 +5,9 @@
  */
 
 #include "../Render.hpp"
+#include <iostream>
+
+using namespace std;
 
 namespace Render{
     
@@ -32,8 +35,8 @@ namespace Render{
         
     }
     
-    void Layer::stateChanged (const state::StateEvent& e){
-        
+    void Layer::stateChanged (state::StateEvent* e){
+        cout << "NOTIFIE" << endl;
     }
     
 }

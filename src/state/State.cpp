@@ -91,7 +91,7 @@ namespace state{
             }
             //cout << contenu << endl;
             fichier3.close();
-            //this->notifyObservers(new StateEvent(FILEMAP_LOADED));
+            this->notifyObservers(new StateEvent(FILEMAP_LOADED));
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
@@ -156,8 +156,7 @@ namespace state{
             }
             //cout << contenu << endl;
             fichier3.close();
-            StateEvent* s=new StateEvent(FILECHAR_LOADED);
-            this->notifyObservers(&s);
+            this->notifyObservers(new StateEvent(FILECHAR_LOADED));
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
