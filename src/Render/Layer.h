@@ -5,8 +5,8 @@
 #include <map>
 
 namespace Render {
-  class Surface;
   class TileSet;
+  class Surface;
   class Animation;
 };
 namespace state {
@@ -25,12 +25,11 @@ namespace Render {
   class Layer : public state::IObserver {
     // Associations
     // Attributes
-  public:
-    Surface* surface;
   private:
     std::map<int,Animation*> animations;
   protected:
     const TileSet* tileset;
+    Surface* surface;
     // Operations
   public:
     Layer ();
@@ -40,7 +39,7 @@ namespace Render {
     void setSurface (Surface* surface);
     void setAnimation (int i, Animation* a);
     void printText (int x, int y, const char* msg, int spriteIdx, int w, int h);
-    void stateChanged (const state::StateEvent& e);
+    void stateChanged (state::StateEvent* e);
   };
 
 };

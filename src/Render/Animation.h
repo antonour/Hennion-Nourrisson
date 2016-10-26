@@ -16,9 +16,8 @@ namespace Render {
   class Animation {
     // Associations
     // Attributes
-  public:
-    int i;
   protected:
+    int i;
     int x;
     int y;
     const Tile* tile;

@@ -14,7 +14,7 @@ namespace state {
   class IObserver {
     // Operations
   public:
-    virtual void stateChanged (const StateEvent& e) = 0;
+    virtual void stateChanged (StateEvent* e) = 0;
   };
 
 };

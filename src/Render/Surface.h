@@ -8,7 +8,11 @@
 namespace Render {
 
   /// class Surface - 
-  class Surface {
+  class Surface : public sf::Transformable, public sf::Drawable {
+    // Attributes
+  private:
+    sf::VertexArray m_vertices;
+    sf::Texture m_tileset;
     // Operations
   public:
     virtual ~Surface ();

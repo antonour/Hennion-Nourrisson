@@ -36,7 +36,7 @@ namespace Render {
     void setLayer (int idx, Layer* layer);
     void registerObservers (const state::State* s);
     void unregisterObservers (const state::State* s);
-    void stateChanged (const state::StateEvent& e);
+    void stateChanged (state::StateEvent* e);
   };
 
 };
