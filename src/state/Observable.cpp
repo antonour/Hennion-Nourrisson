@@ -20,4 +20,10 @@ namespace state{
             observer->stateChanged(e);
         }
     }
+    
+    void Observable::notifyObservers(StateEvent* e, std::vector<Element*> list){
+        for(IObserver* observer:observers){
+            observer->stateChanged(e,list);
+        }
+    }
 }

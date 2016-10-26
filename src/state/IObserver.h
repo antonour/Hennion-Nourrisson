@@ -2,9 +2,11 @@
 #ifndef STATE__IOBSERVER__H
 #define STATE__IOBSERVER__H
 
+#include <vector>
 
 namespace state {
   class StateEvent;
+  class Element;
 }
 
 namespace state {
@@ -15,6 +17,7 @@ namespace state {
     // Operations
   public:
     virtual void stateChanged (StateEvent* e) = 0;
+    virtual void stateChanged (StateEvent* e, std::vector<Element*> list) = 0;
   };
 
 };

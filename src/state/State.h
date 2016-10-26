@@ -35,8 +35,8 @@ namespace state {
     Element* getMobileElement (int idx);
     std::vector<Element*> getStaticElements ();
     Element* getStaticElement (int idx);
-    std::vector<Element*> loadLevel (const std::string& file_name);
-    std::vector<Element*> loadChar (const std::string& file_name);
+    void loadLevel (const std::string& file_name);
+    void loadChar (const std::string& file_name);
     virtual ~State ();
   };
 

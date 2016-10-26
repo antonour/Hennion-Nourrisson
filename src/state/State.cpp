@@ -35,7 +35,7 @@ namespace state{
         return this->background[idx];
     }
     
-    std::vector<Element*> State::loadLevel (const std::string& file_name){
+    void State::loadLevel (const std::string& file_name){
         int a=1;
         int b=10;
         ifstream fichier1(file_name, ios::in);
@@ -91,15 +91,13 @@ namespace state{
             }
             //cout << contenu << endl;
             fichier3.close();
-            this->notifyObservers(new StateEvent(FILEMAP_LOADED));
+            this->notifyObservers(new StateEvent(FILEMAP_LOADED),this->background);
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
-        
-        return this->background;
     }
     
-    std::vector<Element*> State::loadChar (const std::string& file_name){
+    void State::loadChar (const std::string& file_name){
         int a=1;
         int b=10;
         ifstream fichier1(file_name, ios::in);
@@ -156,10 +154,9 @@ namespace state{
             }
             //cout << contenu << endl;
             fichier3.close();
-            this->notifyObservers(new StateEvent(FILECHAR_LOADED));
+            this->notifyObservers(new StateEvent(FILECHAR_LOADED),this->elements);
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
-        return this->elements;
     }
 }

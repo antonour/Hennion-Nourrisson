@@ -9,6 +9,7 @@ namespace state {
 }
 
 #include "Direction.h"
+#include "Orientation.h"
 #include "Element.h"
 
 namespace state {
@@ -16,6 +17,7 @@ namespace state {
   /// class MobileElement - 
   class MobileElement : public state::Element {
     // Associations
+    state::Orientation orient;
     state::Direction direction;
     // Attributes
   protected:
@@ -29,6 +31,8 @@ namespace state {
     virtual bool isFowl () const = 0;
     Direction getDirection () const;
     void setDirection (Direction dir);
+    Orientation getOrientation () const;
+    void setOrientation (Orientation ori);
     void setSpeed (size_t s);
     void setPosition (size_t p);
   };

@@ -7,6 +7,7 @@
 namespace state {
   class IObserver;
   class StateEvent;
+  class Element;
 }
 
 #include "IObserver.h"
@@ -24,6 +25,7 @@ namespace state {
     virtual ~Observable ();
     void registerObserver (IObserver* o);
     void notifyObservers (StateEvent* e);
+    void notifyObservers (StateEvent* e, std::vector<Element*> list);
   };
 
 };

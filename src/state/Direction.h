@@ -7,10 +7,8 @@ namespace state {
 
   enum Direction {
     NONE     = 0,
-    NORD     = 1,
-    OUEST     = 2,
-    SUD     = 3,
-    EST     = 4
+    EST     = 1,
+    OUEST     = 2
   };
 
 };
