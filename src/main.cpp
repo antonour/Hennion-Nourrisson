@@ -5,7 +5,6 @@
 //Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "Render/Surface.hpp"
 #include "state.hpp"
 #include "Render.hpp"
 
@@ -25,16 +24,17 @@ int main(int argc,char* argv[])
     
     State s;
     Layer l;
-    //Surface* area=new Surface;
+    Surface* area=new Surface;
     TileSet* ts=new TileSet;
-    //l.setSurface(area);
+    l.setSurface(area);
     l.setTileSet(ts);
+    
     s.registerObserver(&l);
     s.setElementFactory(fac);
     vector<Element*> level;
     vector<Element*> perso;
-    level=s.loadLevel("../src/fichiermap.txt");
-    perso=s.loadChar("../src/fichierperso.txt");
+    s.loadLevel("../src/fichiermap.txt");
+    //s.loadChar("../src/fichierperso.txt");
     /*
     Surface map;
     if (!map.load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), level, 40, 30))
@@ -74,7 +74,7 @@ int main(int argc,char* argv[])
         
         window.clear();
         window.setView(view);
-        //window.draw(map);
+        //window.draw(l->surface);
         //window.draw(perso);
         window.display();
     }
