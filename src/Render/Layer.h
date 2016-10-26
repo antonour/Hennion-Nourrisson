@@ -3,6 +3,7 @@
 #define RENDER__LAYER__H
 
 #include <map>
+#include <vector>
 
 namespace Render {
   class TileSet;
@@ -11,6 +12,8 @@ namespace Render {
 };
 namespace state {
   class StateEvent;
+  class Element;
+  class State;
   class IObserver;
 }
 
@@ -25,9 +28,8 @@ namespace Render {
   class Layer : public state::IObserver {
     // Associations
     // Attributes
-  private:
-    std::map<int,Animation*> animations;
   protected:
+    std::map<int,Animation*> animations;
     const TileSet* tileset;
     Surface* surface;
     // Operations
@@ -40,6 +42,9 @@ namespace Render {
     void setAnimation (int i, Animation* a);
     void printText (int x, int y, const char* msg, int spriteIdx, int w, int h);
     void stateChanged (state::StateEvent* e);
+    void stateChanged (state::StateEvent* e, std::vector<state::Element*> list);
+  protected:
+    void update (const state::State& elementList);
   };
 
 };

@@ -4,6 +4,16 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <vector>
+
+namespace state {
+  class Element;
+};
+namespace sf {
+  class Transformable;
+  class Drawable;
+}
+
 
 namespace Render {
 
@@ -15,10 +25,12 @@ namespace Render {
     sf::Texture m_tileset;
     // Operations
   public:
-    virtual ~Surface ();
-    virtual void clear () = 0;
+    Surface ();
+    ~Surface ();
+    void clear ();
     bool load (const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2,  const int* tiles, unsigned int width, unsigned int height);
     virtual void  draw (sf::RenderTarget& target, sf::RenderStates states) const;
+    int* generateMap (std::vector<state::Element*> list);
   };
 
 };

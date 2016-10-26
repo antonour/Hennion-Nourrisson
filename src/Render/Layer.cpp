@@ -40,7 +40,18 @@ namespace Render{
     }
     
     void Layer::stateChanged (state::StateEvent* e){
-        cout << "NOTIFIE" << endl;
+        if (e->getStateEventID()==state::StateEventID::FILECHAR_LOADED){
+            
+        }
+    }
+    
+    void Layer::stateChanged (state::StateEvent* e, std::vector<state::Element*> list){
+        if (e->getStateEventID()==state::StateEventID::FILECHAR_LOADED){
+            int *level=surface->generateMap(list);
+            if (!surface->load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), level, 40, 30)){
+                throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
+            }
+        }
     }
     
 }
