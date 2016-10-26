@@ -5,6 +5,7 @@
  */
 
 #include "../Render.hpp"
+#include "state/StateEvent.h"
 #include <iostream>
 
 using namespace std;
@@ -33,6 +34,9 @@ namespace Render{
     
     void Layer::printText (int x, int y, const char* msg, int spriteIdx, int w, int h){
         
+    }
+    
+    void Layer::update (const state::State& elementList){
     }
     
     void Layer::stateChanged (state::StateEvent* e){
