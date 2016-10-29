@@ -1,7 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
 #include "../state.hpp"
 #include "../Render.hpp"
+
+using namespace std;
 
 namespace Render{
     Surface::Surface(){}
@@ -52,7 +55,7 @@ namespace Render{
     void Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         // on applique la transformation
-        states.transform *= sf::Transformable::getTransform();
+        states.transform *= getTransform();
 
         // on applique la texture du tileset
         states.texture = &m_tileset;
@@ -61,299 +64,249 @@ namespace Render{
         target.draw(m_vertices, states);
     }
     
-    int* Surface::generateMap(std::vector<state::Element*> list){
-        int *tab=new int[list.size()];
-        state::Fowl* f;
-        state::Field* fi;
-        int i=0;
-        for (state::Element* e : list){
-            if (e->getTypeID()==state::TypeID::FOWL){
-                f = reinterpret_cast<state::Fowl*>(e);
-                if (f->getFowlColor()==state::FowlColor::BLANK){
-                    tab[i]=0;
-                    i++;
+    void Surface::clear(){}
+    
+    void Surface::generateMap(std::vector<state::Element*>& list, std::vector<int>& tab){
+        for (state::Element* el : list){
+            if (el->getTypeID()==state::TypeID::FOWL){
+                state::Fowl* e;
+                e = reinterpret_cast<state::Fowl*>(el);
+                delete el;
+                if (e->getFowlColor()==state::FowlColor::BLANK){
+                    tab.push_back(0);
                 }
-                if (f->getFowlColor()==state::FowlColor::WHITE && f->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                    tab[i]=1;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::WHITE && e->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    tab.push_back(1);
                 }
-                if (f->getFowlColor()==state::FowlColor::WHITE && f->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                    tab[i]=3;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::WHITE && e->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    tab.push_back(3);
                 }
-                if (f->getFowlColor()==state::FowlColor::WHITE && f->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                    tab[i]=6;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::WHITE && e->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    tab.push_back(6);
                 }
-                if (f->getFowlColor()==state::FowlColor::WHITE && f->getFowlStatus()==state::FowlStatus::DEAD){
-                    tab[i]=8;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::WHITE && e->getFowlStatus()==state::FowlStatus::DEAD){
+                    tab.push_back(8);
                 }
-                if (f->getFowlColor()==state::FowlColor::GREEN && f->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                    tab[i]=10;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::GREEN && e->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    tab.push_back(10);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::GREEN && f->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                    tab[i]=12;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::GREEN && e->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    tab.push_back(12);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::GREEN && f->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                    tab[i]=15;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::GREEN && e->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    tab.push_back(15);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::GREEN && f->getFowlStatus()==state::FowlStatus::DEAD){
-                    tab[i]=17;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::GREEN && e->getFowlStatus()==state::FowlStatus::DEAD){
+                    tab.push_back(17);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BLACK && f->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                    tab[i]=19;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BLACK && e->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    tab.push_back(19);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BLACK && f->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                    tab[i]=21;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BLACK && e->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    tab.push_back(21);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BLACK && f->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                    tab[i]=24;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BLACK && e->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    tab.push_back(24);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BLACK && f->getFowlStatus()==state::FowlStatus::DEAD){
-                    tab[i]=26;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BLACK && e->getFowlStatus()==state::FowlStatus::DEAD){
+                    tab.push_back(26);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BEIGE && f->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                    tab[i]=28;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BEIGE && e->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    tab.push_back(28);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BEIGE && f->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                    tab[i]=30;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BEIGE && e->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    tab.push_back(30);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BEIGE && f->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                    tab[i]=33;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BEIGE && e->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    tab.push_back(33);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BEIGE && f->getFowlStatus()==state::FowlStatus::DEAD){
-                    tab[i]=35;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BEIGE && e->getFowlStatus()==state::FowlStatus::DEAD){
+                    tab.push_back(35);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::KHAKI && f->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                    tab[i]=37;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::KHAKI && e->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    tab.push_back(37);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::KHAKI && f->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                    tab[i]=39;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::KHAKI && e->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    tab.push_back(39);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::KHAKI && f->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                    tab[i]=42;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::KHAKI && e->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    tab.push_back(42);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::KHAKI && f->getFowlStatus()==state::FowlStatus::DEAD){
-                    tab[i]=44;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::KHAKI && e->getFowlStatus()==state::FowlStatus::DEAD){
+                    tab.push_back(44);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BROWN && f->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                    tab[i]=46;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BROWN && e->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    tab.push_back(46);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BROWN && f->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                    tab[i]=48;
-                    i++;
+                if (e->getFowlColor()==state::FowlColor::BROWN && e->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    tab.push_back(48);
+                    
                 }
-                if (f->getFowlColor()==state::FowlColor::BROWN && f->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                    tab[i]=51;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::BROWN && f->getFowlStatus()==state::FowlStatus::DEAD){
-                    tab[i]=53;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::GREY && f->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                    tab[i]=55;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::GREY && f->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                    tab[i]=57;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::GREY && f->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                    tab[i]=60;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::GREY && f->getFowlStatus()==state::FowlStatus::DEAD){
-                    tab[i]=62;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::ORANGE && f->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                    tab[i]=64;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::ORANGE && f->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                    tab[i]=66;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::ORANGE && f->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                    tab[i]=69;
-                    i++;
-                }
-                if (f->getFowlColor()==state::FowlColor::ORANGE && f->getFowlStatus()==state::FowlStatus::DEAD){
-                    tab[i]=71;
-                    i++;
-                }
+                    if (e->getFowlColor()==state::FowlColor::BROWN && e->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                        tab.push_back(51);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::BROWN && e->getFowlStatus()==state::FowlStatus::DEAD){
+                        tab.push_back(53);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::GREY && e->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                        tab.push_back(55);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::GREY && e->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                        tab.push_back(57);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::GREY && e->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                        tab.push_back(60);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::GREY && e->getFowlStatus()==state::FowlStatus::DEAD){
+                        tab.push_back(62);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::ORANGE && e->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                        tab.push_back(64);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::ORANGE && e->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                        tab.push_back(66);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::ORANGE && e->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                        tab.push_back(69);
+                    }
+                    if (e->getFowlColor()==state::FowlColor::ORANGE && e->getFowlStatus()==state::FowlStatus::DEAD){
+                        tab.push_back(71);
+                    }
             }
-            if (e->getTypeID()==state::TypeID::FIELD){
-                fi = reinterpret_cast<state::Field*>(e);
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN1){
-                    tab[i]=0;
-                    i++;
+            else if (el->getTypeID()==state::TypeID::FIELD){
+                state::Field* e;
+                e = reinterpret_cast<state::Field*>(el);
+                delete el;
+                
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGBROWN1){
+                    tab.push_back(0);                    
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN2){
-                    tab[i]=1;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGBROWN2){
+                    tab.push_back(1);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN3){
-                    tab[i]=2;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGBROWN3){
+                    tab.push_back(2);                    
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN4){
-                    tab[i]=9;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGBROWN4){
+                    tab.push_back(9);                
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN5){
-                    tab[i]=10;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGBROWN5){
+                    tab.push_back(10);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN6){
-                    tab[i]=11;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGBROWN6){
+                    tab.push_back(11);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN1){
-                    tab[i]=3;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN1){
+                    tab.push_back(3);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN2){
-                    tab[i]=4;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN2){
+                    tab.push_back(4);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN3){
-                    tab[i]=12;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN3){
+                    tab.push_back(12);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN4){
-                    tab[i]=13;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN4){
+                    tab.push_back(13);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN1){
-                    tab[i]=5;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLBROWN1){
+                    tab.push_back(5);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN2){
-                    tab[i]=6;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLBROWN2){
+                    tab.push_back(6);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN3){
-                    tab[i]=7;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLBROWN3){
+                    tab.push_back(7);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN4){
-                    tab[i]=8;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLBROWN4){
+                    tab.push_back(8);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN5){
-                    tab[i]=14;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLBROWN5){
+                    tab.push_back(14);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN6){
-                    tab[i]=15;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLBROWN6){
+                    tab.push_back(15);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN7){
-                    tab[i]=16;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLBROWN7){
+                    tab.push_back(16);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN8){
-                    tab[i]=17;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLBROWN8){
+                    tab.push_back(17);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE1){
-                    tab[i]=18;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGSTONE1){
+                    tab.push_back(18);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE2){
-                    tab[i]=19;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGSTONE2){
+                    tab.push_back(19);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE3){
-                    tab[i]=20;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGSTONE3){
+                    tab.push_back(20);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE4){
-                    tab[i]=27;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGSTONE4){
+                    tab.push_back(27);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE5){
-                    tab[i]=28;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGSTONE5){
+                    tab.push_back(28);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE6){
-                    tab[i]=29;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::BIGSTONE6){
+                    tab.push_back(29);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE1){
-                    tab[i]=21;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE1){
+                    tab.push_back(21);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE2){
-                    tab[i]=22;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE2){
+                    tab.push_back(22);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE3){
-                    tab[i]=30;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE3){
+                    tab.push_back(30);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE4){
-                    tab[i]=31;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE4){
+                    tab.push_back(31);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE1){
-                    tab[i]=23;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLSTONE1){
+                    tab.push_back(23);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE2){
-                    tab[i]=24;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLSTONE2){
+                    tab.push_back(24);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE3){
-                    tab[i]=25;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLSTONE3){
+                    tab.push_back(25);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE4){
-                    tab[i]=26;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLSTONE4){
+                    tab.push_back(26);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE5){
-                    tab[i]=32;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLSTONE5){
+                    tab.push_back(32);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE6){
-                    tab[i]=33;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLSTONE6){
+                    tab.push_back(33);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE7){
-                    tab[i]=34;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLSTONE7){
+                    tab.push_back(34);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE8){
-                    tab[i]=35;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::SMALLSTONE8){
+                    tab.push_back(35);
                 }
-                if (fi->getFieldTypeID()==state::FieldTypeID::NEANT){
-                    tab[i]=36;
-                    i++;
+                if (e->getFieldTypeID()==state::FieldTypeID::NEANT){
+                    tab.push_back(36);
                 }
             }
         }
-        return tab;
     }
 }

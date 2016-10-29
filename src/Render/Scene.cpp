@@ -40,7 +40,7 @@ namespace Render{
         
     }
     
-    void Scene::stateChanged (state::StateEvent* e, std::vector<state::Element*> list){
+    void Scene::stateChanged (state::StateEvent* e, std::vector<state::Element*>& list){
         
     }
     

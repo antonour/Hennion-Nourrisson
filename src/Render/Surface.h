@@ -27,10 +27,11 @@ namespace Render {
   public:
     Surface ();
     ~Surface ();
-    void clear ();
+    virtual void clear ();
     bool load (const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2,  const int* tiles, unsigned int width, unsigned int height);
     virtual void  draw (sf::RenderTarget& target, sf::RenderStates states) const;
-    int* generateMap (std::vector<state::Element*> list);
+    void generateMap (std::vector<state::Element*>& list, std::vector<int>& tab);
+    void generateMap (std::vector<int>& tab);
   };
 
 };

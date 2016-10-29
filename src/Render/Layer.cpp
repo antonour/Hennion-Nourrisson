@@ -5,7 +5,7 @@
  */
 
 #include "../Render.hpp"
-#include "state/StateEvent.h"
+#include "../state.hpp"
 #include <iostream>
 
 using namespace std;
@@ -40,17 +40,22 @@ namespace Render{
     }
     
     void Layer::stateChanged (state::StateEvent* e){
-        if (e->getStateEventID()==state::StateEventID::FILECHAR_LOADED){
-            
-        }
     }
     
-    void Layer::stateChanged (state::StateEvent* e, std::vector<state::Element*> list){
+    void Layer::stateChanged (state::StateEvent* e, std::vector<state::Element*>& list){
         if (e->getStateEventID()==state::StateEventID::FILECHAR_LOADED){
-            int *level=surface->generateMap(list);
-            if (!surface->load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), level, 40, 30)){
+            vector<int> tab;
+            surface->generateMap(list, tab);
+            if (!surface->load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &tab[0], 40, 30)){
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
             }
+        }
+        if (e->getStateEventID()==state::StateEventID::FILEMAP_LOADED){
+            vector<int> tab2;
+            surface->generateMap(list, tab2);
+            if (!surface->load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), &tab2[0], 40, 30)){
+                throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
+            }   
         }
     }
     

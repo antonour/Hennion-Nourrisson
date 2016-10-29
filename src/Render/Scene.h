@@ -38,7 +38,7 @@ namespace Render {
     void registerObservers (const state::State* s);
     void unregisterObservers (const state::State* s);
     void stateChanged (state::StateEvent* e);
-    void stateChanged (state::StateEvent* e, std::vector<state::Element*> list);
+    void stateChanged (state::StateEvent* e, std::vector<state::Element*>& list);
   };
 
 };

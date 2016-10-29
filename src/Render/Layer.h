@@ -42,7 +42,7 @@ namespace Render {
     void setAnimation (int i, Animation* a);
     void printText (int x, int y, const char* msg, int spriteIdx, int w, int h);
     void stateChanged (state::StateEvent* e);
-    void stateChanged (state::StateEvent* e, std::vector<state::Element*> list);
+    void stateChanged (state::StateEvent* e, std::vector<state::Element*>& list);
   protected:
     void update (const state::State& elementList);
   };
