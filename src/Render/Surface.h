@@ -2,9 +2,9 @@
 #ifndef RENDER__SURFACE__H
 #define RENDER__SURFACE__H
 
+#include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 namespace state {
   class Element;
@@ -20,6 +20,9 @@ namespace Render {
   /// class Surface - 
   class Surface : public sf::Transformable, public sf::Drawable {
     // Attributes
+  public:
+    std::vector<int> fieldtab;
+    std::vector<int> fowltab;
   private:
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
@@ -31,7 +34,6 @@ namespace Render {
     bool load (const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2,  const int* tiles, unsigned int width, unsigned int height);
     virtual void  draw (sf::RenderTarget& target, sf::RenderStates states) const;
     void generateMap (std::vector<state::Element*>& list, std::vector<int>& tab);
-    void generateMap (std::vector<int>& tab);
   };
 
 };

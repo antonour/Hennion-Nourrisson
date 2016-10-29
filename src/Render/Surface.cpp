@@ -71,7 +71,6 @@ namespace Render{
             if (el->getTypeID()==state::TypeID::FOWL){
                 state::Fowl* e;
                 e = reinterpret_cast<state::Fowl*>(el);
-                delete el;
                 if (e->getFowlColor()==state::FowlColor::BLANK){
                     tab.push_back(0);
                 }
@@ -193,7 +192,6 @@ namespace Render{
             else if (el->getTypeID()==state::TypeID::FIELD){
                 state::Field* e;
                 e = reinterpret_cast<state::Field*>(el);
-                delete el;
                 
                 if (e->getFieldTypeID()==state::FieldTypeID::BIGBROWN1){
                     tab.push_back(0);                    

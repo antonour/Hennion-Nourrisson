@@ -44,16 +44,30 @@ namespace Render{
     
     void Layer::stateChanged (state::StateEvent* e, std::vector<state::Element*>& list){
         if (e->getStateEventID()==state::StateEventID::FILECHAR_LOADED){
-            vector<int> tab;
-            surface->generateMap(list, tab);
-            if (!surface->load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &tab[0], 40, 30)){
+            surface->generateMap(list, surface->fowltab);
+            if (!surface->load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
             }
         }
         if (e->getStateEventID()==state::StateEventID::FILEMAP_LOADED){
-            vector<int> tab2;
-            surface->generateMap(list, tab2);
-            if (!surface->load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), &tab2[0], 40, 30)){
+            surface->generateMap(list, surface->fieldtab);
+            if (!surface->load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), &surface->fieldtab[0], 40, 30)){
+                throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
+            }   
+        }
+        if (e->getStateEventID()==state::StateEventID::FOWL_DEAD){
+            for(int i=0; i<(int)surface->fowltab.size();i++){
+                if (surface->fowltab[i]%9==1){
+                    surface->fowltab[i]+=7;
+                }
+                if (surface->fowltab[i]%9==3){
+                    surface->fowltab[i]+=5;
+                }
+                if (surface->fowltab[i]%9==6){
+                    surface->fowltab[i]+=2;
+                }
+            }
+            if (!surface->load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
             }   
         }
