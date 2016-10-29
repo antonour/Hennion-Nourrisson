@@ -38,6 +38,7 @@ namespace state {
     void loadLevel (const std::string& file_name);
     void loadChar (const std::string& file_name);
     virtual ~State ();
+    void killFowls ();
   };
 
 };

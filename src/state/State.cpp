@@ -35,6 +35,16 @@ namespace state{
         return this->background[idx];
     }
     
+    void State::killFowls(){
+        for (Element* proc : this->elements){
+            Fowl *fo;
+            fo=reinterpret_cast<Fowl*>(proc);
+            fo->setFowlStatus(FowlStatus::DEAD);
+            cout << fo->getFowlStatus() << endl;
+        }
+        this->notifyObservers(new StateEvent(FOWL_DEAD),this->elements);
+    }
+    
     void State::loadLevel (const std::string& file_name){
         int a=1;
         int b=10;
