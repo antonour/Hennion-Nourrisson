@@ -46,28 +46,28 @@ int main(int argc,char* argv[])
     
     while (window.isOpen())
     {
-          sf::Event event;
+        sf::Event event;
         while (window.pollEvent(event))
         {
             if(event.type==sf::Event::Closed)
             {
                 window.close();
             }    
-   
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+                        {s.killFowls();}                    
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                    {view.setCenter(view.getCenter()-sf::Vector2f (75.f, 0.f));}
+                        {view.setCenter(view.getCenter()-sf::Vector2f (75.f, 0.f));}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                    {view.setCenter(view.getCenter()+sf::Vector2f (75.f, 0.f));}
+                        {view.setCenter(view.getCenter()+sf::Vector2f (75.f, 0.f));}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                    {view.setCenter(view.getCenter()-sf::Vector2f (0.f, 75.f));}
+                        {view.setCenter(view.getCenter()-sf::Vector2f (0.f, 75.f));}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                    {view.setCenter(view.getCenter()+sf::Vector2f (0.f, 75.f));}
-                 
+                        {view.setCenter(view.getCenter()+sf::Vector2f (0.f, 75.f));}       
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
-                    {view.zoom(0.9f);}
+                        {view.zoom(0.9f);}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
-                    {view.zoom(1.1f);}
-                
+                        {view.zoom(1.1f);}
+
         }
 
         
