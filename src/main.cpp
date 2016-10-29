@@ -1,7 +1,6 @@
 #include <iostream>
 #include <map>
 #include <memory>
-
 //Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -23,28 +22,28 @@ int main(int argc,char* argv[])
     view.zoom(6.f);
     
     State s;
-    Layer l;
-    Surface* area=new Surface;
-    TileSet* ts=new TileSet;
-    l.setSurface(area);
-    l.setTileSet(ts);
-    
-    s.registerObserver(&l);
     s.setElementFactory(fac);
-    vector<Element*> level;
-    vector<Element*> perso;
-    s.loadLevel("../src/fichiermap.txt");
-    //s.loadChar("../src/fichierperso.txt");
-    /*
-    Surface map;
-    if (!map.load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), level, 40, 30))
-        return -1;
     
-    Surface perso;
-    if (!perso.load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), level1, 40, 30))
-        return -1;
+    Surface* pers=new Surface();
     
-*/
+    Layer l1;
+    l1.setSurface(pers);
+    
+    s.registerObserver(&l1);
+    s.loadChar("../src/fichierperso.txt");
+    
+    
+    State ter;
+    ter.setElementFactory(fac);
+    
+    Surface* area=new Surface();
+    
+    Layer l2;
+    l2.setSurface(area);
+    
+    ter.registerObserver(&l2);
+    ter.loadLevel("../src/fichiermap.txt");
+    
     while (window.isOpen())
     {
           sf::Event event;
@@ -74,8 +73,8 @@ int main(int argc,char* argv[])
         
         window.clear();
         window.setView(view);
-        //window.draw(l->surface);
-        //window.draw(perso);
+        window.draw(*area);
+        window.draw(*pers);
         window.display();
     }
     
