@@ -12,4 +12,5 @@ namespace state{
         return true;
     }
     
+    //StaticElement::~StaticElement(){}
 }

@@ -10,9 +10,9 @@ namespace state{
     
     Element* FieldCreator::create (){
         
-        Element* p=new Field(id);
-        
-        return p;
+        Element* fi=new Field(id);
+        fi->setTypeID(TypeID::FIELD);
+        return fi;
     }
     
     FieldCreator::FieldCreator(FieldTypeID id){

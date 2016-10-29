@@ -10,14 +10,17 @@ namespace state{
     
     Space::Space (SpaceTypeID id){
         this->status=id;
+        this->type=TypeID::SPACE;
     }
+    
+    Space::~Space(){}
     
     bool Space::isSpace () const{
         return true;
     }
     
     TypeID Space::getTypeID () const{
-        return SPACE;
+        return this->type;
     }
     
     SpaceTypeID Space::getSpaceTypeID (){

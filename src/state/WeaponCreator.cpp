@@ -11,7 +11,7 @@ namespace state{
     Element* WeaponCreator::create () {
         
         Element* p=new Weapon(status);
-        
+        p->setTypeID(TypeID::WEAPON);
         return p;
     }
     

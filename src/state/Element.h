@@ -27,6 +27,7 @@ namespace state {
     void setX (int x);
     void setY (int y);
     virtual bool isStatic () const = 0;
+    void setTypeID (TypeID id);
   };
 
 };

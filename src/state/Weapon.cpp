@@ -13,6 +13,7 @@ namespace state{
         this->weight=10;
         this->ammo=32;
         this->status=status;
+        this->type=TypeID::WEAPON;
         
     }
     
@@ -21,7 +22,7 @@ namespace state{
     }
     
     TypeID Weapon::getTypeID () const{
-        return WEAPON;
+        return this->type;
     }
     
     int Weapon::getPower () const{
@@ -40,7 +41,7 @@ namespace state{
         this->weight=weight;
     }
     
-    WeaponStatus Weapon::getWeaponStatus () const{
+    WeaponStatus Weapon::getWeaponStatus (){
         return this->status;
     }
     

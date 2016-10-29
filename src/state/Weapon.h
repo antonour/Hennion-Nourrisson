@@ -7,8 +7,8 @@ namespace state {
   class MobileElement;
 }
 
-#include "WeaponStatus.h"
 #include "TypeID.h"
+#include "WeaponStatus.h"
 #include "MobileElement.h"
 
 namespace state {
@@ -22,6 +22,7 @@ namespace state {
     int power;
     int weight;
     int ammo;
+    TypeID type;
     // Operations
   public:
     Weapon (WeaponStatus status);
@@ -31,7 +32,7 @@ namespace state {
     int getWeight () const;
     void setPower (int power);
     void setWeight (int weight);
-    WeaponStatus getWeaponStatus () const;
+    WeaponStatus getWeaponStatus ();
     void setWeaponStatus (WeaponStatus status);
   };
 

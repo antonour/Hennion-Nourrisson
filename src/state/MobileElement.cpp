@@ -14,6 +14,8 @@ namespace state{
         this->position=0;
     }
     
+    //MobileElement::~MobileElement(){}
+    
     bool MobileElement::isStatic () const{
         return false;
     }

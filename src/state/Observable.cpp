@@ -21,9 +21,9 @@ namespace state{
         }
     }
     
-    void Observable::notifyObservers(StateEvent* e, std::vector<Element*> list){
+    void Observable::notifyObservers(StateEvent* e, std::vector<Element*>& table){
         for(IObserver* observer:observers){
-            observer->stateChanged(e,list);
+            observer->stateChanged(e,table);
         }
     }
 }

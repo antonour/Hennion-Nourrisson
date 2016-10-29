@@ -27,14 +27,14 @@ namespace state {
     // Operations
   public:
     MobileElement ();
-    bool isStatic () const;
-    virtual bool isFowl () const = 0;
+    virtual bool isStatic () const;
     Direction getDirection () const;
     void setDirection (Direction dir);
     Orientation getOrientation () const;
     void setOrientation (Orientation ori);
     void setSpeed (size_t s);
     void setPosition (size_t p);
+    virtual bool isFowl () const = 0;
   };
 
 };

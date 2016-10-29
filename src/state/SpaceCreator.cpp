@@ -11,7 +11,7 @@ namespace state{
     Element* SpaceCreator::create (){
         
         Element* p=new Space(id);
-        
+        p->setTypeID(TypeID::SPACE);
         return p;
     }
     

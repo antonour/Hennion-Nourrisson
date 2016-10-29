@@ -12,6 +12,7 @@ namespace state{
     this->HP=100;
     this->color=color;
     this->status=status;
+    this->type=TypeID::FOWL;
     }
     
     bool Fowl::isFowl () const{
@@ -19,7 +20,7 @@ namespace state{
     }
     
     TypeID Fowl::getTypeID () const{
-        return FOWL;
+        return this->type;
     }
     
     int Fowl::getHP (){
@@ -30,7 +31,7 @@ namespace state{
         this->HP=hp;
     }
     
-    FowlStatus Fowl::getFowlStatus () const{
+    FowlStatus Fowl::getFowlStatus (){
         return this->status;
     }
     
@@ -38,7 +39,7 @@ namespace state{
         this->status=status;
     }
     
-    FowlColor  Fowl::getFowlColor () const{
+    FowlColor  Fowl::getFowlColor (){
         return this->color;
     }
     

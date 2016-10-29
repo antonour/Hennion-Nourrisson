@@ -9,18 +9,21 @@
 namespace state{
     
     Field::Field (FieldTypeID id){
-        this->status=id;  
+        this->status=id;
+        this->type=TypeID::FIELD;
     }
+    
+    Field::~Field(){}
     
     bool Field::isSpace () const{
         return false;
     }
     
     TypeID Field::getTypeID () const{
-        return FIELD;
+        return this->type;
     }
     
-    FieldTypeID Field::getFieldTypeID () const{
+    FieldTypeID Field::getFieldTypeID (){
         return this->status;
     }
     

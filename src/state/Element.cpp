@@ -25,7 +25,6 @@ namespace state{
     int Element::getY () const{
         return this->Y;
     }
-    
      
     void Element::setX (int x){
         this->X=x;
@@ -35,5 +34,10 @@ namespace state{
         this->Y=y;
     }
     
-      
+    void Element::setTypeID(TypeID id){
+        this->type=id;
+    }
+    /*TypeID Element::getTypeID() const{
+        return this->type;
+    }*/
 }

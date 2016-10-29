@@ -10,8 +10,9 @@ namespace state{
     
     Element* FowlCreator::create (){
         
-        Element* p=new Fowl(color,status);
-        return p;
+        Element* f=new Fowl(color,status);
+        f->setTypeID(TypeID::FOWL);
+        return f;
     }
     
     FowlCreator::FowlCreator(FowlColor color,FowlStatus status){

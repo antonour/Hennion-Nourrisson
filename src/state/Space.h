@@ -7,8 +7,8 @@ namespace state {
   class StaticElement;
 }
 
-#include "SpaceTypeID.h"
 #include "TypeID.h"
+#include "SpaceTypeID.h"
 #include "StaticElement.h"
 
 namespace state {
@@ -17,6 +17,9 @@ namespace state {
   class Space : public state::StaticElement {
     // Associations
     state::SpaceTypeID status;
+    // Attributes
+  protected:
+    TypeID type;
     // Operations
   public:
     Space (SpaceTypeID id);
@@ -24,6 +27,7 @@ namespace state {
     TypeID getTypeID () const;
     SpaceTypeID getSpaceTypeID ();
     void setSpaceTypeID (SpaceTypeID id);
+    ~Space ();
   };
 
 };

@@ -25,7 +25,7 @@ namespace state {
     virtual ~Observable ();
     void registerObserver (IObserver* o);
     void notifyObservers (StateEvent* e);
-    void notifyObservers (StateEvent* e, std::vector<Element*> list);
+    void notifyObservers (StateEvent* e, std::vector<Element*>& table);
   };
 
 };

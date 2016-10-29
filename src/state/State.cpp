@@ -78,8 +78,7 @@ namespace state{
                             contenu+=contenu2;
                         }
                         if(i%3==0){
-                            Element* var=factory->create(contenu,false);
-                            background.push_back(var);
+                            background.push_back(factory->create(contenu,false));
                             fichier3.get(poubelle);
                             contenu="";
                         }
@@ -140,9 +139,7 @@ namespace state{
                             contenu+=contenu2;
                         }
                         if(i%3==0){
-                            Element* var=factory->create(contenu,true);
-                            elements.push_back(var);
-                            delete var;
+                            this->elements.push_back(this->factory->create(contenu,true));
                             fichier3.get(poubelle);
                             contenu="";
                         }
@@ -152,7 +149,6 @@ namespace state{
                     }
                 }
             }
-            //cout << contenu << endl;
             fichier3.close();
             this->notifyObservers(new StateEvent(FILECHAR_LOADED),this->elements);
         }

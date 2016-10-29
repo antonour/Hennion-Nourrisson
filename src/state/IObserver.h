@@ -17,7 +17,7 @@ namespace state {
     // Operations
   public:
     virtual void stateChanged (StateEvent* e) = 0;
-    virtual void stateChanged (StateEvent* e, std::vector<Element*> list) = 0;
+    virtual void stateChanged (StateEvent* e, std::vector<Element*>& list) = 0;
   };
 
 };
