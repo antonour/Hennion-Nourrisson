@@ -2,11 +2,16 @@
 #ifndef ENGINE__ACTION__H
 #define ENGINE__ACTION__H
 
+#include "../state.hpp"
 
 namespace engine {
 
   /// class Action - 
   class Action {
+    // Operations
+  public:
+    virtual ~Action ();
+    void apply (state::State& s, bool notify);
   };
 
 };
