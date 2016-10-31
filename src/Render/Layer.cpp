@@ -73,4 +73,8 @@ namespace Render{
         }
     }
     
+    void Layer::sync (int64_t time){}
+    
+    void Layer::update (int64_t time){}
+    
 }

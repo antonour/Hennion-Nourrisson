@@ -44,4 +44,8 @@ namespace Render{
         
     }
     
+    void Scene::sync (int64_t time){}
+    
+    void Scene::update (int64_t time){}
+    
 }

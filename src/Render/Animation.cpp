@@ -23,4 +23,8 @@ namespace Render{
         this->speed=speed;
     }
     
+    void Animation::sync (int64_t time){}
+    
+    void Animation::update (int64_t time){}
+    
 }
