@@ -650,6 +650,7 @@ struct stdlib_includes {
    int thread;
    int mutex;
    int sfml;
+   int state;
    
 };
 
@@ -674,6 +675,16 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
            print ("#include <SFML/Graphics.hpp>\n");
            si->sfml = 1;
        }
+
+	 if (!si->state
+          && (strstr(name,"state::State&")
+          || strstr(name,"state::Direction")
+	  || strstr(name,"state::Orientation"))) {
+           print ("#include \"../state.hpp\"\n");
+           si->state = 1;
+       }
+
+	
        
        if (!si->stdlib && strstr(name,"size_t")) {
            print ("#include <stdlib.h>\n");
