@@ -2,9 +2,9 @@
 #ifndef ENGINE__ENGINE__H
 #define ENGINE__ENGINE__H
 
+#include "../state.hpp"
 #include <mutex>
 #include <stdint.h>
-#include "../state.hpp"
 
 namespace engine {
   class CommandSet;
