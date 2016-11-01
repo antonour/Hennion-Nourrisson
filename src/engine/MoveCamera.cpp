@@ -12,7 +12,7 @@ namespace engine{
     MoveCamera::MoveCamera (){
         dxCenter=3000;
         dyCenter=3000;
-        dzoom=6.f;
+        dzoom=3.f;
         view.setCenter(this->dxCenter,this->dyCenter);
         view.zoom(this->dzoom);        
     }
@@ -20,34 +20,39 @@ namespace engine{
     MoveCamera::~MoveCamera (){}
     
     void MoveCamera::ZoomIn (){
+        if (dzoom>0.5){
         dzoom=this->dzoom*0.9f;
-        view.zoom(0.9f);
+        view.zoom(0.9f);}
     }
     
     void MoveCamera::ZoomOut (){
+        if (dzoom<5.){
         this->dzoom=this->dzoom*1.1f;
-        view.zoom(1.1f);
+        view.zoom(1.1f);}
     }
     
     void MoveCamera::MoveOnLeft (){
-        
+        if (dxCenter>=0){
         dxCenter=dxCenter-75;
-        view.setCenter(dxCenter,dyCenter);
+        view.setCenter(dxCenter,dyCenter);}
     }
     
     void MoveCamera::MoveOnRight (){
+        if (dxCenter<=4949){
         dxCenter=dxCenter+75;
-        view.setCenter(dxCenter,dyCenter);
+        view.setCenter(dxCenter,dyCenter);}
     }
     
     void MoveCamera::MoveOnUp (){
+        if (dyCenter>=0){
         dyCenter=dyCenter-75;
-        view.setCenter(dxCenter,dyCenter);
+        view.setCenter(dxCenter,dyCenter);}
     }
     
     void MoveCamera::MoveOnDown (){
+        if (dyCenter<=2625){
         dyCenter=dyCenter+75;
-        view.setCenter(dxCenter,dyCenter);
+        view.setCenter(dxCenter,dyCenter);}
     }
     
     sf::View MoveCamera::getView (){
