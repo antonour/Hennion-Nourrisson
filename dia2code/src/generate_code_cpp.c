@@ -651,6 +651,8 @@ struct stdlib_includes {
    int mutex;
    int sfml;
    int state;
+   int Render;
+   int engine;
    
 };
 
@@ -670,18 +672,27 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
        }
        
        if (!si->sfml
-          && (strstr(name,"sf::Vector2u")
-          || strstr(name,"sf::RenderTarget&"))) {
+          && (strstr(name,"sf::"))) {
            print ("#include <SFML/Graphics.hpp>\n");
            si->sfml = 1;
        }
 
 	 if (!si->state
-          && (strstr(name,"state::State&")
-          || strstr(name,"state::Direction")
-	  || strstr(name,"state::Orientation"))) {
+          && (strstr(name,"state::"))) {
            print ("#include \"../state.hpp\"\n");
            si->state = 1;
+       }
+
+	if (!si->Render
+          && (strstr(name,"Render::"))) {
+           print ("#include \"../Render.hpp\"\n");
+           si->Render = 1;
+       }
+
+	if (!si->engine
+          && (strstr(name,"engine::"))) {
+           print ("#include \"../engine.hpp\"\n");
+           si->engine = 1;
        }
 
 	
