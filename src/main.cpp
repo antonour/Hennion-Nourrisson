@@ -6,20 +6,24 @@
 #include <string>
 #include "state.hpp"
 #include "Render.hpp"
+#include "engine.hpp"
 
 using namespace sf;
 using namespace std;
 using namespace state;
 using namespace Render;
+using namespace engine;
 
 int main(int argc,char* argv[]) 
 {
     ElementFactory* fac=new ElementFactory();
     
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
-    sf::View view;
-    view.setCenter(3000,3000);
-    view.zoom(6.f);
+    //sf::View view;
+    //view.setCenter(3000,3000);
+    //view.zoom(6.f);
+    
+    MoveCamera* v = new MoveCamera();
     
     State s;
     s.setElementFactory(fac);
@@ -56,23 +60,23 @@ int main(int argc,char* argv[])
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
                         {s.killFowls();}                    
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                        {view.setCenter(view.getCenter()-sf::Vector2f (75.f, 0.f));}
+                        {v->MoveOnLeft();}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                        {view.setCenter(view.getCenter()+sf::Vector2f (75.f, 0.f));}
+                        {v->MoveOnRight();}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                        {view.setCenter(view.getCenter()-sf::Vector2f (0.f, 75.f));}
+                        {v->MoveOnUp();}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                        {view.setCenter(view.getCenter()+sf::Vector2f (0.f, 75.f));}       
+                        {v->MoveOnDown();}     
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
-                        {view.zoom(0.9f);}
+                        {v->ZoomIn();}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
-                        {view.zoom(1.1f);}
+                        {v->ZoomOut();}
 
         }
 
         
         window.clear();
-        window.setView(view);
+        window.setView(v->getView());
         window.draw(*area);
         window.draw(*pers);
         window.display();
