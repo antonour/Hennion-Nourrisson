@@ -27,11 +27,27 @@ namespace engine{
     
     void MoveFowl::setDirection (state::Direction direction){
         this->Direction=direction;
+        this->poule->setDirection(direction);
     }
     
-    void Jump (int dx, int dy, int dpos){
+    void MoveFowl::Jump (int dx, int dy, int dpos){
         
     }
     
+    void MoveFowl::setIDX(int idx){
+        this->idx=idx;
+    }
+    
+    int MoveFowl::getIDX(){
+        return this->idx;
+    }
+    
+    void MoveFowl::setFowl(state::Fowl* f){
+        this->poule=f;
+    }
+    
+    state::Fowl* MoveFowl::getFowl(){
+        return this->poule;
+    }
    
 }
