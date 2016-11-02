@@ -67,7 +67,19 @@ namespace Render{
     void Surface::clear(){}
     
     void Surface::generateMap(std::vector<state::Element*>& list, std::vector<int>& tab){
+        int i=1;
+        int j=1;
         for (state::Element* el : list){
+            if (j>40){
+                j=1;
+                i++;
+            }
+            if (i>30){
+                i=1;
+            }
+            el->setX(125*j);
+            el->setY(97*i);
+            j++;
             if (el->getTypeID()==state::TypeID::FOWL){
                 state::Fowl* e;
                 e = reinterpret_cast<state::Fowl*>(el);
