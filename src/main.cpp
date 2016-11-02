@@ -23,7 +23,7 @@ int main(int argc,char* argv[])
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
     //On instancie la classe gérant le mouvement des poules l'une après l'autre;
-    MoveFowl* moving_fowl=new MoveFowl(0);
+    MoveFowl* moving_fowl=new MoveFowl(499);
     
     //On crée l'état qui s'occupera de gérer les poules
     State s;
