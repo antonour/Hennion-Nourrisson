@@ -19,32 +19,27 @@ int main(int argc,char* argv[])
     ElementFactory* fac=new ElementFactory();
     
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
-    //sf::View view;
-    //view.setCenter(3000,3000);
-    //view.zoom(6.f);
     
+    //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
+    //On instancie la classe gérant le mouvement des poules l'une après l'autre;
+    MoveFowl* moving_fowl=new MoveFowl(0);
     
+    //On crée l'état qui s'occupera de gérer les poules
     State s;
     s.setElementFactory(fac);
-    
     Surface* pers=new Surface();
-    
     Layer l1;
     l1.setSurface(pers);
-    
     s.registerObserver(&l1);
     s.loadChar("../src/fichierperso.txt");
     
-    
+    //On crée l'état qui s'occupera de gérer le terrain
     State ter;
     ter.setElementFactory(fac);
-    
     Surface* area=new Surface();
-    
     Layer l2;
     l2.setSurface(area);
-    
     ter.registerObserver(&l2);
     ter.loadLevel("../src/fichiermap.txt");
     
@@ -57,8 +52,24 @@ int main(int argc,char* argv[])
             {
                 window.close();
             }    
+                    //Exemple de commande agissant sur l'état des poules
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-                        {s.killFowls();}                    
+                        {s.killFowls();}
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+                        Fowl* bla=reinterpret_cast<Fowl*>(s.getMobileElement(moving_fowl->getIDX()));
+                        bla->setFowlStatus(FowlStatus::ALIVE_LEFT);
+                        moving_fowl->setFowl(bla);
+                        moving_fowl->setDirection(Direction::OUEST);
+                        s.setMobileElement(moving_fowl->getFowl(),moving_fowl->getIDX());
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+                        Fowl* bla=reinterpret_cast<Fowl*>(s.getMobileElement(moving_fowl->getIDX()));
+                        bla->setFowlStatus(FowlStatus::ALIVE_RIGHT);
+                        moving_fowl->setFowl(bla);
+                        moving_fowl->setDirection(Direction::EST);
+                        s.setMobileElement(moving_fowl->getFowl(),moving_fowl->getIDX());
+                    }
+                    //Set de commandes permettant de bouger la caméra et de zoomer
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                         {v->MoveOnLeft();}
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
