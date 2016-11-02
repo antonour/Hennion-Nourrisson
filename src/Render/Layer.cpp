@@ -71,6 +71,54 @@ namespace Render{
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
             }   
         }
+        if (e->getStateEventID()==state::StateEventID::FOWL_MOVE){
+            int i=0;
+            for (state::Element* pers: list){
+                if (pers->getTypeID()==state::TypeID::FOWL){
+                    state::Fowl* poule;
+                    poule=reinterpret_cast<state::Fowl*>(pers);
+                    if (poule->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                       
+                       if (surface->fowltab[i]%9==1){
+                           surface->fowltab[i]+=1;
+                       }
+                       else if (surface->fowltab[i]%9==2){
+                           surface->fowltab[i]+=1;
+                       }
+                       else if (surface->fowltab[i]%9==3){
+                           surface->fowltab[i]+=1;
+                       }
+                       else if (surface->fowltab[i]%9==4){
+                           surface->fowltab[i]-=2;
+                       }
+                       else
+                           surface->fowltab[i]=surface->fowltab[i]-surface->fowltab[i]%9+1;
+                    }
+                    if (poule->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                       
+                       if (surface->fowltab[i]%9==1){
+                           surface->fowltab[i]+=4;
+                       }
+                       else if (surface->fowltab[i]%9==5){
+                           surface->fowltab[i]+=1;
+                       }
+                       else if (surface->fowltab[i]%9==6){
+                           surface->fowltab[i]+=1;
+                       }
+                       else if (surface->fowltab[i]%9==7){
+                           surface->fowltab[i]-=2;
+                       }
+                       else
+                           surface->fowltab[i]=surface->fowltab[i]-surface->fowltab[i]%9+1;
+                    }
+                }
+                i++;
+            }
+            if (!surface->load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
+                throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
+            }   
+            
+        }
     }
     
     void Layer::sync (int64_t time){}

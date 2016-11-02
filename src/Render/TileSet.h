@@ -2,6 +2,7 @@
 #ifndef RENDER__TILESET__H
 #define RENDER__TILESET__H
 
+#include "../state.hpp"
 
 namespace Render {
   class Tile;

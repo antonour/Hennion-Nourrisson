@@ -3,6 +3,8 @@
 #define RENDER__SCENE__H
 
 #include <vector>
+#include "../state.hpp"
+#include <stdint.h>
 
 namespace Render {
   class Layer;
@@ -15,6 +17,7 @@ namespace state {
 }
 
 #include "state/IObserver.h"
+#include "SceneLayer.h"
 #include "Layer.h"
 
 namespace Render {
@@ -39,6 +42,8 @@ namespace Render {
     void unregisterObservers (const state::State* s);
     void stateChanged (state::StateEvent* e);
     void stateChanged (state::StateEvent* e, std::vector<state::Element*>& list);
+    void sync (int64_t time);
+    void update (int64_t time);
   };
 
 };

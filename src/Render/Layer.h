@@ -3,7 +3,9 @@
 #define RENDER__LAYER__H
 
 #include <map>
+#include "../state.hpp"
 #include <vector>
+#include <stdint.h>
 
 namespace Render {
   class TileSet;
@@ -43,6 +45,8 @@ namespace Render {
     void printText (int x, int y, const char* msg, int spriteIdx, int w, int h);
     void stateChanged (state::StateEvent* e);
     void stateChanged (state::StateEvent* e, std::vector<state::Element*>& list);
+    void sync (int64_t time);
+    void update (int64_t time);
   protected:
     void update (const state::State& elementList);
   };

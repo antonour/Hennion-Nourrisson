@@ -2,6 +2,8 @@
 #ifndef RENDER__ANIMATION__H
 #define RENDER__ANIMATION__H
 
+#include "../state.hpp"
+#include <stdint.h>
 
 namespace Render {
   class Tile;
@@ -28,6 +30,8 @@ namespace Render {
     Animation (int i, int x, int y, const Tile* a);
     void setDirection (state::Direction d);
     void setSpeed (float speed);
+    void sync (int64_t time);
+    void update (int64_t time);
   };
 
 };

@@ -3,8 +3,9 @@
 #define RENDER__SURFACE__H
 
 #include <vector>
-#include <string>
 #include <SFML/Graphics.hpp>
+#include <string>
+#include "../state.hpp"
 
 namespace state {
   class Element;
