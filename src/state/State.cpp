@@ -40,7 +40,6 @@ namespace state{
             Fowl *fo;
             fo=reinterpret_cast<Fowl*>(proc);
             fo->setFowlStatus(FowlStatus::DEAD);
-            cout << fo->getFowlStatus() << endl;
         }
         this->notifyObservers(new StateEvent(FOWL_DEAD),this->elements);
     }
@@ -164,5 +163,22 @@ namespace state{
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
+    }
+    
+    void State::setMobileElement(Element* el, int idx){
+        int i=0;
+        std::vector<Element*> newlist;
+        for (Element* parcours: this->elements){
+            if (i==idx){
+                newlist.push_back(el);
+                i++;
+            }
+            else{
+                newlist.push_back(parcours);
+                i++;
+            }
+        }
+        this->elements=newlist;
+        this->notifyObservers(new StateEvent(FOWL_MOVE), this->elements);
     }
 }

@@ -33,6 +33,7 @@ namespace state {
     void setElementFactory (ElementFactory* f);
     std::vector<Element*> getMobileElements ();
     Element* getMobileElement (int idx);
+    void setMobileElement (Element* el, int idx);
     std::vector<Element*> getStaticElements ();
     Element* getStaticElement (int idx);
     void loadLevel (const std::string& file_name);

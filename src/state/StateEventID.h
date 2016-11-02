@@ -11,7 +11,8 @@ namespace state {
     WEAPON_OUT     = 2,
     WEAPON_IN     = 3,
     FILEMAP_LOADED     = 4,
-    FILECHAR_LOADED     = 5
+    FILECHAR_LOADED     = 5,
+    FOWL_MOVE     = 6
   };
 
 };
