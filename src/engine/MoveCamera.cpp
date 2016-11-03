@@ -10,8 +10,8 @@
 namespace engine{
     
     MoveCamera::MoveCamera (){
-        dxCenter=3000;
-        dyCenter=3000;
+        dxCenter=2500;
+        dyCenter=1300;
         dzoom=3.f;
         view.setCenter(this->dxCenter,this->dyCenter);
         view.zoom(this->dzoom);        
