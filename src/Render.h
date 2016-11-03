@@ -10,4 +10,5 @@
 #include "Render/Animation.h"
 #include "Render/Layer.h"
 #include "Render/Scene.h"
+#include "Render/SceneLayer.h"
 #endif
