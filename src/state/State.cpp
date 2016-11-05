@@ -108,6 +108,8 @@ namespace state{
     void State::loadChar (const std::string& file_name){
         int a=1;
         int b=10;
+        int k=0;
+        int l=0;
         ifstream fichier1(file_name, ios::in);
         if(fichier1){
             int nbrelignes=0;
@@ -148,7 +150,15 @@ namespace state{
                             contenu+=contenu2;
                         }
                         if(i%3==0){
-                            this->elements.push_back(this->factory->create(contenu,true));
+                            Element * garb = this->factory->create(contenu,true);
+                            garb->setX(125*k);
+                            k++;
+                            if (k==40){
+                                l++;
+                                k=0;
+                            }
+                            garb->setY(97*l);
+                            this->elements.push_back(garb);
                             fichier3.get(poubelle);
                             contenu="";
                         }
@@ -165,7 +175,7 @@ namespace state{
             cerr << "Impossible to open that f***ing file" << endl;
     }
     
-    void State::setMobileElement(Element* el, int idx){
+    void State::setMobileElement(Element* el, int idx, bool right){
         int i=0;
         std::vector<Element*> newlist;
         for (Element* parcours: this->elements){
@@ -179,6 +189,9 @@ namespace state{
             }
         }
         this->elements=newlist;
-        this->notifyObservers(new StateEvent(FOWL_MOVE), this->elements);
+        if (right)
+            this->notifyObservers(new StateEvent(FOWL_MOVE_RIGHT), this->elements);
+        else 
+            this->notifyObservers(new StateEvent(FOWL_MOVE_LEFT), this->elements);
     }
 }
