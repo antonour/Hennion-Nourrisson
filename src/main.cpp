@@ -60,14 +60,14 @@ int main(int argc,char* argv[])
                         bla->setFowlStatus(FowlStatus::ALIVE_LEFT);
                         moving_fowl->setFowl(bla);
                         moving_fowl->setDirection(Direction::OUEST);
-                        s.setMobileElement(moving_fowl->getFowl(),moving_fowl->getIDX());
+                        s.setMobileElement(moving_fowl->getFowl(),moving_fowl->getIDX(),false);
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
                         Fowl* bla=reinterpret_cast<Fowl*>(s.getMobileElement(moving_fowl->getIDX()));
                         bla->setFowlStatus(FowlStatus::ALIVE_RIGHT);
                         moving_fowl->setFowl(bla);
                         moving_fowl->setDirection(Direction::EST);
-                        s.setMobileElement(moving_fowl->getFowl(),moving_fowl->getIDX());
+                        s.setMobileElement(moving_fowl->getFowl(),moving_fowl->getIDX(),true);
                     }
                     //Set de commandes permettant de bouger la caméra et de zoomer
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
