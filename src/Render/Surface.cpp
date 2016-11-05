@@ -51,6 +51,39 @@ namespace Render{
         return true;
     }
 
+    void Surface::moveFowl(int i, int j, int X, int Y, int tex){
+        sf::Vertex* quad =&m_vertices[(i + j * 40)*4];     
+
+        // on en déduit sa position dans la texture du tileset
+        int tu = tex % (m_tileset.getSize().x / 48);
+        int tv = tex / (m_tileset.getSize().x / 48);
+        
+        // on définit ses quatre coins
+        quad[0].position = sf::Vector2f(X, Y);
+        quad[1].position = sf::Vector2f(X+125, Y);
+        quad[2].position = sf::Vector2f(X+125, Y+97);
+        quad[3].position = sf::Vector2f(X, Y+97);
+        
+        // on définit ses quatre coordonnées de texture
+        quad[0].texCoords = sf::Vector2f(tu * 48, tv * 48);
+        quad[1].texCoords = sf::Vector2f((tu + 1) * 48, tv * 48);
+        quad[2].texCoords = sf::Vector2f((tu + 1) * 48, (tv + 1) * 48);
+        quad[3].texCoords = sf::Vector2f(tu * 48, (tv + 1) * 48);
+    }
+    
+    void Surface::kill(int i, int j, int tex){
+        sf::Vertex* quad =&m_vertices[(i + j * 40)*4];     
+
+        // on en déduit sa position dans la texture du tileset
+        int tu = tex % (m_tileset.getSize().x / 48);
+        int tv = tex / (m_tileset.getSize().x / 48);
+        
+        // on définit ses quatre coordonnées de texture
+        quad[0].texCoords = sf::Vector2f(tu * 48, tv * 48);
+        quad[1].texCoords = sf::Vector2f((tu + 1) * 48, tv * 48);
+        quad[2].texCoords = sf::Vector2f((tu + 1) * 48, (tv + 1) * 48);
+        quad[3].texCoords = sf::Vector2f(tu * 48, (tv + 1) * 48);
+    }
 
     void Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
@@ -67,19 +100,9 @@ namespace Render{
     void Surface::clear(){}
     
     void Surface::generateMap(std::vector<state::Element*>& list, std::vector<int>& tab){
-        int i=1;
-        int j=1;
+
         for (state::Element* el : list){
-            if (j>40){
-                j=1;
-                i++;
-            }
-            if (i>30){
-                i=1;
-            }
-            el->setX(125*j);
-            el->setY(97*i);
-            j++;
+            
             if (el->getTypeID()==state::TypeID::FOWL){
                 state::Fowl* e;
                 e = reinterpret_cast<state::Fowl*>(el);
