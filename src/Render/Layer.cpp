@@ -60,42 +60,41 @@ namespace Render{
                 if (surface->fowltab[i]%9==1){
                     surface->fowltab[i]+=7;
                 }
+                if (surface->fowltab[i]%9==2){
+                    surface->fowltab[i]+=6;
+                }
                 if (surface->fowltab[i]%9==3){
                     surface->fowltab[i]+=5;
+                }
+                if (surface->fowltab[i]%9==4){
+                    surface->fowltab[i]+=4;
+                }
+                if (surface->fowltab[i]%9==5){
+                    surface->fowltab[i]+=3;
                 }
                 if (surface->fowltab[i]%9==6){
                     surface->fowltab[i]+=2;
                 }
+                if (surface->fowltab[i]%9==7){
+                    surface->fowltab[i]+=1;
+                }
+                
+                surface->kill(i%40,i/40,surface->fowltab[i]);
             }
-            if (!surface->load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
-                throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
-            }   
+            
         }
-        if (e->getStateEventID()==state::StateEventID::FOWL_MOVE){
+        if (e->getStateEventID()==state::StateEventID::FOWL_MOVE_RIGHT){
             int i=0;
+            int X=0,Y=0;
             for (state::Element* pers: list){
                 if (pers->getTypeID()==state::TypeID::FOWL){
                     state::Fowl* poule;
+                    X=pers->getX();
+                    Y=pers->getY();
+                    X+=3;
+                    pers->setX(X);
                     poule=reinterpret_cast<state::Fowl*>(pers);
-                    if (poule->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                       
-                       if (surface->fowltab[i]%9==1){
-                           surface->fowltab[i]+=1;
-                       }
-                       else if (surface->fowltab[i]%9==2){
-                           surface->fowltab[i]+=1;
-                       }
-                       else if (surface->fowltab[i]%9==3){
-                           surface->fowltab[i]+=1;
-                       }
-                       else if (surface->fowltab[i]%9==4){
-                           surface->fowltab[i]-=2;
-                       }
-                       else
-                           surface->fowltab[i]=surface->fowltab[i]-surface->fowltab[i]%9+1;
-                    }
                     if (poule->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                       
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=4;
                        }
@@ -110,14 +109,44 @@ namespace Render{
                        }
                        else
                            surface->fowltab[i]=surface->fowltab[i]-surface->fowltab[i]%9+1;
+                       surface->moveFowl(i%40,i/40,X,Y,surface->fowltab[i]);
+                    }
+                    
+                }
+                i++;
+            }
+        }
+        if (e->getStateEventID()==state::StateEventID::FOWL_MOVE_LEFT){
+            int i=0;
+            int X=0,Y=0;
+            for (state::Element* pers: list){
+                if (pers->getTypeID()==state::TypeID::FOWL){
+                    state::Fowl* poule;
+                    X=pers->getX();
+                    Y=pers->getY();
+                    X-=3;
+                    pers->setX(X);
+                    poule=reinterpret_cast<state::Fowl*>(pers);
+                    if (poule->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                       if (surface->fowltab[i]%9==1){
+                           surface->fowltab[i]+=1;
+                       }
+                       else if (surface->fowltab[i]%9==2){
+                           surface->fowltab[i]+=1;
+                       }
+                       else if (surface->fowltab[i]%9==3){
+                           surface->fowltab[i]+=1;
+                       }
+                       else if (surface->fowltab[i]%9==4){
+                           surface->fowltab[i]-=2;
+                       }
+                       else
+                           surface->fowltab[i]=surface->fowltab[i]-surface->fowltab[i]%9+1;
+                       surface->moveFowl(i%40,i/40,X,Y,surface->fowltab[i]);
                     }
                 }
                 i++;
             }
-            if (!surface->load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
-                throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
-            }   
-            
         }
     }
     
