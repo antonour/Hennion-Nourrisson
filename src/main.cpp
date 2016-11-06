@@ -22,6 +22,9 @@ int main(int argc,char* argv[])
     
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
+    KillFowl* k= new KillFowl();
+    k->setIDX(499);
+    
     //On instancie la classe gérant le mouvement des poules l'une après l'autre;
     MoveFowl* moving_fowl=new MoveFowl(499);
     
@@ -54,20 +57,14 @@ int main(int argc,char* argv[])
             }    
                     //Exemple de commande agissant sur l'état des poules
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-                        {s.killFowls();}
+                        k->apply(s,true);
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
-                        Fowl* bla=reinterpret_cast<Fowl*>(s.getMobileElement(moving_fowl->getIDX()));
-                        bla->setFowlStatus(FowlStatus::ALIVE_LEFT);
-                        moving_fowl->setFowl(bla);
-                        moving_fowl->setDirection(Direction::OUEST);
-                        s.setMobileElement(moving_fowl->getFowl(),moving_fowl->getIDX(),false);
+                        moving_fowl->setDir(Direction::OUEST);
+                        moving_fowl->apply(s,true);
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-                        Fowl* bla=reinterpret_cast<Fowl*>(s.getMobileElement(moving_fowl->getIDX()));
-                        bla->setFowlStatus(FowlStatus::ALIVE_RIGHT);
-                        moving_fowl->setFowl(bla);
-                        moving_fowl->setDirection(Direction::EST);
-                        s.setMobileElement(moving_fowl->getFowl(),moving_fowl->getIDX(),true);
+                        moving_fowl->setDir(Direction::EST);
+                        moving_fowl->apply(s,true);
                     }
                     //Set de commandes permettant de bouger la caméra et de zoomer
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
