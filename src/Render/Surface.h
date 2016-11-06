@@ -35,6 +35,8 @@ namespace Render {
     bool load (const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2,  const int* tiles, unsigned int width, unsigned int height);
     virtual void  draw (sf::RenderTarget& target, sf::RenderStates states) const;
     void generateMap (std::vector<state::Element*>& list, std::vector<int>& tab);
+    void moveFowl (int i, int j, int X, int Y, int tex);
+    void kill (int i, int j, int tex);
   };
 
 };

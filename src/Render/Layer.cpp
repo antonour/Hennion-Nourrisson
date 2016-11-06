@@ -56,32 +56,39 @@ namespace Render{
             }   
         }
         if (e->getStateEventID()==state::StateEventID::FOWL_DEAD){
-            for(int i=0; i<(int)surface->fowltab.size();i++){
-                if (surface->fowltab[i]%9==1){
-                    surface->fowltab[i]+=7;
-                }
-                if (surface->fowltab[i]%9==2){
-                    surface->fowltab[i]+=6;
-                }
-                if (surface->fowltab[i]%9==3){
-                    surface->fowltab[i]+=5;
-                }
-                if (surface->fowltab[i]%9==4){
-                    surface->fowltab[i]+=4;
-                }
-                if (surface->fowltab[i]%9==5){
-                    surface->fowltab[i]+=3;
-                }
-                if (surface->fowltab[i]%9==6){
-                    surface->fowltab[i]+=2;
-                }
-                if (surface->fowltab[i]%9==7){
-                    surface->fowltab[i]+=1;
-                }
+            int i=0;
+            for(state::Element* el:list){
+                if (el->getTypeID()==state::TypeID::FOWL){
+                    state::Fowl* poulet;
+                    poulet=reinterpret_cast<state::Fowl*>(el);
+                    if (poulet->getFowlStatus()==state::FowlStatus::DEAD){
+                        if (surface->fowltab[i]%9==1){
+                            surface->fowltab[i]+=7;
+                        }
+                        if (surface->fowltab[i]%9==2){
+                            surface->fowltab[i]+=6;
+                        }
+                        if (surface->fowltab[i]%9==3){
+                            surface->fowltab[i]+=5;
+                        }
+                        if (surface->fowltab[i]%9==4){
+                            surface->fowltab[i]+=4;
+                        }
+                        if (surface->fowltab[i]%9==5){
+                            surface->fowltab[i]+=3;
+                        }
+                        if (surface->fowltab[i]%9==6){
+                            surface->fowltab[i]+=2;
+                        }
+                        if (surface->fowltab[i]%9==7){
+                            surface->fowltab[i]+=1;
+                        }
                 
-                surface->kill(i%40,i/40,surface->fowltab[i]);
+                        surface->kill(i%40,i/40,surface->fowltab[i]);
+                    }
+                }
+                i++;
             }
-            
         }
         if (e->getStateEventID()==state::StateEventID::FOWL_MOVE_RIGHT){
             int i=0;
