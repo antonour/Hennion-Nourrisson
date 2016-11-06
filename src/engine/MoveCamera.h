@@ -3,6 +3,7 @@
 #define ENGINE__MOVECAMERA__H
 
 #include <SFML/Graphics.hpp>
+#include "../state.hpp"
 
 namespace engine {
   class Action;
@@ -31,6 +32,7 @@ namespace engine {
     void MoveOnUp ();
     void MoveOnDown ();
     sf::View getView ();
+    void apply (state::State& s, bool notify);
   };
 
 };

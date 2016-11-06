@@ -11,7 +11,7 @@ namespace engine {
     // Operations
   public:
     virtual ~Action ();
-    void apply (state::State& s, bool notify);
+    virtual void apply (state::State& s, bool notify) = 0;
   };
 
 };

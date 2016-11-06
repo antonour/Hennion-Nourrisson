@@ -20,7 +20,6 @@ namespace engine {
     int dx;
     int dy;
     int dpos;
-    state::Direction Orientation;
     state::Direction Direction;
     state::Fowl* poule;
     // Operations
@@ -28,13 +27,13 @@ namespace engine {
     MoveFowl (int idx);
     ~MoveFowl ();
     void setCoords (int dx, int dy, int dpos);
-    void setOrientation (state::Direction orientation);
-    void setDirection (state::Direction direction);
+    void setDir (state::Direction direction);
     void Jump (int dx, int dy, int dpos);
     void setIDX (int idx);
     int getIDX ();
     state::Fowl* getFowl ();
     void setFowl (state::Fowl* f);
+    void apply (state::State& s, bool notify);
   };
 
 };

@@ -59,4 +59,6 @@ namespace engine{
         return view;
     }
     
+    void MoveCamera::apply(state::State& s, bool notify){}
+    
 }

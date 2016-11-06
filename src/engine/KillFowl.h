@@ -2,6 +2,7 @@
 #ifndef ENGINE__KILLFOWL__H
 #define ENGINE__KILLFOWL__H
 
+#include "../state.hpp"
 
 namespace engine {
   class Action;
@@ -20,6 +21,8 @@ namespace engine {
   public:
     KillFowl ();
     ~KillFowl ();
+    void apply (state::State& s, bool notify);
+    void setIDX (int idx);
   };
 
 };

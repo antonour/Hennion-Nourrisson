@@ -21,13 +21,8 @@ namespace engine{
         this->dpos=dpos;               
     }
     
-    void MoveFowl::setOrientation (state::Direction orientation){
-        this->Orientation=orientation;
-    }
-    
-    void MoveFowl::setDirection (state::Direction direction){
+    void MoveFowl::setDir (state::Direction direction){
         this->Direction=direction;
-        this->poule->setDirection(direction);
     }
     
     void MoveFowl::Jump (int dx, int dy, int dpos){
@@ -50,4 +45,27 @@ namespace engine{
         return this->poule;
     }
    
+    void MoveFowl::apply(state::State& s, bool notify){
+        state::Fowl* bla;
+        state::Element * el=s.getMobileElement(this->idx);
+        if (el->getTypeID()==state::TypeID::FOWL){
+            bla=reinterpret_cast<state::Fowl*>(el);
+            if (this->Direction==state::Direction::OUEST){
+                bla->setFowlStatus(state::FowlStatus::ALIVE_LEFT);
+                s.setMobileElement(bla,this->idx);
+                if (notify){
+                    std::vector<state::Element*> list=s.getMobileElements();
+                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_LEFT),list);
+                }
+            }
+            if (this->Direction==state::Direction::EST){
+                bla->setFowlStatus(state::FowlStatus::ALIVE_RIGHT);
+                s.setMobileElement(bla,this->idx);
+                if (notify){
+                    std::vector<state::Element*> list=s.getMobileElements();
+                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_RIGHT),list);
+                }
+            }
+        }
+    }
 }
