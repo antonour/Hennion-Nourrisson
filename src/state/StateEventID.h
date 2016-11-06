@@ -12,7 +12,8 @@ namespace state {
     WEAPON_IN     = 3,
     FILEMAP_LOADED     = 4,
     FILECHAR_LOADED     = 5,
-    FOWL_MOVE     = 6
+    FOWL_MOVE_RIGHT     = 6,
+    FOWL_MOVE_LEFT     = 7
   };
 
 };

@@ -175,7 +175,7 @@ namespace state{
             cerr << "Impossible to open that f***ing file" << endl;
     }
     
-    void State::setMobileElement(Element* el, int idx, bool right){
+    void State::setMobileElement(Element* el, int idx){
         int i=0;
         std::vector<Element*> newlist;
         for (Element* parcours: this->elements){
@@ -189,9 +189,5 @@ namespace state{
             }
         }
         this->elements=newlist;
-        if (right)
-            this->notifyObservers(new StateEvent(FOWL_MOVE_RIGHT), this->elements);
-        else 
-            this->notifyObservers(new StateEvent(FOWL_MOVE_LEFT), this->elements);
     }
 }
