@@ -32,10 +32,13 @@ int main(int argc,char* argv[])
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
     KillFowl* k= new KillFowl();
-    k->setIDX(499);
-    
-    //On instancie la classe gérant le mouvement des poules l'une après l'autre;
     MoveFowl* moving_fowl=new MoveFowl(499);
+    
+    int next;
+    next=s.selectNextFowl();
+    cout << next << endl;
+    k->setIDX(next);
+    moving_fowl->setIDX(next);
         
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
 
@@ -49,6 +52,12 @@ int main(int argc,char* argv[])
                 window.close();
             }    
                     //Exemple de commande agissant sur l'état des poules
+            if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
+                        next=s.selectNextFowl();
+                        k->setIDX(next);
+                        moving_fowl->setIDX(next);
+                        cout << next << endl;
+            }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
                         k->apply(s,true);
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
@@ -75,7 +84,6 @@ int main(int argc,char* argv[])
 
         }
 
-        
         window.clear(Color(102,102,225,255));
         window.setView(v->getView());
         window.draw(*area);
