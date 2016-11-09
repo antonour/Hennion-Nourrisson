@@ -107,7 +107,7 @@ namespace engine{
             bla=reinterpret_cast<state::Fowl*>(el);
             if (fbas->getFieldTypeID()==state::FieldTypeID::NEANT){
                 bla->setY(bla->getY()+97);
-                std::cout<<this->dx<<std::endl<<this->dy<<std::endl;
+                //std::cout<<this->dx<<std::endl<<this->dy<<std::endl;
                 this->dy=this->dy+1;
                 s.setMobileElement(bla,this->idx);
                 if (notify){
