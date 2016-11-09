@@ -7,6 +7,8 @@
 #include "state.hpp"
 #include "Render.hpp"
 #include "engine.hpp"
+#include "engine/MoveFowl.h"
+#include "state/Element.h"
 
 using namespace sf;
 using namespace std;
@@ -34,9 +36,12 @@ int main(int argc,char* argv[])
     KillFowl* k= new KillFowl();
     MoveFowl* moving_fowl=new MoveFowl(499);
     
+    state::Element * e=s.getMobileElement(499);
+    moving_fowl->setCoords(e->getX(),0,0);
+    
     int next;
     next=s.selectNextFowl();
-    cout << next << endl;
+    //cout << next << endl;
     k->setIDX(next);
     moving_fowl->setIDX(next);
         
@@ -56,7 +61,10 @@ int main(int argc,char* argv[])
                         next=s.selectNextFowl();
                         k->setIDX(next);
                         moving_fowl->setIDX(next);
-                        cout << next << endl;
+                        //cout << next << endl;
+                        e=s.getMobileElement(next);
+                        moving_fowl->setCoords(e->getX(),0,0);
+                        
             }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
                         k->apply(s,true);
