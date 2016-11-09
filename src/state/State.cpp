@@ -190,4 +190,46 @@ namespace state{
         }
         this->elements=newlist;
     }
+    
+    int State::selectNextFowl() {
+        bool found=false;
+        bool lastfound=false;
+        int p=0,k=0;
+        for (Element* el: this->elements){
+            Fowl* f=reinterpret_cast<Fowl*>(el);
+            if (found){
+                if (f->getFowlColor()==FowlColor::WHITE || f->getFowlColor()==FowlColor::GREEN){
+                    f->setSelected(true);
+                    this->setMobileElement(f,p);
+                    lastfound=true;
+                    this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements);
+                    return p;
+                }
+            }
+            else{
+                if (f->isSelected()){
+                    found=true;
+                    f->setSelected(false);
+                    f->setFowlStatus(FowlStatus::ALIVE_FACE);
+                    this->setMobileElement(f,p);
+                    this->notifyObservers(new StateEvent(StateEventID::FOWL_STOP),this->elements);
+                }
+            }
+            p++;
+        }
+        if (found==false|| lastfound==false){
+                for (Element* e: this->elements){
+                    Fowl* fo=reinterpret_cast<Fowl*>(e);
+                    if (fo->getFowlColor()!=FowlColor::BLANK){
+                        fo->setSelected(true);
+                        this->setMobileElement(fo,k);
+                        this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements);
+                        return k;
+                    }
+                    k++;
+                }
+        }
+        return 0;
+    }
+
 }
