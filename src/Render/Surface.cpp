@@ -7,7 +7,11 @@
 using namespace std;
 
 namespace Render{
-    Surface::Surface(){}
+    Surface::Surface(){
+        for (int i=0;i<1200;i++){
+            this->arrowtab.push_back(1);
+        }
+    }
     
     Surface::~Surface(){}
     
@@ -90,6 +94,46 @@ namespace Render{
 
         return true;
     }
+    
+    bool Surface::loadArrow(const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2, const int* tiles, unsigned int width, unsigned int height)
+    {
+        // on charge la texture du tileset
+        if (!m_tileset_arrow.loadFromFile(tileset))
+            return false;
+
+        // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
+        m_vertices_arrow.setPrimitiveType(sf::Quads);
+        m_vertices_arrow.resize(width * height * 4);
+        
+        // on remplit le tableau de vertex, avec un quad par tuile
+        for (unsigned int i = 0; i < width; ++i)
+            for (unsigned int j = 0; j < height; ++j)
+            {
+                // on récupère le numéro de tuile courant
+                int tileNumber = tiles[i + j * width];
+
+                // on en déduit sa position dans la texture du tileset
+                int tu = tileNumber % (m_tileset_arrow.getSize().x / tileSize2.x);
+                int tv = tileNumber / (m_tileset_arrow.getSize().x / tileSize2.x);
+
+                // on récupère un pointeur vers le quad à définir dans le tableau de vertex
+                sf::Vertex* quad = &m_vertices_arrow[(i + j * width) * 4];
+
+                // on définit ses quatre coins
+                quad[0].position = sf::Vector2f(i * tileSize1.x, j * tileSize1.y);
+                quad[1].position = sf::Vector2f((i + 1) * tileSize1.x, j * tileSize1.y);
+                quad[2].position = sf::Vector2f((i + 1) * tileSize1.x, (j + 1) * tileSize1.y);
+                quad[3].position = sf::Vector2f(i * tileSize1.x, (j + 1) * tileSize1.y);
+
+                // on définit ses quatre coordonnées de texture
+                quad[0].texCoords = sf::Vector2f(tu * tileSize2.x, tv * tileSize2.y);
+                quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize2.x, tv * tileSize2.y);
+                quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize2.x, (tv + 1) * tileSize2.y);
+                quad[3].texCoords = sf::Vector2f(tu * tileSize2.x, (tv + 1) * tileSize2.y);
+            }
+
+        return true;
+    }
 
     void Surface::moveFowl(int i, int j, int X, int Y, int tex){
         sf::Vertex* quad =&m_vertices_fowl[(i + j * 40)*4];     
@@ -109,6 +153,28 @@ namespace Render{
         quad[1].texCoords = sf::Vector2f((tu + 1) * 48, tv * 48);
         quad[2].texCoords = sf::Vector2f((tu + 1) * 48, (tv + 1) * 48);
         quad[3].texCoords = sf::Vector2f(tu * 48, (tv + 1) * 48);
+       
+    }
+    
+    void Surface::moveArrow(int i, int j, int X, int Y, int tex){
+        sf::Vertex* quad =&m_vertices_arrow[(i + j * 40)*4];     
+
+        // on en déduit sa position dans la texture du tileset
+        int tu = tex % (m_tileset_arrow.getSize().x / 48);
+        int tv = tex / (m_tileset_arrow.getSize().x / 48);
+        
+        // on définit ses quatre coins
+        quad[0].position = sf::Vector2f(X, Y);
+        quad[1].position = sf::Vector2f(X+125, Y);
+        quad[2].position = sf::Vector2f(X+125, Y+97);
+        quad[3].position = sf::Vector2f(X, Y+97);
+        
+        // on définit ses quatre coordonnées de texture
+        quad[0].texCoords = sf::Vector2f(tu * 48, tv * 48);
+        quad[1].texCoords = sf::Vector2f((tu + 1) * 48, tv * 48);
+        quad[2].texCoords = sf::Vector2f((tu + 1) * 48, (tv + 1) * 48);
+        quad[3].texCoords = sf::Vector2f(tu * 48, (tv + 1) * 48);
+       
     }
     
     void Surface::kill(int i, int j, int tex){
@@ -129,7 +195,7 @@ namespace Render{
     {
         // on applique la transformation
         states.transform *= getTransform();
-
+        
         // on applique la texture du tileset
         states.texture = &m_tileset_field;
         // et on dessine enfin le tableau de vertex
@@ -138,12 +204,17 @@ namespace Render{
         states.texture = &m_tileset_fowl;
         // et on dessine enfin le tableau de vertex
         target.draw(m_vertices_fowl, states);
+        // on applique la texture du tileset
+        states.texture = &m_tileset_arrow;
+        // et on dessine enfin le tableau de vertex
+        target.draw(m_vertices_arrow, states);
         
     }
     
     void Surface::clear(){}
     
     void Surface::generateMap(std::vector<state::Element*>& list, std::vector<int>& tab){
+        
 
         for (state::Element* el : list){
             
