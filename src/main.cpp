@@ -16,9 +16,18 @@ using namespace engine;
 
 int main(int argc,char* argv[]) 
 {
+    //Appelle de la classe servant de Factory pour tous les éléments 
     ElementFactory* fac=new ElementFactory();
     
-    sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
+    //On crée l'état qui s'occupera de gérer les différents éléments
+    State s;
+    s.setElementFactory(fac);
+    Surface* area=new Surface();
+    Layer l;
+    l.setSurface(area);
+    s.registerObserver(&l);
+    s.loadChar("../src/fichierperso.txt");
+    s.loadLevel("../src/fichiermap.txt");
     
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
@@ -27,25 +36,9 @@ int main(int argc,char* argv[])
     
     //On instancie la classe gérant le mouvement des poules l'une après l'autre;
     MoveFowl* moving_fowl=new MoveFowl(499);
-    
-    //On crée l'état qui s'occupera de gérer les poules
-    State s;
-    s.setElementFactory(fac);
-    Surface* pers=new Surface();
-    Layer l1;
-    l1.setSurface(pers);
-    s.registerObserver(&l1);
-    s.loadChar("../src/fichierperso.txt");
-    
-    //On crée l'état qui s'occupera de gérer le terrain
-    State ter;
-    ter.setElementFactory(fac);
-    Surface* area=new Surface();
-    Layer l2;
-    l2.setSurface(area);
-    ter.registerObserver(&l2);
-    ter.loadLevel("../src/fichiermap.txt");
-    
+        
+    sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -83,10 +76,9 @@ int main(int argc,char* argv[])
         }
 
         
-        window.clear();
+        window.clear(Color(102,102,225,255));
         window.setView(v->getView());
         window.draw(*area);
-        window.draw(*pers);
         window.display();
     }
     
