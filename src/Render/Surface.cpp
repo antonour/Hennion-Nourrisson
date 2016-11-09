@@ -11,15 +11,15 @@ namespace Render{
     
     Surface::~Surface(){}
     
-    bool Surface::load(const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2, const int* tiles, unsigned int width, unsigned int height)
+    bool Surface::loadMap(const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2, const int* tiles, unsigned int width, unsigned int height)
     {
         // on charge la texture du tileset
-        if (!m_tileset.loadFromFile(tileset))
+        if (!m_tileset_field.loadFromFile(tileset))
             return false;
 
         // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
-        m_vertices.setPrimitiveType(sf::Quads);
-        m_vertices.resize(width * height * 4);
+        m_vertices_field.setPrimitiveType(sf::Quads);
+        m_vertices_field.resize(width * height * 4);
 
         // on remplit le tableau de vertex, avec un quad par tuile
         for (unsigned int i = 0; i < width; ++i)
@@ -29,11 +29,51 @@ namespace Render{
                 int tileNumber = tiles[i + j * width];
 
                 // on en déduit sa position dans la texture du tileset
-                int tu = tileNumber % (m_tileset.getSize().x / tileSize2.x);
-                int tv = tileNumber / (m_tileset.getSize().x / tileSize2.x);
+                int tu = tileNumber % (m_tileset_field.getSize().x / tileSize2.x);
+                int tv = tileNumber / (m_tileset_field.getSize().x / tileSize2.x);
 
                 // on récupère un pointeur vers le quad à définir dans le tableau de vertex
-                sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
+                sf::Vertex* quad = &m_vertices_field[(i + j * width) * 4];
+
+                // on définit ses quatre coins
+                quad[0].position = sf::Vector2f(i * tileSize1.x, j * tileSize1.y);
+                quad[1].position = sf::Vector2f((i + 1) * tileSize1.x, j * tileSize1.y);
+                quad[2].position = sf::Vector2f((i + 1) * tileSize1.x, (j + 1) * tileSize1.y);
+                quad[3].position = sf::Vector2f(i * tileSize1.x, (j + 1) * tileSize1.y);
+
+                // on définit ses quatre coordonnées de texture
+                quad[0].texCoords = sf::Vector2f(tu * tileSize2.x, tv * tileSize2.y);
+                quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize2.x, tv * tileSize2.y);
+                quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize2.x, (tv + 1) * tileSize2.y);
+                quad[3].texCoords = sf::Vector2f(tu * tileSize2.x, (tv + 1) * tileSize2.y);
+            }
+
+        return true;
+    }
+    
+    bool Surface::loadChar(const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2, const int* tiles, unsigned int width, unsigned int height)
+    {
+        // on charge la texture du tileset
+        if (!m_tileset_fowl.loadFromFile(tileset))
+            return false;
+
+        // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
+        m_vertices_fowl.setPrimitiveType(sf::Quads);
+        m_vertices_fowl.resize(width * height * 4);
+
+        // on remplit le tableau de vertex, avec un quad par tuile
+        for (unsigned int i = 0; i < width; ++i)
+            for (unsigned int j = 0; j < height; ++j)
+            {
+                // on récupère le numéro de tuile courant
+                int tileNumber = tiles[i + j * width];
+
+                // on en déduit sa position dans la texture du tileset
+                int tu = tileNumber % (m_tileset_fowl.getSize().x / tileSize2.x);
+                int tv = tileNumber / (m_tileset_fowl.getSize().x / tileSize2.x);
+
+                // on récupère un pointeur vers le quad à définir dans le tableau de vertex
+                sf::Vertex* quad = &m_vertices_fowl[(i + j * width) * 4];
 
                 // on définit ses quatre coins
                 quad[0].position = sf::Vector2f(i * tileSize1.x, j * tileSize1.y);
@@ -52,11 +92,11 @@ namespace Render{
     }
 
     void Surface::moveFowl(int i, int j, int X, int Y, int tex){
-        sf::Vertex* quad =&m_vertices[(i + j * 40)*4];     
+        sf::Vertex* quad =&m_vertices_fowl[(i + j * 40)*4];     
 
         // on en déduit sa position dans la texture du tileset
-        int tu = tex % (m_tileset.getSize().x / 48);
-        int tv = tex / (m_tileset.getSize().x / 48);
+        int tu = tex % (m_tileset_fowl.getSize().x / 48);
+        int tv = tex / (m_tileset_fowl.getSize().x / 48);
         
         // on définit ses quatre coins
         quad[0].position = sf::Vector2f(X, Y);
@@ -72,11 +112,11 @@ namespace Render{
     }
     
     void Surface::kill(int i, int j, int tex){
-        sf::Vertex* quad =&m_vertices[(i + j * 40)*4];     
+        sf::Vertex* quad =&m_vertices_fowl[(i + j * 40)*4];     
 
         // on en déduit sa position dans la texture du tileset
-        int tu = tex % (m_tileset.getSize().x / 48);
-        int tv = tex / (m_tileset.getSize().x / 48);
+        int tu = tex % (m_tileset_fowl.getSize().x / 48);
+        int tv = tex / (m_tileset_fowl.getSize().x / 48);
         
         // on définit ses quatre coordonnées de texture
         quad[0].texCoords = sf::Vector2f(tu * 48, tv * 48);
@@ -91,10 +131,14 @@ namespace Render{
         states.transform *= getTransform();
 
         // on applique la texture du tileset
-        states.texture = &m_tileset;
-
+        states.texture = &m_tileset_field;
         // et on dessine enfin le tableau de vertex
-        target.draw(m_vertices, states);
+        target.draw(m_vertices_field, states);
+        // on applique la texture du tileset
+        states.texture = &m_tileset_fowl;
+        // et on dessine enfin le tableau de vertex
+        target.draw(m_vertices_fowl, states);
+        
     }
     
     void Surface::clear(){}
@@ -342,4 +386,475 @@ namespace Render{
             }
         }
     }
+    
+    Tile* Surface::getElementTile (state::Element* e){
+        
+        if (e->isStatic()){
+            StaticTile* t1 = new StaticTile(0,0,0,0);
+            state::StaticElement* e1;
+            e1 = reinterpret_cast<state::StaticElement*>(e);
+            if (e1->isSpace()){//si c'est un space
+                      
+            }
+            
+            else{
+            //dimensions correspondantes à l'image tileset.png
+                state::Field* fi;
+                fi = reinterpret_cast<state::Field*>(e1);
+                if(fi->getFieldTypeID()==state::FieldTypeID::NEANT){
+                        t1->x=0;
+                        t1->y=388;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN1){
+                        t1->x=0;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN2){
+                        t1->x=125;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN3){
+                        t1->x=250;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN4){
+                        t1->x=0;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN5){
+                        t1->x=125;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGBROWN6){
+                        t1->x=250;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE1){
+                        t1->x=0;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE2){
+                        t1->x=125;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE3){
+                        t1->x=250;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE4){
+                        t1->x=0;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE5){
+                        t1->x=150;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::BIGSTONE6){
+                        t1->x=250;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN1){
+                        t1->x=375;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN2){
+                        t1->x=500;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN3){
+                        t1->x=375;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLEBROWN4){
+                        t1->x=500;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE1){
+                        t1->x=375;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE2){
+                        t1->x=500;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE3){
+                        t1->x=375;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::CIRCLESTONE4){
+                        t1->x=500;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN1){
+                        t1->x=625;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN2){
+                        t1->x=750;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN3){
+                        t1->x=875;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN4){
+                        t1->x=1000;
+                        t1->y=0;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN5){
+                        t1->x=625;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN6){
+                        t1->x=750;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN7){
+                        t1->x=875;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLBROWN8){
+                        t1->x=1000;
+                        t1->y=97;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE1){
+                        t1->x=625;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE2){
+                        t1->x=750;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE3){
+                        t1->x=875;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE4){
+                        t1->x=1000;
+                        t1->y=194;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE5){
+                        t1->x=625;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE6){
+                        t1->x=750;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE7){
+                        t1->x=875;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }
+                else if (fi->getFieldTypeID()==state::FieldTypeID::SMALLSTONE8){
+                        t1->x=1000;
+                        t1->y=291;
+                        t1->width=125;
+                        t1->height=97;
+                    }      
+                else{}
+                
+        }
+        return t1;
+        }
+        
+        else{
+            AnimatedTile* t2 = new AnimatedTile(0,0,0,0);
+            state::MobileElement* e2;
+            e2 = reinterpret_cast<state::MobileElement*>(e);
+            if (e2->isFowl()){
+            //dimensions correspondantes à l'image chicken_large.png
+            state::Fowl* fo;
+            fo = reinterpret_cast<state::Fowl*>(e2);
+                if (fo->getFowlColor()==state::FowlColor::BLANK){
+                    t2->x=0;
+                    t2->y=0;
+                    t2->width=48;
+                    t2->height=48;
+
+                }
+                else if (fo->getFowlColor()==state::FowlColor::WHITE){
+
+                    if (fo->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    t2->x=48;
+                    t2->y=0;
+                    t2->width=48;
+                    t2->height=48;}
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    t2->x=144;
+                    t2->y=0;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    t2->x=288;
+                    t2->y=0;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::DEAD){
+                    t2->x=384;
+                    t2->y=0;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else{}
+
+                }
+                else if (fo->getFowlColor()==state::FowlColor::GREEN){
+                    if (fo->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    t2->x=48;
+                    t2->y=48;
+                    t2->width=48;
+                    t2->height=48;}
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    t2->x=144;
+                    t2->y=48;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    t2->x=288;
+                    t2->y=48;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::DEAD){
+                    t2->x=384;
+                    t2->y=48;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else{}
+                }
+                else if (fo->getFowlColor()==state::FowlColor::BLACK){
+                    if (fo->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    t2->x=48;
+                    t2->y=96;
+                    t2->width=48;
+                    t2->height=48;}
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    t2->x=144;
+                    t2->y=96;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    t2->x=288;
+                    t2->y=96;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::DEAD){
+                    t2->x=384;
+                    t2->y=96;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                }
+                else if (fo->getFowlColor()==state::FowlColor::BEIGE){
+                    if (fo->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    t2->x=48;
+                    t2->y=144;
+                    t2->width=48;
+                    t2->height=48;}
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    t2->x=144;
+                    t2->y=144;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    t2->x=288;
+                    t2->y=144;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::DEAD){
+                    t2->x=384;
+                    t2->y=144;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                }
+                else if (fo->getFowlColor()==state::FowlColor::KHAKI){
+                    if (fo->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    t2->x=48;
+                    t2->y=192;
+                    t2->width=48;
+                    t2->height=48;}
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    t2->x=144;
+                    t2->y=192;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    t2->x=288;
+                    t2->y=192;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::DEAD){
+                    t2->x=384;
+                    t2->y=192;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                }
+                else if (fo->getFowlColor()==state::FowlColor::BROWN){
+                    if (fo->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    t2->x=48;
+                    t2->y=240;
+                    t2->width=48;
+                    t2->height=48;}
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    t2->x=144;
+                    t2->y=240;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    t2->x=288;
+                    t2->y=240;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::DEAD){
+                    t2->x=384;
+                    t2->y=240;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                }
+                else if (fo->getFowlColor()==state::FowlColor::GREY){
+                    if (fo->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    t2->x=48;
+                    t2->y=288;
+                    t2->width=48;
+                    t2->height=48;}
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    t2->x=144;
+                    t2->y=288;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    t2->x=288;
+                    t2->y=288;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::DEAD){
+                    t2->x=384;
+                    t2->y=288;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                }
+                else if (fo->getFowlColor()==state::FowlColor::ORANGE){
+                    if (fo->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                    t2->x=48;
+                    t2->y=336;
+                    t2->width=48;
+                    t2->height=48;}
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                    t2->x=144;
+                    t2->y=336;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                    t2->x=288;
+                    t2->y=336;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                    else if (fo->getFowlStatus()==state::FowlStatus::DEAD){
+                    t2->x=384;
+                    t2->y=336;
+                    t2->width=48;
+                    t2->height=48;    
+                    }
+                }
+                else{}}
+            else{//si c'est une arme
+            }
+                
+            
+            return t2;
+            }
+
+        }
 }

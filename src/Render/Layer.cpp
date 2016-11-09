@@ -16,14 +16,6 @@ namespace Render{
     
     Layer::~Layer (){}
     
-    const TileSet* Layer::getTileSet (){
-        return this->tileset;
-    }
-    
-    void Layer::setTileSet (const TileSet* tileset){
-        this->tileset=tileset;
-    }
-    
     void Layer::setSurface (Surface* surface){
         this->surface=surface;
     }
@@ -45,13 +37,13 @@ namespace Render{
     void Layer::stateChanged (state::StateEvent* e, std::vector<state::Element*>& list){
         if (e->getStateEventID()==state::StateEventID::FILECHAR_LOADED){
             surface->generateMap(list, surface->fowltab);
-            if (!surface->load("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
+            if (!surface->loadChar("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
             }
         }
         if (e->getStateEventID()==state::StateEventID::FILEMAP_LOADED){
             surface->generateMap(list, surface->fieldtab);
-            if (!surface->load("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), &surface->fieldtab[0], 40, 30)){
+            if (!surface->loadMap("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), &surface->fieldtab[0], 40, 30)){
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
             }   
         }

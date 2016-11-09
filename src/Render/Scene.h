@@ -18,7 +18,6 @@ namespace state {
 
 #include "state/IObserver.h"
 #include "SceneLayer.h"
-#include "Layer.h"
 
 namespace Render {
 

@@ -8,7 +8,6 @@
 #include <stdint.h>
 
 namespace Render {
-  class TileSet;
   class Surface;
   class Animation;
 };
@@ -21,7 +20,6 @@ namespace state {
 
 #include "state/IObserver.h"
 #include "Animation.h"
-#include "TileSet.h"
 #include "Surface.h"
 
 namespace Render {
@@ -32,14 +30,11 @@ namespace Render {
     // Attributes
   protected:
     std::map<int,Animation*> animations;
-    const TileSet* tileset;
     Surface* surface;
     // Operations
   public:
     Layer ();
     virtual ~Layer ();
-    const TileSet* getTileSet ();
-    void setTileSet (const TileSet* tileset);
     void setSurface (Surface* surface);
     void setAnimation (int i, Animation* a);
     void printText (int x, int y, const char* msg, int spriteIdx, int w, int h);
