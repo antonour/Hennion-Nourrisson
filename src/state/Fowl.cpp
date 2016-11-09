@@ -13,6 +13,7 @@ namespace state{
     this->color=color;
     this->status=status;
     this->type=TypeID::FOWL;
+    this->selected=false;
     }
     
     bool Fowl::isFowl () const{
@@ -47,5 +48,12 @@ namespace state{
         this->color=color;
     }
     
+    bool Fowl::isSelected(){
+        return this->selected;
+    }
+    
+    void Fowl::setSelected(bool sel){
+        this->selected=sel;
+    }
    
 }
