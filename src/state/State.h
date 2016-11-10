@@ -40,6 +40,7 @@ namespace state {
     void loadChar (const std::string& file_name);
     virtual ~State ();
     void killFowls ();
+    int selectNextFowl ();
   };
 
 };

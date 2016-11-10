@@ -13,7 +13,12 @@ namespace state {
     FILEMAP_LOADED     = 4,
     FILECHAR_LOADED     = 5,
     FOWL_MOVE_RIGHT     = 6,
-    FOWL_MOVE_LEFT     = 7
+    FOWL_MOVE_LEFT     = 7,
+    FOWL_STOP     = 8,
+    FOWL_SELECTED     = 9,
+    FOWL_FALL     = 10,
+    FOWL_JUMP_RIGHT     = 11,
+    FOWL_JUMP_LEFT     = 12
   };
 
 };

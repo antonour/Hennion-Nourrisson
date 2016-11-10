@@ -29,11 +29,14 @@ namespace Render {
   public:
     std::vector<int> fieldtab;
     std::vector<int> fowltab;
+    std::vector<int> arrowtab;
   private:
     sf::VertexArray m_vertices_fowl;
     sf::Texture m_tileset_fowl;
     sf::VertexArray m_vertices_field;
     sf::Texture m_tileset_field;
+    sf::VertexArray m_vertices_arrow;
+    sf::Texture m_tileset_arrow;
     // Operations
   public:
     Surface ();
@@ -41,9 +44,11 @@ namespace Render {
     virtual void clear ();
     bool loadChar (const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2,  const int* tiles, unsigned int width, unsigned int height);
     bool loadMap (const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2, const int* tiles, unsigned int width, unsigned int height);
-    virtual void  draw (sf::RenderTarget& target, sf::RenderStates states) const;
+    bool loadArrow (const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2, const int* tiles, unsigned int width, unsigned int height);
+    virtual void draw (sf::RenderTarget& target, sf::RenderStates states) const;
     void generateMap (std::vector<state::Element*>& list, std::vector<int>& tab);
     void moveFowl (int i, int j, int X, int Y, int tex);
+    void moveArrow (int i, int j, int X, int Y, int tex);
     void kill (int i, int j, int tex);
     Tile* getElementTile (state::Element* e);
     Tile* getCharTile (state::Element* e);
