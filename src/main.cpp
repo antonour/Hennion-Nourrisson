@@ -55,27 +55,25 @@ int main(int argc,char* argv[])
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if(event.type==sf::Event::Closed)
-            {
-                window.close();
-            }    
-                    //Exemple de commande agissant sur l'état des poules
-            if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
-                        next=s.selectNextFowl();
-                        k->setIDX(next);
-                        moving_fowl->setIDX(next);
-                        //cout << next << endl;
-                        e=s.getMobileElement(next);
-                        moving_fowl->setCoords(e->getX(),0,0);
-                        v->setCenter (e->getX(), e->getY());
-                        
-            }
-            
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
-                ia->runDumbIA(s,moving_fowl,k,v,ite_ia);
-                ite_ia++;
-                        
-            }
+                    if(event.type==sf::Event::Closed)
+                    {
+                        window.close();
+                    }    
+
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
+                                next=s.selectNextFowl();
+                                k->setIDX(next);
+                                moving_fowl->setIDX(next);
+                                //cout << next << endl;
+                                e=s.getMobileElement(next);
+                                moving_fowl->setCoords(e->getX(),0,0);
+                                v->setCenter (e->getX(), e->getY());
+                    }
+
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
+                        ia->runDumbIA(s,moving_fowl,k,v,ite_ia);
+                        ite_ia++;
+                    }
             
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
                         k->apply(s,true);
@@ -86,6 +84,9 @@ int main(int argc,char* argv[])
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
                         moving_fowl->setDir(Direction::EST);
                         moving_fowl->apply(s,true);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)){
+                        moving_fowl->Jump(s,true);
                     }
                     //Set de commandes permettant de bouger la caméra et de zoomer
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -102,7 +103,9 @@ int main(int argc,char* argv[])
                         {v->ZoomOut();}
 
         }
-
+        
+        moving_fowl->isFlying (s,true);
+        
         window.clear(Color(102,102,225,255));
         window.setView(v->getView());
         window.draw(*area);
