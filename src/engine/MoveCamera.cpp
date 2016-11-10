@@ -61,4 +61,10 @@ namespace engine{
     
     void MoveCamera::apply(state::State& s, bool notify){}
     
+    void MoveCamera::setCenter (int x, int y){
+        this->dxCenter=x;
+        this->dyCenter=y;
+        view.setCenter(this->dxCenter,this->dyCenter);
+    }
+    
 }
