@@ -21,8 +21,13 @@ namespace engine{
     }
     
     void CommandSet::set (Command* cmd){
+//        this->commands.insert(cmd);
     }
     
-    void CommandSet::take (CommandSet& commands, bool replace){}
+    void CommandSet::take (CommandSet& commands, bool replace){
+        if (replace==true){
+ //           Engine::takeCommands(commands);
+        }
+    }
     
 }

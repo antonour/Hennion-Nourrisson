@@ -23,11 +23,11 @@ namespace engine{
     }
     
     void Engine::addCommand (Command* cmd){
-        
+//        engine::CommandSet::set(cmd);
     }
     
     void Engine::takeCommands (CommandSet& commands){
-        
+//        this->currentCommands=commands;
     }
     
     /*std::mutex& Engine::getUpdateMutex () const{
