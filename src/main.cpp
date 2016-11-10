@@ -85,7 +85,7 @@ int main(int argc,char* argv[])
                         moving_fowl->setDir(Direction::EST);
                         moving_fowl->apply(s,true);
                     }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)){
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
                         moving_fowl->Jump(s,true);
                     }
                     //Set de commandes permettant de bouger la caméra et de zoomer
