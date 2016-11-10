@@ -32,6 +32,7 @@ namespace engine {
     void MoveOnUp ();
     void MoveOnDown ();
     sf::View getView ();
+    void setCenter (int x, int y);
     void apply (state::State& s, bool notify);
   };
 
