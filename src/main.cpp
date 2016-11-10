@@ -1,20 +1,20 @@
 #include <iostream>
 #include <map>
 #include <memory>
-//Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
+
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "state.hpp"
 #include "Render.hpp"
 #include "engine.hpp"
-#include "engine/MoveFowl.h"
-#include "state/Element.h"
+#include "ia.hpp"
 
 using namespace sf;
 using namespace std;
 using namespace state;
 using namespace Render;
 using namespace engine;
+using namespace ia;
 
 int main(int argc,char* argv[]) 
 {
@@ -44,6 +44,9 @@ int main(int argc,char* argv[])
     //cout << next << endl;
     k->setIDX(next);
     moving_fowl->setIDX(next);
+    
+    DumbIA* ia = new DumbIA();
+    int ite_ia=0;
         
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
 
@@ -64,8 +67,16 @@ int main(int argc,char* argv[])
                         //cout << next << endl;
                         e=s.getMobileElement(next);
                         moving_fowl->setCoords(e->getX(),0,0);
+                        v->setCenter (e->getX(), e->getY());
                         
             }
+            
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
+                ia->runDumbIA(s,moving_fowl,k,v,ite_ia);
+                ite_ia++;
+                        
+            }
+            
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
                         k->apply(s,true);
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
