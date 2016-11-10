@@ -592,6 +592,7 @@ struct stdlib_includes {
    int state;
    int Render;
    int engine;
+   int ia;
 };
 
 void print_include_stdlib(struct stdlib_includes* si,char* name) {
@@ -692,6 +693,12 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
        && (strstr(name,"engine::"))) {
            print ("#include \"../engine.hpp\"\n");
            si->engine = 1;
+       }
+
+       if (!si->ia 
+       && (strstr(name,"ia::"))) {
+           print ("#include \"../ia.hpp\"\n");
+           si->ia = 1;
        }
 	      
     }
