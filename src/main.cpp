@@ -8,6 +8,7 @@
 #include "Render.hpp"
 #include "engine.hpp"
 #include "ia.hpp"
+#include <ctime>
 
 using namespace sf;
 using namespace std;
@@ -18,35 +19,56 @@ using namespace ia;
 
 int main(int argc,char* argv[]) 
 {
-    //Appelle de la classe servant de Factory pour tous les éléments 
+    
+    //Appel de diverses classes utiles aux grandes classes
+    Clock C;
+    Time T;
     ElementFactory* fac=new ElementFactory();
+    CommandSet* CS=new CommandSet();
+    Surface* area=new Surface();
+    Layer l;
+    l.setSurface(area);
+
     
     //On crée l'état qui s'occupera de gérer les différents éléments
     State s;
     s.setElementFactory(fac);
-    Surface* area=new Surface();
-    Layer l;
-    l.setSurface(area);
     s.registerObserver(&l);
-    s.loadChar("../src/fichierperso.txt");
-    s.loadLevel("../src/fichiermap.txt");
     
+    ActionList* AL= new ActionList(&s,true);
+    Ruler* rules= new Ruler(AL,&s,CS); 
+    
+    Engine engine;
+    engine.setState(&s);
+    engine.loadlevel();
+    engine.takeCommands(CS);
+    engine.setRuler(rules);
+    
+   
+    
+    
+    int next;
+    next=s.selectNextFowl();
+        
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
-    KillFowl* k= new KillFowl();
+    KillFowl* k= new KillFowl(next);
     MoveFowl* moving_fowl=new MoveFowl(499);
     
     state::Element * e=s.getMobileElement(499);
     moving_fowl->setCoords(e->getX(),0,0);
     
-    int next;
-    next=s.selectNextFowl();
-    //cout << next << endl;
-    k->setIDX(next);
+
     moving_fowl->setIDX(next);
     
     DumbIA* ia = new DumbIA();
     int ite_ia=0;
+    
+    //On instancie les différentes classes qui généreront les commandes
+    MoveCommand* MC= new MoveCommand(0,0,MoveID::CAMERA,0,Direction::NONE);
+    KillCommand* KC= new KillCommand(0);
+    LoadCommand* LC= new LoadCommand(true);
+    FireCommand* FC= new FireCommand(0,0,0,true);
         
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
 
@@ -62,9 +84,8 @@ int main(int argc,char* argv[])
 
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
                                 next=s.selectNextFowl();
-                                k->setIDX(next);
+                                KC->setIDX(next);
                                 moving_fowl->setIDX(next);
-                                //cout << next << endl;
                                 e=s.getMobileElement(next);
                                 moving_fowl->setCoords(e->getX(),0,0);
                                 v->setCenter (e->getX(), e->getY());
@@ -76,14 +97,16 @@ int main(int argc,char* argv[])
                     }
             
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-                        k->apply(s,true);
+                        engine.addCommand(KC);
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
-                        moving_fowl->setDir(Direction::OUEST);
-                        moving_fowl->apply(s,true);
+                        MC->setMove(0,0,next,Direction::OUEST);
+                        MC->setMoveID(MoveID::CHICKEN);
+                        engine.addCommand(MC);
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-                        moving_fowl->setDir(Direction::EST);
-                        moving_fowl->apply(s,true);
+                        MC->setMove(0,0,next,Direction::EST);
+                        MC->setMoveID(MoveID::CHICKEN);
+                        engine.addCommand(MC);
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
                         moving_fowl->Jump(s,true);
@@ -103,9 +126,11 @@ int main(int argc,char* argv[])
                         {v->ZoomOut();}
 
         }
-        
         moving_fowl->isFlying (s,true);
-        
+        T=C.getElapsedTime();
+        if (engine.update(T.asMilliseconds())){
+            T=C.restart();
+        }
         window.clear(Color(102,102,225,255));
         window.setView(v->getView());
         window.draw(*area);
