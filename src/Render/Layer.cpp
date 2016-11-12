@@ -120,7 +120,7 @@ namespace Render{
                     if (poule->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT && poule->isSelected()){
                        X=poule->getX();
                        Y=poule->getY();
-                       X+=3;
+                       X+=5;
                        poule->setX(X);
                        surface->arrowtab[i-40]=0;
                        if (surface->fowltab[i]%9==1){
@@ -155,7 +155,7 @@ namespace Render{
                     if (poule->getFowlStatus()==state::FowlStatus::ALIVE_LEFT && poule->isSelected()){
                        X=poule->getX();
                        Y=poule->getY();
-                       X-=3;
+                       X-=5;
                        poule->setX(X);
                        surface->arrowtab[i-40]=0;
                        if (surface->fowltab[i]%9==1){
