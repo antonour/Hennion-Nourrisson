@@ -6,21 +6,40 @@
 
 #include "../engine.hpp"
 #include "../state.hpp"
+#include <iostream>
+using namespace std;
 
 namespace engine{
     
-    /*Ruler::Ruler (ActionList& a, const state::State& s, const CommandSet& c){
+    Ruler::Ruler (ActionList* a, state::State* s, CommandSet* c){
          this->actions=a;
          this->currentState=s;
          this->commands=c;
-    }*/
+    }
     
     
     Ruler::~Ruler (){}
     
     void Ruler::collisions (){}
     
-    void Ruler::apply (){}
+    void Ruler::apply (){
+        if (this->commands->commands[1]){
+            KillCommand* k;
+            k=reinterpret_cast<KillCommand*>(this->commands->commands[1]);
+            this->actions->add(new KillFowl(k->getIDX()));
+        }
+        if (this->commands->commands[0]){
+            MoveCommand* m;
+            m=reinterpret_cast<MoveCommand*>(this->commands->commands[0]);
+            if (m->getMoveID()==MoveID::CHICKEN){
+                cout << "apply" << endl;
+                this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
+            }
+                //this->actions->add(new KillFowl(k->getIDX()));
+        }
+        this->actions->apply();
+        this->commands->commands.clear();
+    }
     
     void Ruler::MoveMyFowl (int idx){
         

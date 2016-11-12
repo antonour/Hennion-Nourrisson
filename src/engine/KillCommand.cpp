@@ -6,17 +6,22 @@
 
 #include "../engine.hpp"
 #include "../state.hpp"
+#include <iostream>
 
 namespace engine{
-    
-    ChooseWeapon::ChooseWeapon (int idx){
+    KillCommand::KillCommand(int idx){
         this->idx=idx;
     }
     
-    ChooseWeapon::~ChooseWeapon (){}
+    CmdTypeID KillCommand::getCmdTypeID(){
+        return CmdTypeID::KILL_CMD;
+    }
     
-    void ChooseWeapon::apply(state::State* s, bool notify){}
-
+    void KillCommand::setIDX(int idx){
+        this->idx=idx;
+    }
     
-    
+    int KillCommand::getIDX(){
+        return this->idx;
+    }
 }

@@ -10,18 +10,27 @@
 
 namespace engine{
     
+    CommandSet::CommandSet (){}
+    
     CommandSet::~CommandSet (){}
     
-    int  CommandSet::size () const{
-        return 0;
-    }
-    
-    Command* CommandSet::get (int category){
-        return this->commands[category];
+    Command* CommandSet::get (int idx){
+        return this->commands[idx];
     }
     
     void CommandSet::set (Command* cmd){
-//        this->commands.insert(cmd);
+        if (cmd->getCmdTypeID()==CmdTypeID::MOVE_CMD){
+            this->commands[0]=cmd;
+        }
+        if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
+            this->commands[1]=cmd;
+        }
+        if (cmd->getCmdTypeID()==CmdTypeID::FIRE_CMD){
+            this->commands[2]=cmd;
+        }
+        if (cmd->getCmdTypeID()==CmdTypeID::LOAD_CMD){
+            this->commands[3]=cmd;
+        }
     }
     
     void CommandSet::take (CommandSet& commands, bool replace){

@@ -2,14 +2,12 @@
 #ifndef ENGINE__LOADCOMMAND__H
 #define ENGINE__LOADCOMMAND__H
 
-#include <string>
 
 namespace engine {
   class Command;
 }
 
-#include "CommandTypeID.h"
-#include "EngineMode.h"
+#include "CmdTypeID.h"
 #include "Command.h"
 
 namespace engine {
@@ -17,14 +15,13 @@ namespace engine {
   /// class LoadCommand - 
   class LoadCommand : public engine::Command {
     // Attributes
-  protected:
-    std::string file_name;
+  public:
+    bool load;
     // Operations
   public:
-    LoadCommand (const char* f);
-    int getCategory () const;
-    CommandTypeID getTypeID () const;
-    EngineMode getMode () const;
+    LoadCommand (bool load);
+    void setLoad (bool load);
+    CmdTypeID getCmdTypeID ();
   };
 
 };

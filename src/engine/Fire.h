@@ -22,6 +22,7 @@ namespace engine {
   public:
     Fire (state::Orientation orientation, int puissance);
     ~Fire ();
+    void apply (state::State* s, bool notify);
   };
 
 };

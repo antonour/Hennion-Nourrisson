@@ -10,38 +10,45 @@
 
 namespace engine{
     
-    Engine::Engine (){}
+    Engine::Engine (){
+        this->lastUpdateTime=200;
+    }
     
     Engine::~Engine (){}
     
-    EngineMode Engine::getMode () const{
-        return this->mode;
-    }
-    
-    const state::State& Engine::getState () const{
+    state::State* Engine::getState (){
         return this->currentState;
     }
     
+    void Engine::setState(state::State* s){
+        this->currentState=s;
+    }
+    
+    void Engine::setRuler(Ruler* r){
+        this->rules=r;
+    }
+    
     void Engine::addCommand (Command* cmd){
-//        engine::CommandSet::set(cmd);
+        this->currentCommands->set(cmd);
     }
     
-    void Engine::takeCommands (CommandSet& commands){
-//        this->currentCommands=commands;
+    void Engine::takeCommands (CommandSet* commands){
+        this->currentCommands=commands;
     }
-    
-    /*std::mutex& Engine::getUpdateMutex () const{
-        return &this->update_mutex;
-    }*/
-    
+
     bool Engine::update (int64_t time, int64_t* next_time){
-        return false;
-    }
-  
-    void Engine::setMode (EngineMode mode){
-        this->mode=mode;
+        if (this->lastUpdateTime-time<=0){
+            this->rules->apply();
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
-    void Engine::loadlevel (const char* file_name){}
+    void Engine::loadlevel (){
+        this->currentState->loadChar("../src/fichierperso.txt");
+        this->currentState->loadLevel("../src/fichiermap.txt");
+    }
     
 }

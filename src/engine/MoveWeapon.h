@@ -27,6 +27,7 @@ namespace engine {
     ~MoveWeapon ();
     void setCoords (int dx, int dy, int dpos);
     void setOrientation (state::Orientation orientation);
+    void apply (state::State* s, bool notify);
   };
 
 };

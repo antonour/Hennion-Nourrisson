@@ -59,7 +59,7 @@ namespace engine{
         return view;
     }
     
-    void MoveCamera::apply(state::State& s, bool notify){}
+    void MoveCamera::apply(state::State* s, bool notify){}
     
     void MoveCamera::setCenter (int x, int y){
         this->dxCenter=x;

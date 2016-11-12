@@ -3,19 +3,18 @@
 #define ENGINE__COMMAND__H
 
 
-#include "CommandTypeID.h"
-#include "CommandCategory.h"
+#include "CmdTypeID.h"
 
 namespace engine {
 
   /// class Command - 
   class Command {
     // Associations
+    engine::CmdTypeID cmdType;
     // Operations
   public:
     virtual ~Command ();
-    virtual int  getCategory () const = 0;
-    virtual CommandTypeID getTypeID () const = 0;
+    virtual CmdTypeID getCmdTypeID () = 0;
   };
 
 };

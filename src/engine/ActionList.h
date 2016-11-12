@@ -18,18 +18,17 @@ namespace engine {
     // Associations
     // Attributes
   protected:
-    state::State& s;
+    state::State* s;
     std::vector<Action*> actions;
     bool notify;
     // Operations
   public:
-    ActionList (state::State& s, bool notify);
+    ActionList (state::State* s, bool notify);
     ~ActionList ();
     int size () const;
     Action* get (int i) const;
     void apply ();
     void add (Action* action);
-    void addApply (Action* action);
   };
 
 };

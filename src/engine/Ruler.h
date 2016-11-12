@@ -18,12 +18,12 @@ namespace engine {
     // Associations
     // Attributes
   protected:
-    const state::State& currentState;
-    const CommandSet& commands;
-    ActionList& actions;
+    state::State* currentState;
+    CommandSet* commands;
+    ActionList* actions;
     // Operations
   public:
-    Ruler (ActionList& a, const state::State& s, const CommandSet& c);
+    Ruler (ActionList* a, state::State* s, CommandSet* c);
     ~Ruler ();
     void collisions ();
     void apply ();

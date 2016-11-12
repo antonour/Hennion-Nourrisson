@@ -19,9 +19,9 @@ namespace engine {
     int idx;
     // Operations
   public:
-    KillFowl ();
+    KillFowl (int idx);
     ~KillFowl ();
-    void apply (state::State& s, bool notify);
+    void apply (state::State* s, bool notify);
     void setIDX (int idx);
   };
 

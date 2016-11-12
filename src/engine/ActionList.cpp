@@ -9,10 +9,10 @@
 
 namespace engine{
     
-    /*ActionList::ActionList (state::State& s, bool notify){
+    ActionList::ActionList (state::State* s, bool notify){
         this->s=s;
         this->notify=notify;        
-    }*/
+    }
     
     ActionList::~ActionList (){}
     
@@ -25,15 +25,14 @@ namespace engine{
     }
     
     void ActionList::apply (){
-        
+        for (Action* a : this->actions){
+            a->apply(this->s,this->notify);
+        }
+        this->actions.clear();
     }
     
     void ActionList::add (Action* action){
-        
-    }
-    
-    void ActionList::addApply (Action* action){
-        
+        this->actions.push_back(action);
     }
     
 }

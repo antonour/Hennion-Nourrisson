@@ -8,10 +8,17 @@
 #include "../state.hpp"
 #include <iostream>
 
+using namespace std;
+
 namespace engine{
     
     MoveFowl::MoveFowl (int idx){
         this->idx=idx;
+    }
+    
+    MoveFowl::MoveFowl (int idx, state::Direction d){
+        this->idx=idx;
+        this->Direction=d;
     }
     
     MoveFowl::~MoveFowl (){}
@@ -66,6 +73,7 @@ namespace engine{
                 
             state::Field* fdroit;
             fdroit=reinterpret_cast<state::Field*>(eldroit);
+        
         if (el->getTypeID()==state::TypeID::FOWL){
             bla=reinterpret_cast<state::Fowl*>(el);
             if (this->Direction==state::Direction::OUEST){
@@ -111,11 +119,10 @@ namespace engine{
         return this->poule;
     }
    
-    void MoveFowl::apply(state::State& s, bool notify){
+    void MoveFowl::apply(state::State* s, bool notify){
         state::Fowl* bla;
-        state::Element * el=s.getMobileElement(this->idx);   
-                
-        int ddx, iddx;
+        state::Element * el=s->getMobileElement(this->idx);
+        /*int ddx, iddx;
                 
         state::Element* elgauche;
         state::Element* eldroit;     
@@ -123,22 +130,22 @@ namespace engine{
         if (this->dx>el->getX()){
             ddx=this->dx-el->getX();
             iddx=ddx/125;
-            state::Element* egauche=s.getStaticElement(this->idx-(iddx+1)+40*this->dy);
-            state::Element* edroit=s.getStaticElement(this->idx+(iddx-1)+40*this->dy);
+            state::Element* egauche=s->getStaticElement(this->idx-(iddx+1)+40*this->dy);
+            state::Element* edroit=s->getStaticElement(this->idx+(iddx-1)+40*this->dy);
             elgauche=egauche;
             eldroit=edroit;
         }
         else if (this->dx<el->getX()){
             ddx=el->getX()-this->dx;
             iddx=ddx/125;
-            state::Element* egauche=s.getStaticElement(this->idx-(iddx-1)+40*this->dy);
-            state::Element* edroit=s.getStaticElement(this->idx+(iddx+1)+40*this->dy);
+            state::Element* egauche=s->getStaticElement(this->idx-(iddx-1)+40*this->dy);
+            state::Element* edroit=s->getStaticElement(this->idx+(iddx+1)+40*this->dy);
             elgauche=egauche;
             eldroit=edroit;
         }
         else{
-            state::Element* egauche=s.getStaticElement(this->idx-1);
-            state::Element* edroit=s.getStaticElement(this->idx+1);
+            state::Element* egauche=s->getStaticElement(this->idx-1);
+            state::Element* edroit=s->getStaticElement(this->idx+1);
             elgauche=egauche;
             eldroit=edroit;
         }
@@ -147,27 +154,28 @@ namespace engine{
             fgauche=reinterpret_cast<state::Field*>(elgauche);
                 
             state::Field* fdroit;
-            fdroit=reinterpret_cast<state::Field*>(eldroit);    
+            fdroit=reinterpret_cast<state::Field*>(eldroit);   */ 
         
         if (el->getTypeID()==state::TypeID::FOWL){
             bla=reinterpret_cast<state::Fowl*>(el);
-                        if (this->Direction==state::Direction::OUEST and fgauche->getFieldTypeID()==state::FieldTypeID::NEANT){
+            if (this->Direction==state::Direction::OUEST){ //and fgauche->getFieldTypeID()==state::FieldTypeID::NEANT){
                 bla->setFowlStatus(state::FowlStatus::ALIVE_LEFT);
-                s.setMobileElement(bla,this->idx);
+                s->setMobileElement(bla,this->idx);
                 if (notify){
-                    std::vector<state::Element*> list=s.getMobileElements();
-                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_LEFT),list);
+                    std::vector<state::Element*> list=s->getMobileElements();
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_LEFT),list);
                 }
             }
-            if (this->Direction==state::Direction::EST and fdroit->getFieldTypeID()==state::FieldTypeID::NEANT){
+            if (this->Direction==state::Direction::EST){ //and fdroit->getFieldTypeID()==state::FieldTypeID::NEANT){
                 bla->setFowlStatus(state::FowlStatus::ALIVE_RIGHT);
-                s.setMobileElement(bla,this->idx);
+                s->setMobileElement(bla,this->idx);
                 if (notify){
-                    std::vector<state::Element*> list=s.getMobileElements();
-                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_RIGHT),list);
+                    std::vector<state::Element*> list=s->getMobileElements();
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_RIGHT),list);
                 }
             }
-            }}
+        }
+    }
 
     void MoveFowl::isFlying (state::State& s, bool notify){
         state::Fowl* bla;

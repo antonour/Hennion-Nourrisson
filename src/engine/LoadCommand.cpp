@@ -8,21 +8,15 @@
 #include "../state.hpp"
 
 namespace engine{
-    
-    LoadCommand::LoadCommand (const char* f){
-        
+    LoadCommand::LoadCommand(bool load){
+        this->load=load;
     }
     
-    int LoadCommand::getCategory () const{
-        return MAIN_CATEGORY;
+    void LoadCommand::setLoad(bool load){
+        this->load=load;
     }
     
-    CommandTypeID LoadCommand::getTypeID () const{
-        return LOAD;
+    CmdTypeID LoadCommand::getCmdTypeID(){
+        return CmdTypeID::LOAD_CMD;
     }
-    
-    EngineMode LoadCommand::getMode () const{
-        return PAUSE;
-    }
-    
 }

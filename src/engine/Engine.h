@@ -3,16 +3,14 @@
 #define ENGINE__ENGINE__H
 
 #include "../state.hpp"
-#include <mutex>
 #include <stdint.h>
 
 namespace engine {
   class CommandSet;
-  class Command;
   class Ruler;
+  class Command;
 }
 
-#include "EngineMode.h"
 #include "Ruler.h"
 #include "CommandSet.h"
 
@@ -21,28 +19,24 @@ namespace engine {
   /// class Engine - 
   class Engine {
     // Associations
-    engine::EngineMode mode;
     // Attributes
   protected:
     state::ElementFactory factory;
-    state::State currentState;
-    mutable std::mutex commands_mutex;
+    state::State* currentState;
     CommandSet* currentCommands;
-    mutable std::mutex update_mutex;
     int64_t lastUpdateTime;
+    Ruler* rules;
     // Operations
   public:
+    void loadlevel ();
     Engine ();
     ~Engine ();
-    EngineMode getMode () const;
-    const state::State& getState () const;
+    state::State* getState ();
+    void setState (state::State* s);
     void addCommand (Command* cmd);
-    void takeCommands (CommandSet& commands);
-    std::mutex& getUpdateMutex () const;
+    void takeCommands (CommandSet* commands);
     bool update (int64_t time, int64_t* next_time = NULL);
-  protected:
-    void setMode (EngineMode mode);
-    void loadlevel (const char* file_name);
+    void setRuler (Ruler* r);
   };
 
 };

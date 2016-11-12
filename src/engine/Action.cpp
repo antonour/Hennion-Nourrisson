@@ -11,6 +11,6 @@ namespace engine{
     
     Action::~Action (){}
     
-    void Action::apply (state::State& s, bool notify){}
+    void Action::apply (state::State* s, bool notify){}
     
 }

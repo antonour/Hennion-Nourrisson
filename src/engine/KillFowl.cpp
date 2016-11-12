@@ -9,25 +9,29 @@
 
 namespace engine{
     
-    KillFowl::KillFowl (){}
-    
-    KillFowl::~KillFowl (){}
+    KillFowl::KillFowl (int idx){
+        this->idx=idx;
+    }
     
     void KillFowl::setIDX(int idx){
         this->idx=idx;
     }
     
-    void KillFowl::apply(state::State& s, bool notify){
+    KillFowl::~KillFowl (){}
+    
+
+    
+    void KillFowl::apply(state::State* s, bool notify){
         state::Element * pouledead;
-        pouledead= s.getMobileElement(this->idx);
+        pouledead= s->getMobileElement(this->idx);
         if (pouledead->getTypeID()==state::TypeID::FOWL){
             state::Fowl * poule;
             poule=reinterpret_cast<state::Fowl*>(pouledead);
             poule->setFowlStatus(state::FowlStatus::DEAD);
-            s.setMobileElement(poule, this->idx);
+            s->setMobileElement(poule, this->idx);
             if (notify){
-                std::vector<state::Element*> listpoule=s.getMobileElements();        
-                s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_DEAD),listpoule);
+                std::vector<state::Element*> listpoule=s->getMobileElements();        
+                s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_DEAD),listpoule);
         
             }
         }

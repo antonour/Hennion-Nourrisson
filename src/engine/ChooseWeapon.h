@@ -2,6 +2,7 @@
 #ifndef ENGINE__CHOOSEWEAPON__H
 #define ENGINE__CHOOSEWEAPON__H
 
+#include "../state.hpp"
 
 namespace engine {
   class Action;
@@ -20,6 +21,7 @@ namespace engine {
   public:
     ChooseWeapon (int idx);
     ~ChooseWeapon ();
+    void apply (state::State* s, bool notify);
   };
 
 };

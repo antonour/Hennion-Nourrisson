@@ -25,6 +25,7 @@ namespace engine{
         this->Orientation=orientation;
     }
     
+    void MoveWeapon::apply(state::State* s, bool notify){}
      
     
 }

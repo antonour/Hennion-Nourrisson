@@ -17,13 +17,13 @@ namespace engine {
   class CommandSet {
     // Associations
     // Attributes
-  protected:
+  public:
     std::map<int,Command*> commands;
     // Operations
   public:
+    CommandSet ();
     ~CommandSet ();
-    int  size () const;
-    Command* get (int category);
+    Command* get (int idx);
     void set (Command* cmd);
     void take (CommandSet& commands, bool replace);
   };

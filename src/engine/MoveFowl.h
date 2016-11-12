@@ -25,6 +25,7 @@ namespace engine {
     // Operations
   public:
     MoveFowl (int idx);
+    MoveFowl (int idx, state::Direction d);
     ~MoveFowl ();
     void setCoords (int dx, int dy, int dpos);
     void setDir (state::Direction direction);
@@ -34,7 +35,7 @@ namespace engine {
     state::Fowl* getFowl ();
     void setFowl (state::Fowl* f);
     void isFlying (state::State& s, bool notify);
-    void apply (state::State& s, bool notify);
+    void apply (state::State* s, bool notify);
   };
 
 };
