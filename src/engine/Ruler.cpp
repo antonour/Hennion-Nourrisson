@@ -23,7 +23,7 @@ namespace engine{
     void Ruler::collisions (){}
     
     void Ruler::apply (){
-        if (this->commands->commands[1]){
+        /*if (this->commands->commands[1]){
             KillCommand* k;
             k=reinterpret_cast<KillCommand*>(this->commands->commands[1]);
             this->actions->add(new KillFowl(k->getIDX()));
@@ -35,7 +35,21 @@ namespace engine{
                 cout << "apply" << endl;
                 this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
             }
-                //this->actions->add(new KillFowl(k->getIDX()));
+        }*/
+        
+        for (Command* cmd : this->commands->commands){
+            if (cmd->getCmdTypeID()==CmdTypeID::MOVE_CMD){
+                MoveCommand* m;
+                m=reinterpret_cast<MoveCommand*>(cmd);
+                if (m->getMoveID()==MoveID::CHICKEN){
+                this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
+                }
+            }
+            if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
+                KillCommand* k;
+                k=reinterpret_cast<KillCommand*>(this->commands->commands[1]);
+                this->actions->add(new KillFowl(k->getIDX()));
+            }
         }
         this->actions->apply();
         this->commands->commands.clear();
