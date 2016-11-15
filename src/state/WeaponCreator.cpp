@@ -10,12 +10,13 @@ namespace state{
     
     Element* WeaponCreator::create () {
         
-        Element* p=new Weapon(status);
+        Element* p=new Weapon(status,visible);
         p->setTypeID(TypeID::WEAPON);
         return p;
     }
     
-    WeaponCreator::WeaponCreator(WeaponStatus status){
+    WeaponCreator::WeaponCreator(WeaponStatus status, bool visible){
         this->status=status;
+        this->visible=visible;
     }
 }
