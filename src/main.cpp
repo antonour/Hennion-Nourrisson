@@ -35,6 +35,7 @@ int main(int argc,char* argv[])
     s.setElementFactory(fac);
     s.registerObserver(&l);
     
+    
     ActionList* AL= new ActionList(&s,true);
     Ruler* rules= new Ruler(AL,&s,CS); 
     
@@ -67,8 +68,8 @@ int main(int argc,char* argv[])
     //On instancie les différentes classes qui généreront les commandes
     MoveCommand* MC= new MoveCommand(0,0,MoveID::CAMERA,0,Direction::NONE);
     KillCommand* KC= new KillCommand(0);
-    LoadCommand* LC= new LoadCommand(true);
-    FireCommand* FC= new FireCommand(0,0,0,true);
+//    LoadCommand* LC= new LoadCommand(true);
+//    FireCommand* FC= new FireCommand(0,0,0,true);
         
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
 
@@ -92,7 +93,7 @@ int main(int argc,char* argv[])
                     }
 
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
-                        ia->runDumbIA(s,moving_fowl,k,v,ite_ia);
+                        ia->runDumbIA(&s,moving_fowl,k,v,ite_ia);
                         ite_ia++;
                     }
             
