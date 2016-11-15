@@ -46,6 +46,8 @@ namespace state{
     
     void State::loadLevel (const std::string& file_name){
         int a=1;
+        int k=0;
+        int l=0;
         int b=10;
         ifstream fichier1(file_name, ios::in);
         if(fichier1){
@@ -87,7 +89,15 @@ namespace state{
                             contenu+=contenu2;
                         }
                         if(i%3==0){
-                            background.push_back(factory->create(contenu,false));
+                            Element * terr = this->factory->create(contenu,false);
+                            terr->setX(125*k);
+                            k++;
+                            if (k==40){
+                                l++;
+                                k=0;
+                            }
+                            terr->setY(97*l);
+                            this->background.push_back(terr);
                             fichier3.get(poubelle);
                             contenu="";
                         }
