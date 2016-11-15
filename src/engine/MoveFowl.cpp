@@ -33,7 +33,7 @@ namespace engine{
         this->Direction=direction;
     }
     
-    void MoveFowl::Jump (state::State& s, bool notify){
+    void MoveFowl::Jump (state::State* s, bool notify){
         /*
         state::Fowl* bla;
         state::Element * el=s.getMobileElement(this->idx);   
@@ -127,7 +127,7 @@ namespace engine{
         
         if (el->getTypeID()==state::TypeID::FOWL){
             bla=reinterpret_cast<state::Fowl*>(el);
-            if (this->Direction==state::Direction::OUEST){ //and fgauche->getFieldTypeID()==state::FieldTypeID::NEANT){
+            if (this->Direction==state::Direction::OUEST){
                 bla->setFowlStatus(state::FowlStatus::ALIVE_LEFT);
                 s->setMobileElement(bla,this->idx);
                 if (notify){
@@ -136,7 +136,7 @@ namespace engine{
                     s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_LEFT),list,wep);
                 }
             }
-            if (this->Direction==state::Direction::EST){ //and fdroit->getFieldTypeID()==state::FieldTypeID::NEANT){
+            if (this->Direction==state::Direction::EST){
                 bla->setFowlStatus(state::FowlStatus::ALIVE_RIGHT);
                 s->setMobileElement(bla,this->idx);
                 if (notify){
