@@ -30,24 +30,24 @@ namespace Render{
     
     void Layer::update (const state::State& elementList){
     }
-    
-    void Layer::stateChanged (state::StateEvent* e){
-    }
-    
-    void Layer::stateChanged (state::StateEvent* e, std::vector<state::Element*>& list){
+
+    void Layer::stateChanged (state::StateEvent* e, std::vector<state::Element*>& list, std::vector<state::Weapon*>& weaps){
         if (e->getStateEventID()==state::StateEventID::FILECHAR_LOADED){
             surface->generateMap(list, surface->fowltab);
-            if (!surface->loadChar("../res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
+            if (!surface->loadChar("./res/chicken_large.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->fowltab[0], 40, 30)){
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER CHICKEN");
             }
-            if (!surface->loadArrow("../res/arrow.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->arrowtab[0], 40, 30)){
+            if (!surface->loadArrow("./res/arrow.png", sf::Vector2u(125, 97),sf::Vector2u(48,48), &surface->arrowtab[0], 40, 30)){
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER ARROW");
+            }
+            if (!surface->loadWeapons("./res/Armes1.png", sf::Vector2u(125, 97),sf::Vector2u(60,60), &surface->weapontab[0], 40, 30)){
+                throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER WEAPON");
             }
         }
         
         if (e->getStateEventID()==state::StateEventID::FILEMAP_LOADED){
             surface->generateMap(list, surface->fieldtab);
-            if (!surface->loadMap("../res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), &surface->fieldtab[0], 40, 30)){
+            if (!surface->loadMap("./res/tileset.png", sf::Vector2u(125, 97),sf::Vector2u(125,97), &surface->fieldtab[0], 40, 30)){
                 throw std::runtime_error("IMPOSSIBLE DE CHARGER LE FICHIER");
             }   
         }
@@ -120,9 +120,10 @@ namespace Render{
                     if (poule->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT && poule->isSelected()){
                        X=poule->getX();
                        Y=poule->getY();
-                       X+=5;
+                       X+=2;
                        poule->setX(X);
                        surface->arrowtab[i-40]=0;
+                       surface->weapontab[i]=10;
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=4;
                        }
@@ -139,6 +140,7 @@ namespace Render{
                            surface->fowltab[i]=surface->fowltab[i]-surface->fowltab[i]%9+1;
                        surface->moveFowl(i%40,i/40,X,Y,surface->fowltab[i]);
                        surface->moveArrow((i-40)%40,(i-40)/40,X,Y-97,surface->arrowtab[i-40]);
+                       surface->dispWeapon(i%40,i/40,X,Y,surface->weapontab[i]);
                     }
                     
                 }
@@ -155,9 +157,10 @@ namespace Render{
                     if (poule->getFowlStatus()==state::FowlStatus::ALIVE_LEFT && poule->isSelected()){
                        X=poule->getX();
                        Y=poule->getY();
-                       X-=5;
+                       X-=2;
                        poule->setX(X);
                        surface->arrowtab[i-40]=0;
+                       surface->weapontab[i]=10;
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=1;
                        }
@@ -174,6 +177,7 @@ namespace Render{
                            surface->fowltab[i]=surface->fowltab[i]-surface->fowltab[i]%9+1;
                        surface->moveFowl(i%40,i/40,X,Y,surface->fowltab[i]);
                        surface->moveArrow((i-40)%40,(i-40)/40,X,Y-97,surface->arrowtab[i-40]);
+                       surface->dispWeapon(i%40,i/40,X,Y,surface->weapontab[i]);
                     }
                 }
                 i++;
@@ -192,6 +196,7 @@ namespace Render{
                        X=poule->getX();
                        Y=poule->getY();
                        surface->arrowtab[i-40]=1;
+                       surface->weapontab[i]=29;
                        if (surface->fowltab[i]%9==2){
                            surface->fowltab[i]-=1;
                        }
@@ -212,8 +217,21 @@ namespace Render{
                        }
                        surface->moveFowl(i%40,i/40,X,Y,surface->fowltab[i]);
                        surface->moveArrow((i-40)%40,(i-40)/40,X,Y-97,surface->arrowtab[i-40]);
+                       surface->dispWeapon(i%40,i/40,X,Y,surface->weapontab[i]);
                     }
                 }
+                i++;
+            }
+        }
+        if (e->getStateEventID()==state::StateEventID::WEAPON_IN){
+            int i=0,X=0,Y=0;
+            for (state::Weapon* arme: weaps){
+                    if (arme->getWeaponStatus()==state::WeaponStatus::MELEE && arme->isVisible()){
+                       X=arme->getX();
+                       Y=arme->getY();
+                       surface->weapontab[i]=10;
+                       surface->dispWeapon(i%40,i/40,X,Y,surface->weapontab[i]);
+                    }
                 i++;
             }
         }

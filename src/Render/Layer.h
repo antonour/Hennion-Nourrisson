@@ -14,6 +14,7 @@ namespace Render {
 namespace state {
   class StateEvent;
   class Element;
+  class Weapon;
   class State;
   class IObserver;
 }
@@ -38,8 +39,7 @@ namespace Render {
     void setSurface (Surface* surface);
     void setAnimation (int i, Animation* a);
     void printText (int x, int y, const char* msg, int spriteIdx, int w, int h);
-    void stateChanged (state::StateEvent* e);
-    void stateChanged (state::StateEvent* e, std::vector<state::Element*>& list);
+    void stateChanged (state::StateEvent* e, std::vector<state::Element*>& list, std::vector<state::Weapon*>& weaps);
     void sync (int64_t time);
     void update (int64_t time);
   protected:

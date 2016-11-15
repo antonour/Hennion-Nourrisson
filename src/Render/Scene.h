@@ -39,7 +39,6 @@ namespace Render {
     void setLayer (int idx, Layer* layer);
     void registerObservers (const state::State* s);
     void unregisterObservers (const state::State* s);
-    void stateChanged (state::StateEvent* e);
     void stateChanged (state::StateEvent* e, std::vector<state::Element*>& list);
     void sync (int64_t time);
     void update (int64_t time);
