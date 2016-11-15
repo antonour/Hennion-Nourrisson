@@ -30,8 +30,9 @@ namespace engine{
             poule->setFowlStatus(state::FowlStatus::DEAD);
             s->setMobileElement(poule, this->idx);
             if (notify){
-                std::vector<state::Element*> listpoule=s->getMobileElements();        
-                s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_DEAD),listpoule);
+                std::vector<state::Element*> listpoule=s->getMobileElements();
+                std::vector<state::Weapon*> wep=s->getWeaponElements();      
+                s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_DEAD),listpoule,wep);
         
             }
         }
