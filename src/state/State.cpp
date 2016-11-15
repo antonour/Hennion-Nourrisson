@@ -24,7 +24,7 @@ namespace state{
     }
     
     Element* State::getMobileElement (int idx){
-        return this->elements[idx];
+        return this->elements.at(idx);
     }
     
     std::vector<Element*> State::getStaticElements (){
@@ -41,7 +41,7 @@ namespace state{
             fo=reinterpret_cast<Fowl*>(proc);
             fo->setFowlStatus(FowlStatus::DEAD);
         }
-        this->notifyObservers(new StateEvent(FOWL_DEAD),this->elements);
+        this->notifyObservers(new StateEvent(FOWL_DEAD),this->elements,this->weapons);
     }
     
     void State::loadLevel (const std::string& file_name){
@@ -99,7 +99,7 @@ namespace state{
             }
             //cout << contenu << endl;
             fichier3.close();
-            this->notifyObservers(new StateEvent(FILEMAP_LOADED),this->background);
+            this->notifyObservers(new StateEvent(FILEMAP_LOADED),this->background,this->weapons);
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
@@ -151,14 +151,19 @@ namespace state{
                         }
                         if(i%3==0){
                             Element * garb = this->factory->create(contenu,true);
+                            Element * weap = this->factory->create("02",true);
+                            Weapon * w=reinterpret_cast<Weapon*>(weap);
                             garb->setX(125*k);
+                            weap->setX(125*k);
                             k++;
                             if (k==40){
                                 l++;
                                 k=0;
                             }
                             garb->setY(97*l);
+                            weap->setY(97*l);
                             this->elements.push_back(garb);
+                            this->weapons.push_back(w);
                             fichier3.get(poubelle);
                             contenu="";
                         }
@@ -169,7 +174,7 @@ namespace state{
                 }
             }
             fichier3.close();
-            this->notifyObservers(new StateEvent(FILECHAR_LOADED),this->elements);
+            this->notifyObservers(new StateEvent(FILECHAR_LOADED),this->elements,this->weapons);
         }
         else
             cerr << "Impossible to open that f***ing file" << endl;
@@ -202,7 +207,7 @@ namespace state{
                     f->setSelected(true);
                     this->setMobileElement(f,p);
                     lastfound=true;
-                    this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements);
+                    this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
                     return p;
                 }
             }
@@ -212,7 +217,7 @@ namespace state{
                     f->setSelected(false);
                     f->setFowlStatus(FowlStatus::ALIVE_FACE);
                     this->setMobileElement(f,p);
-                    this->notifyObservers(new StateEvent(StateEventID::FOWL_STOP),this->elements);
+                    this->notifyObservers(new StateEvent(StateEventID::FOWL_STOP),this->elements,this->weapons);
                 }
             }
             p++;
@@ -223,13 +228,55 @@ namespace state{
                     if (fo->getFowlColor()!=FowlColor::BLANK){
                         fo->setSelected(true);
                         this->setMobileElement(fo,k);
-                        this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements);
+                        this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
                         return k;
                     }
                     k++;
                 }
         }
         return 0;
+    }
+    
+    std::vector<Weapon*> State::getWeaponElements(){
+        return this->weapons;
+    }
+    
+    Weapon* State::getWeaponElement(int idx){
+        return this->weapons.at(idx);
+    }
+    
+    void State::setWeaponElement(Weapon* we, int idx) {
+        int i=0;
+        std::vector<Weapon*> newlist;
+        for (Weapon* parcours: this->weapons){
+            if (i==idx){
+                newlist.push_back(we);
+                i++;
+            }
+            else{
+                newlist.push_back(parcours);
+                i++;
+            }
+        }
+        this->weapons=newlist;
+    }
+
+    
+    void State::selectWeapon(WeaponStatus status, int idx){
+        Weapon* wea= new Weapon(status,false);
+        this->setWeaponElement(wea,idx);
+        this->setWeaponVisibility(true,idx);
+        this->notifyObservers(new StateEvent(StateEventID::WEAPON_IN),this->elements,this->weapons);
+    }
+    
+    void State::setWeaponVisibility(bool visible, int idx){
+        int i=0;
+        for (Weapon* parcours: this->weapons){
+            if (i==idx){
+                parcours->setVisibility(visible);
+            }
+            i++;
+        }
     }
 
 }
