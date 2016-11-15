@@ -101,16 +101,18 @@ int main(int argc,char* argv[])
                         engine.addCommand(KC);
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
                         MC->setMove(0,0,next,Direction::OUEST);
-                        MC->setMoveID(MoveID::CHICKEN);
+                        MC->setMoveID(MoveID::CHICKEN_WALK);
                         engine.addCommand(MC);
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
                         MC->setMove(0,0,next,Direction::EST);
-                        MC->setMoveID(MoveID::CHICKEN);
+                        MC->setMoveID(MoveID::CHICKEN_WALK);
                         engine.addCommand(MC);
                     }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
-                        moving_fowl->Jump(s,true);
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Return){
+                        MC->setMove(0,0,next,MC->getDir());
+                        MC->setMoveID(MoveID::CHICKEN_JUMP);
+                        engine.addCommand(MC);
                     }
                     //Set de commandes permettant de bouger la caméra et de zoomer
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
