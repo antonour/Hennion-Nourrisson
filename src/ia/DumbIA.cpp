@@ -12,14 +12,14 @@ namespace ia{
     
     DumbIA::DumbIA (){}
     
-    void DumbIA::runDumbIA (state::State& s, engine::MoveFowl* mv, engine::KillFowl* k, engine::MoveCamera* v,int ite){
+    void DumbIA::runDumbIA (state::State* s, engine::MoveFowl* mv, engine::KillFowl* k, engine::MoveCamera* v,int ite){
         int next;
         
         if ((ite>=0 and ite <2) or (ite>=400 and ite<404)){
-            next=s.selectNextFowl();
+            next=s->selectNextFowl();
             k->setIDX(next);
             mv->setIDX(next);
-            state::Element* e=s.getMobileElement(next);
+            state::Element* e=s->getMobileElement(next);
             mv->setCoords(e->getX(),0,0);
             v->setCenter (e->getX(), e->getY());
         }
