@@ -19,7 +19,7 @@ namespace engine{
     }
     
     void CommandSet::set (Command* cmd){
-        if (cmd->getCmdTypeID()==CmdTypeID::MOVE_CMD){
+       /* if (cmd->getCmdTypeID()==CmdTypeID::MOVE_CMD){
             this->commands[0]=cmd;
         }
         if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
@@ -30,7 +30,8 @@ namespace engine{
         }
         if (cmd->getCmdTypeID()==CmdTypeID::LOAD_CMD){
             this->commands[3]=cmd;
-        }
+        }*/
+        this->commands.push_back(cmd);
     }
     
     void CommandSet::take (CommandSet& commands, bool replace){
