@@ -40,4 +40,15 @@ namespace state{
     /*TypeID Element::getTypeID() const{
         return this->type;
     }*/
+    
+    int Element::getIDXbyXY (){
+        
+        int numeroLigne = this->Y/97;
+        int numeroColonne= this->X/125;
+        
+        int idx = (40*numeroLigne+numeroColonne);
+        
+        return idx;       
+        
+    }
 }
