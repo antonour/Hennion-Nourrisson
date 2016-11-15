@@ -19,9 +19,7 @@ namespace engine{
     
     
     Ruler::~Ruler (){}
-    
-    void Ruler::collisions (){}
-    
+       
     void Ruler::apply (){
         /*if (this->commands->commands[1]){
             KillCommand* k;
@@ -42,7 +40,8 @@ namespace engine{
                 MoveCommand* m;
                 m=reinterpret_cast<MoveCommand*>(cmd);
                 if (m->getMoveID()==MoveID::CHICKEN){
-                this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
+                    while(isFalling(this->currentState,m)){}
+                    this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
                 }
             }
             if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
@@ -55,28 +54,50 @@ namespace engine{
         this->commands->commands.clear();
     }
     
-    void Ruler::MoveMyFowl (int idx){
-        
+    bool Ruler::isMovable (state::State* s, MoveCommand* m){
+        return true;
     }
     
-    void Ruler::MoveMyWeapon (int idx){
+    bool Ruler::isFalling (state::State* s, MoveCommand* m){
+        state::Fowl* bla;
+        state::Element * el=s->getMobileElement(m->getIDX());
         
-    }
+        if (el->getTypeID()==state::TypeID::FOWL){
+        bla=reinterpret_cast<state::Fowl*>(el);
+            state::Element* e=s->getStaticElement(m->getIDX());
+            e->setX(el->getX());
+            e->setY(el->getY()+97);
+            int idx;
+            if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                idx = e->getIDXbyXY()+1;
+            }
+            else{
+                idx = e->getIDXbyXY();
+            }
+            std::cout<<e->getX()<<std::endl;
+            std::cout<<e->getY()<<std::endl;
+            std::cout<<e->getIDXbyXY()<<std::endl;
+
+            state::Element* ebas=s->getStaticElement(idx);
+
+            state::Field* fbas;
+            fbas=reinterpret_cast<state::Field*>(ebas);
+
+            if (fbas->getFieldTypeID()==state::FieldTypeID::NEANT){
+                bla->setY(bla->getY()+97);
+                s->setMobileElement(bla,m->getIDX());
+                std::vector<state::Element*> list=s->getMobileElements();
+                std::vector<state::Weapon*> wep=s->getWeaponElements();
+                s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_FALL),list,wep);                            
+                return true;
+            }
+            else{
+                return false;
+            }}
+        return false;
+        
+       }
+        
     
-    void Ruler::ZoomInWanted (){
-        
-    }
-    
-    void Ruler::ZoomOutWanted (){
-        
-    }
-    
-    void Ruler::Shoot (){
-        
-    }
-    
-    void Ruler::ChooseMyWeapon (int idx){
-        
-    }
     
 }

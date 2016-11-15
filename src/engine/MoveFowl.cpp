@@ -34,7 +34,7 @@ namespace engine{
     }
     
     void MoveFowl::Jump (state::State& s, bool notify){
-        
+        /*
         state::Fowl* bla;
         state::Element * el=s.getMobileElement(this->idx);   
         
@@ -101,7 +101,7 @@ namespace engine{
                     std::vector<state::Weapon*> wep=s.getWeaponElements();
                     s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_JUMP_RIGHT),list,wep);
                 }
-            }}
+            }}*/
     }
         
     
@@ -180,53 +180,5 @@ namespace engine{
             }
         }
     }
-
-    void MoveFowl::isFlying (state::State& s, bool notify){
-        state::Fowl* bla;
-        state::Element * el=s.getMobileElement(this->idx);   
-        
-        
-        int ddx, iddx;
-        
-        state::Element* elbas;
-        
-        
-        if (this->dx>el->getX()){
-            ddx=this->dx-el->getX();
-            iddx=ddx/125;
-            state::Element* ebas=s.getStaticElement((this->idx-iddx)+40*(this->dy+1));
-            elbas=ebas;
-        }
-        else if (this->dx<el->getX()){
-            ddx=el->getX()-this->dx;
-            iddx=ddx/125;
-            state::Element* ebas=s.getStaticElement((this->idx+iddx)+40*(this->dy+1));
-            elbas=ebas;
-        }
-        else{
-            state::Element* ebas=s.getStaticElement(this->idx+40*(this->dy+1));
-            elbas=ebas;
-        }
-       
-            state::Field* fbas;
-            fbas=reinterpret_cast<state::Field*>(elbas);
-            
-        
-       
-        
-        if (el->getTypeID()==state::TypeID::FOWL){
-            bla=reinterpret_cast<state::Fowl*>(el);
-            if (fbas->getFieldTypeID()==state::FieldTypeID::NEANT){
-                bla->setY(bla->getY()+97);
-                this->dy=this->dy+1;
-                s.setMobileElement(bla,this->idx);
-                if (notify){
-                    std::vector<state::Element*> list=s.getMobileElements();
-                    std::vector<state::Weapon*> wep=s.getWeaponElements();
-                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_FALL),list,wep);
-                }
-            }
-            }
-    }
-            
+    
     }
