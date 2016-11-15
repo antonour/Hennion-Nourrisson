@@ -40,14 +40,12 @@ namespace engine{
                 MoveCommand* m;
                 m=reinterpret_cast<MoveCommand*>(cmd);
                 while(isFalling(this->currentState,m)){}
-                if (isMovable(this->currentState,m)){
-                    if (m->getMoveID()==MoveID::CHICKEN_WALK){      
+                    if (m->getMoveID()==MoveID::CHICKEN_WALK and isMovable(this->currentState,m)){      
                         this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
                         }
                     else if (m->getMoveID()==MoveID::CHICKEN_JUMP and canJumpOver(this->currentState,m)){
                         this->actions->add(new FowlJump(m->getIDX()));
                     }
-                }
             }
             if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
                 KillCommand* k;
