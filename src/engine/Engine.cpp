@@ -11,7 +11,7 @@
 namespace engine{
     
     Engine::Engine (){
-        this->lastUpdateTime=200;
+        this->lastUpdateTime=150;
     }
     
     Engine::~Engine (){}
