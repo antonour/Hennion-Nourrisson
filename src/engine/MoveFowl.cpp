@@ -85,7 +85,8 @@ namespace engine{
                 s.setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s.getMobileElements();
-                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_JUMP_LEFT),list);
+                    std::vector<state::Weapon*> wep=s.getWeaponElements();
+                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_JUMP_LEFT),list,wep);
                 }
             }
             if (this->Direction==state::Direction::EST){
@@ -97,7 +98,8 @@ namespace engine{
                 s.setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s.getMobileElements();
-                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_JUMP_RIGHT),list);
+                    std::vector<state::Weapon*> wep=s.getWeaponElements();
+                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_JUMP_RIGHT),list,wep);
                 }
             }}
     }
@@ -163,7 +165,8 @@ namespace engine{
                 s->setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s->getMobileElements();
-                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_LEFT),list);
+                    std::vector<state::Weapon*> wep=s->getWeaponElements();
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_LEFT),list,wep);
                 }
             }
             if (this->Direction==state::Direction::EST){ //and fdroit->getFieldTypeID()==state::FieldTypeID::NEANT){
@@ -171,7 +174,8 @@ namespace engine{
                 s->setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s->getMobileElements();
-                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_RIGHT),list);
+                    std::vector<state::Weapon*> wep=s->getWeaponElements();
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_RIGHT),list,wep);
                 }
             }
         }
@@ -218,7 +222,8 @@ namespace engine{
                 s.setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s.getMobileElements();
-                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_FALL),list);
+                    std::vector<state::Weapon*> wep=s.getWeaponElements();
+                    s.notifyObservers(new state::StateEvent(state::StateEventID::FOWL_FALL),list,wep);
                 }
             }
             }
