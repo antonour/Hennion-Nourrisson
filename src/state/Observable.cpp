@@ -14,16 +14,9 @@ namespace state{
         observers.push_back(observer);
     }
 
-    
-    void Observable::notifyObservers(StateEvent* e){
+    void Observable::notifyObservers(StateEvent* e, std::vector<Element*>& table, std::vector<Weapon*>& weaps){
         for(IObserver* observer:observers){
-            observer->stateChanged(e);
-        }
-    }
-    
-    void Observable::notifyObservers(StateEvent* e, std::vector<Element*>& table){
-        for(IObserver* observer:observers){
-            observer->stateChanged(e,table);
+            observer->stateChanged(e,table,weaps);
         }
     }
 }
