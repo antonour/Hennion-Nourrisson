@@ -57,10 +57,11 @@ int main(int argc,char* argv[])
     MoveFowl* moving_fowl=new MoveFowl(499);
     
     state::Element * e=s.getMobileElement(499);
-    moving_fowl->setCoords(e->getX(),0,0);
-    
+       
 
     moving_fowl->setIDX(next);
+    e=s.getMobileElement(next);
+    v->setCenter(e->getX(),e->getY());
     
     DumbIA* ia = new DumbIA();
     int ite_ia=0;
@@ -88,7 +89,6 @@ int main(int argc,char* argv[])
                                 KC->setIDX(next);
                                 moving_fowl->setIDX(next);
                                 e=s.getMobileElement(next);
-                                moving_fowl->setCoords(e->getX(),0,0);
                                 v->setCenter (e->getX(), e->getY());
                     }
 
@@ -127,7 +127,7 @@ int main(int argc,char* argv[])
                         {v->ZoomOut();}
 
         }
-        moving_fowl->isFlying (s,true);
+        //moving_fowl->isFlying (s,true);
         T=C.getElapsedTime();
         if (engine.update(T.asMilliseconds())){
             T=C.restart();
