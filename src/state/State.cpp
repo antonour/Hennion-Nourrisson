@@ -90,13 +90,13 @@ namespace state{
                         }
                         if(i%3==0){
                             Element * terr = this->factory->create(contenu,false);
-                            terr->setX(125*k);
+                            /*terr->setX(125*k);
                             k++;
                             if (k==40){
                                 l++;
                                 k=0;
                             }
-                            terr->setY(97*l);
+                            terr->setY(97*l);*/
                             this->background.push_back(terr);
                             fichier3.get(poubelle);
                             contenu="";
