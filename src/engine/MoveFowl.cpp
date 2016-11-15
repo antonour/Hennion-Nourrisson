@@ -124,39 +124,6 @@ namespace engine{
     void MoveFowl::apply(state::State* s, bool notify){
         state::Fowl* bla;
         state::Element * el=s->getMobileElement(this->idx);
-        /*int ddx, iddx;
-                
-        state::Element* elgauche;
-        state::Element* eldroit;     
-        
-        if (this->dx>el->getX()){
-            ddx=this->dx-el->getX();
-            iddx=ddx/125;
-            state::Element* egauche=s->getStaticElement(this->idx-(iddx+1)+40*this->dy);
-            state::Element* edroit=s->getStaticElement(this->idx+(iddx-1)+40*this->dy);
-            elgauche=egauche;
-            eldroit=edroit;
-        }
-        else if (this->dx<el->getX()){
-            ddx=el->getX()-this->dx;
-            iddx=ddx/125;
-            state::Element* egauche=s->getStaticElement(this->idx-(iddx-1)+40*this->dy);
-            state::Element* edroit=s->getStaticElement(this->idx+(iddx+1)+40*this->dy);
-            elgauche=egauche;
-            eldroit=edroit;
-        }
-        else{
-            state::Element* egauche=s->getStaticElement(this->idx-1);
-            state::Element* edroit=s->getStaticElement(this->idx+1);
-            elgauche=egauche;
-            eldroit=edroit;
-        }
-             
-            state::Field* fgauche;
-            fgauche=reinterpret_cast<state::Field*>(elgauche);
-                
-            state::Field* fdroit;
-            fdroit=reinterpret_cast<state::Field*>(eldroit);   */ 
         
         if (el->getTypeID()==state::TypeID::FOWL){
             bla=reinterpret_cast<state::Fowl*>(el);

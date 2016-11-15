@@ -41,7 +41,9 @@ namespace engine{
                 m=reinterpret_cast<MoveCommand*>(cmd);
                 if (m->getMoveID()==MoveID::CHICKEN){
                     while(isFalling(this->currentState,m)){}
+                    if (isMovable(this->currentState,m)){
                     this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
+                    }
                 }
             }
             if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
@@ -55,7 +57,48 @@ namespace engine{
     }
     
     bool Ruler::isMovable (state::State* s, MoveCommand* m){
-        return true;
+                
+        state::Fowl* bla;
+        state::Element * el=s->getMobileElement(m->getIDX());
+        
+        if (el->getTypeID()==state::TypeID::FOWL){
+            bla=reinterpret_cast<state::Fowl*>(el);
+            state::Element* e=s->getStaticElement(m->getIDX());
+            
+            e->setY(el->getY());
+            int idx;
+            
+            if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT and m->getDir()==state::Direction::OUEST){
+                e->setX(el->getX()-125);
+                idx = e->getIDXbyXY()+1;
+            }
+            else if (bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT and m->getDir()==state::Direction::EST){
+                e->setX(el->getX()+125);
+                idx = e->getIDXbyXY();
+            }
+            else{
+                return true;
+            }
+            
+            state::Element* elateral=s->getStaticElement(idx);
+            
+            if (elateral->getTypeID()==state::TypeID::FIELD){
+                state::Field* flateral = reinterpret_cast<state::Field*>(elateral);
+                if (flateral->getFieldTypeID()==state::FieldTypeID::NEANT){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }    
+        
+        }
+        else{
+            return false;
+        }
     }
     
     bool Ruler::isFalling (state::State* s, MoveCommand* m){
@@ -74,10 +117,7 @@ namespace engine{
             else{
                 idx = e->getIDXbyXY();
             }
-            std::cout<<e->getX()<<std::endl;
-            std::cout<<e->getY()<<std::endl;
-            std::cout<<e->getIDXbyXY()<<std::endl;
-
+            
             state::Element* ebas=s->getStaticElement(idx);
 
             state::Field* fbas;
