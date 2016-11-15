@@ -8,9 +8,9 @@
 
 namespace state{
     
-    Weapon::Weapon (WeaponStatus status){
+    Weapon::Weapon (WeaponStatus status, bool visible){
         this->power=1;
-        this->weight=10;
+        this->visible=visible;
         this->ammo=32;
         this->status=status;
         this->type=TypeID::WEAPON;
@@ -29,16 +29,16 @@ namespace state{
         return this->power;  
     }
     
-    int Weapon::getWeight () const{
-        return this->weight;
+    bool Weapon::isVisible (){
+        return this->visible;
     }
     
     void Weapon::setPower (int power){
         this->power=power;
     }
     
-    void Weapon::setWeight (int weight){
-        this->weight=weight;
+    void Weapon::setVisibility (bool visible){
+        this->visible=visible;
     }
     
     WeaponStatus Weapon::getWeaponStatus (){
