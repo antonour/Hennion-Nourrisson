@@ -9,25 +9,17 @@
 #include <iostream>
 
 namespace engine{
-    FireCommand::FireCommand(int power, int x, int y, bool charging){
-        this->power=power;
-        this->x=x;
-        this->y=y;
-        this->charging=charging;
+    FireCommand::FireCommand (int idx, state::Direction d){
+        this->idx=idx;
+        this->direction=d;
     }
     
-    CmdTypeID FireCommand::getCmdTypeID(){
-        return CmdTypeID::FIRE_CMD;
+    CmdTypeID FireCommand::getCmdTypeID (){
+        return FIRE_CMD;
     }
     
-    bool FireCommand::isCharging(){
-        return this->charging;
-    }
-    
-    void FireCommand::setFire(int power, int x, int y, bool charging){
-        this->power=power;
-        this->x=x;
-        this->y=y;
-        this->charging=charging;
+    void FireCommand::setFire (int idx, state::Direction d){
+        this->idx=idx;
+        this->direction=d;
     }
 }
