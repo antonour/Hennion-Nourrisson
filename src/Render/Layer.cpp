@@ -21,7 +21,12 @@ namespace Render{
     }
     
     void Layer::setAnimation (int i, Animation* a){
-        
+        this->animations[i]=a;
+    }
+    
+    void Layer::runAnimation (int idx,int i,int j, int X, int Y, state::Direction d){
+        this->animations[idx]->setDirection(d);
+        this->animations[idx]->animate(i,j,X,Y);
     }
     
     void Layer::printText (int x, int y, const char* msg, int spriteIdx, int w, int h){
@@ -232,6 +237,28 @@ namespace Render{
                        surface->weapontab[i]=10;
                        surface->dispWeapon(i%40,i/40,X,Y,surface->weapontab[i]);
                     }
+                i++;
+            }
+        }
+        if (e->getStateEventID()==state::StateEventID::FOWL_HITTING){
+            int i=0,X=0,Y=0;
+            for (state::Element* pers: list){
+                if (pers->getTypeID()==state::TypeID::FOWL){
+                    state::Fowl* poule;
+                    poule=reinterpret_cast<state::Fowl*>(pers);
+                    if (poule->getFowlStatus()==state::FowlStatus::HITTING && poule->isSelected()==true){
+                        X=poule->getX();
+                        Y=poule->getY();
+                        cout << X << endl;
+                        cout << Y<< endl;
+                        if (surface->fowltab[i]%9==2 || surface->fowltab[i]%9==3 || surface->fowltab[i]%9==4){
+                            this->runAnimation(1,i,i/40,X,Y,state::Direction::OUEST);
+                        }
+                        else if (surface->fowltab[i]%9==5 || surface->fowltab[i]%9==6 || surface->fowltab[i]%9==7){
+                            this->runAnimation(1,i,i/40,X,Y,state::Direction::EST);
+                        }
+                    }
+                }
                 i++;
             }
         }

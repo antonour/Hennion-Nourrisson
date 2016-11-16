@@ -20,7 +20,7 @@ ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
 # Generate headers
 set(DIA2CODE "${PROJECT_SOURCE_DIR}/dia2code/bin/dia2code")
-exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/projet.dia -cl AnimatedTile,Animation,Layer,Scene,StaticTile,Surface,Tile,TileSet,Direction,Element,ElementFactory,Field,FieldCreator,FieldTypeID,Fowl,FowlColor,FowlCreator,FowlStatus,IElement,IObserver,MobileElement,Observable,Space,SpaceCreator,SpaceTypeID,State,StateEvent,StateEventID,StaticElement,TypeID,Weapon,WeaponCreator,WeaponStatus,Orientation,SceneLayer)
+exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/projet.dia -cl AnimatedTile,Animation,Layer,StaticTile,Surface,Tile,TileSet,Direction,Element,ElementFactory,Field,FieldCreator,FieldTypeID,Fowl,FowlColor,FowlCreator,FowlStatus,IElement,IObserver,MobileElement,Observable,Space,SpaceCreator,SpaceTypeID,State,StateEvent,StateEventID,StaticElement,TypeID,Weapon,WeaponCreator,WeaponStatus,Orientation,AnimID)
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/engine.dia)
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/ia.dia)
 
