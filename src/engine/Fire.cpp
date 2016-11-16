@@ -6,6 +6,7 @@
 
 #include "../engine.hpp"
 #include "../state.hpp"
+#include <iostream>
 
 namespace engine{
     
@@ -16,10 +17,7 @@ namespace engine{
     Fire::~Fire (){}
     
     void Fire::apply(state::State* s, bool notify){
-    
+         
     }
-
-    
- 
     
 }

@@ -49,8 +49,16 @@ namespace engine{
             }
             if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
                 KillCommand* k;
-                k=reinterpret_cast<KillCommand*>(this->commands->commands[1]);
+                k=reinterpret_cast<KillCommand*>(cmd);
                 this->actions->add(new KillFowl(k->getIDX()));
+            }
+            if (cmd->getCmdTypeID()==CmdTypeID::FIRE_CMD){
+                FireCommand* fire;
+                fire=reinterpret_cast<FireCommand*>(cmd);
+                this->actions->add(new Fire(fire->getIDX()));
+                if (canHit(this->currentState,fire)){
+                    this->actions->add(new KillFowl(fire->getIDX()));
+                }
             }
         }
         this->actions->apply();
@@ -187,5 +195,53 @@ namespace engine{
                 return false;
             }
         }
+    
+    bool Ruler::canHit (state::State* s, FireCommand* fire){
+        
+        state::Element* el=s->getMobileElement(fire->getIDX());           
+        state::Fowl* bla=reinterpret_cast<state::Fowl*>(el);
+        
+        int i=0;
+
+        if (el->getTypeID()==state::TypeID::FOWL){
+            
+            for (state::Element* element: s->getMobileElements()){
+                state::Element* poupoule = s->getMobileElement(i);
+                state::Fowl* poule=reinterpret_cast<state::Fowl*>(poupoule);
+                                
+                if (element->getY()==el->getY()){
+                    
+                    if ((element->getX()<=(el->getX()+125)) and (element->getX()>=(el->getX()-125))){
+                        if (i!=fire->getIDX()){
+                            if(poule->getFowlColor()!=state::FowlColor::BLANK){
+                                if(bla->getFowlColor()!=poule->getFowlColor()){
+                                    if(bla->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                                        if(bla->getX()/125==poule->getX()/125){
+                                            return true;
+                                        }}
+                                    if(bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                                        if((poule->getX()>=(bla->getX()-125)) and (poule->getX()<=bla->getX())){
+                                            return true;
+                                        }}
+                                    if(bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                                        if((poule->getX()<=(bla->getX()+125)) and (poule->getX()>=bla->getX())){
+                                            return true;
+                                        }}
+                                    
+                            }}
+                        }
+                    }
+                    
+                }
+                else{}
+                i++;
+            }
+            
+            return false;
+        }
+        else{
+            return false;
+        }
+    }
     
 }
