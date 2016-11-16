@@ -112,11 +112,14 @@ namespace engine{
             e->setX(el->getX());
             e->setY(el->getY()+97);
             int idx;
-            if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+            if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT || m->getDir()==state::Direction::OUEST){
                 idx = e->getIDXbyXY()+1;
             }
-            else{
+            else if (bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT || m->getDir()==state::Direction::EST){
                 idx = e->getIDXbyXY();
+            }
+            else{
+                idx = m->getIDX();
             }
             
             state::Element* ebas=s->getStaticElement(idx);
