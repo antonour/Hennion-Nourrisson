@@ -7,36 +7,39 @@
 #include "../ia.hpp"
 #include "../state.hpp"
 #include "../engine.hpp"
+#include <stdlib.h>
+#include <time.h>
 
 namespace ia{
     
     DumbIA::DumbIA (){}
     
-    void DumbIA::runDumbIA (state::State* s, engine::MoveFowl* mv, engine::KillFowl* k, engine::MoveCamera* v,int ite){
-        int next;
-        
-        if ((ite>=0 and ite <2) or (ite>=400 and ite<404)){
-            next=s->selectNextFowl();
-            k->setIDX(next);
-            mv->setIDX(next);
-            state::Element* e=s->getMobileElement(next);
-            mv->setCoords(e->getX(),0,0);
-            v->setCenter (e->getX(), e->getY());
+    engine::Command* DumbIA::runDumbIA (state::State* s,int idx){
+        srand(time(NULL));
+        int r=rand()%2 + 1;
+        engine::Command* cmd;
+      
+        if (r==1){
+            engine::Command* moveleft=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
+            cmd=moveleft;
         }
         
-        else if (ite>=2 and ite <132){
-            mv->setDir(state::Direction::OUEST);
-            mv->apply(s,true);
+        else if (r==2){
+            engine::Command* moveright=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
+            cmd=moveright;
         }
         
-        else if (ite>=132 and ite<400){
-            mv->setDir(state::Direction::EST);
-            mv->apply(s,true);
-        }
-        else {
-            k->apply(s,true);
+        else if (r==3){
+            engine::Command* jumpleft= new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_JUMP,idx,state::Direction::OUEST);
+            cmd=jumpleft;
         }
         
+        else if (r==4){
+            engine::Command* jumpright= new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_JUMP,idx,state::Direction::EST);
+            cmd=jumpright;
+        }
+        
+        return cmd;
     }
     
 }
