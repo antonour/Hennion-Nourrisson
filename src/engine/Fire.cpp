@@ -9,14 +9,15 @@
 
 namespace engine{
     
-    Fire::Fire (state::Orientation orientation, int puissance){
-        this->orientation=orientation;
-        this->puissance=puissance;
+    Fire::Fire (int idx){
+        this->idx=idx;
     }
     
     Fire::~Fire (){}
     
-    void Fire::apply(state::State* s, bool notify){}
+    void Fire::apply(state::State* s, bool notify){
+    
+    }
 
     
  
