@@ -218,6 +218,51 @@ namespace Render{
        
     }
     
+    void Surface::rotateWeapon(int i, int j, int X, int Y, int tex, int rot, state::Direction d){
+        sf::Vertex* quad =&m_vertices_weapon[(i + j * 40)*4];     
+
+        // on en déduit sa position dans la texture du tileset
+        int tu = tex % (m_tileset_weapon.getSize().x / 60);
+        int tv = tex / (m_tileset_weapon.getSize().x / 60);
+
+        if (d==state::Direction::OUEST){
+            if (rot<=25){
+                    quad[0].position = sf::Vector2f(X-(rot+rot/5), Y+rot*2-rot/5 );
+                    quad[1].position = sf::Vector2f(X+125-(5*rot)/2, Y-rot);
+                    quad[2].position = sf::Vector2f(X+125+rot+rot/5, Y+95-rot*2+rot/5);
+                    quad[3].position = sf::Vector2f(X+(5*rot)/2, Y+95+rot);
+            }
+        
+            else{
+                    quad[0].position = sf::Vector2f(X-60+rot+rot/5, Y+rot*2-rot/10);
+                    quad[1].position = sf::Vector2f(X+125-(5*rot)/2, Y-50+rot);
+                    quad[2].position = sf::Vector2f(X+125+60-rot-rot/5, Y+95-rot*2+rot/5);
+                    quad[3].position = sf::Vector2f(X+(5*rot)/2, Y+145-rot);
+            }
+        }
+        if (d==state::Direction::EST){
+            if (rot<=25){
+                    quad[0].position = sf::Vector2f(X+(5*rot)/2,Y-rot);
+                    quad[1].position = sf::Vector2f(X+125+rot+rot/5, Y+rot*2-rot/5);
+                    quad[2].position = sf::Vector2f(X+125-(5*rot)/2, Y+95+rot);
+                    quad[3].position = sf::Vector2f(X-rot-rot/5, Y+95-rot*2+rot/5);
+            }
+        
+            else{
+                    quad[0].position = sf::Vector2f(X+(5*rot)/2,Y-50+rot);
+                    quad[1].position = sf::Vector2f(X+180-rot-rot/10, Y+rot*2-rot/10);
+                    quad[2].position = sf::Vector2f(X+125-(5*rot)/2, Y+145-rot);
+                    quad[3].position = sf::Vector2f(X-60+rot+rot/5, Y+95-rot*2+rot/10);
+            }
+        }   
+        // on définit ses quatre coordonnées de texture
+        quad[0].texCoords = sf::Vector2f(tu * 60, tv * 60);
+        quad[1].texCoords = sf::Vector2f((tu + 1) * 60, tv * 60);
+        quad[2].texCoords = sf::Vector2f((tu + 1) * 60, (tv + 1) * 60);
+        quad[3].texCoords = sf::Vector2f(tu * 60, (tv + 1) * 60);
+       
+    }
+    
     void Surface::moveArrow(int i, int j, int X, int Y, int tex){
         sf::Vertex* quad =&m_vertices_arrow[(i + j * 40)*4];     
 
