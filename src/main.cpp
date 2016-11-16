@@ -23,11 +23,17 @@ int main(int argc,char* argv[])
     //Appel de diverses classes utiles aux grandes classes
     Clock C;
     Time T;
+    
+    sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
+    Animation* A= new Animation(AnimID::HIT,&window);
+    
     ElementFactory* fac=new ElementFactory();
     CommandSet* CS=new CommandSet();
     Surface* area=new Surface();
     Layer l;
     l.setSurface(area);
+    l.setAnimation(1,A);
+    A->setSurface(area);
     bool autorun=false;
 
     
@@ -51,7 +57,6 @@ int main(int argc,char* argv[])
         
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
-    KillFowl* k= new KillFowl(next);
     MoveFowl* moving_fowl=new MoveFowl(499);
     
     state::Element * e=s.getMobileElement(499);
@@ -70,7 +75,7 @@ int main(int argc,char* argv[])
 //    LoadCommand* LC= new LoadCommand(true);
 //    FireCommand* FC= new FireCommand(0,0,0,true);
         
-    sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
+
 
     while (window.isOpen())
     {
@@ -96,7 +101,8 @@ int main(int argc,char* argv[])
                    
             
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-                        engine.addCommand(KC);
+                        s.killFowl();
+                        //engine.addCommand(KC);
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
                         MC->setMove(0,0,next,Direction::OUEST);
                         MC->setMoveID(MoveID::CHICKEN_WALK);
