@@ -28,6 +28,7 @@ int main(int argc,char* argv[])
     Surface* area=new Surface();
     Layer l;
     l.setSurface(area);
+    bool autorun=false;
 
     
     //On crée l'état qui s'occupera de gérer les différents éléments
@@ -43,10 +44,7 @@ int main(int argc,char* argv[])
     engine.setState(&s);
     engine.loadlevel();
     engine.takeCommands(CS);
-    engine.setRuler(rules);
-    
-   
-    
+    engine.setRuler(rules);   
     
     int next;
     next=s.selectNextFowl();
@@ -93,9 +91,9 @@ int main(int argc,char* argv[])
                     }
 
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
-                        ia->runDumbIA(&s,moving_fowl,k,v,ite_ia);
-                        ite_ia++;
+                        autorun=true;
                     }
+                   
             
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
                         engine.addCommand(KC);
@@ -128,6 +126,15 @@ int main(int argc,char* argv[])
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
                         {v->ZoomOut();}
 
+        }
+        if (autorun){
+            Command* cmd=ia->runDumbIA(&s,next);
+            engine.addCommand(cmd);
+            ite_ia++;
+            if (ite_ia==200){
+                next=s.selectNextFowl();
+                ite_ia=0;
+            }
         }
         //moving_fowl->isFlying (s,true);
         T=C.getElapsedTime();
