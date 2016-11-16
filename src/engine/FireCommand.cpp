@@ -22,4 +22,13 @@ namespace engine{
         this->idx=idx;
         this->direction=d;
     }
+    
+    state::Direction FireCommand::getDirection (){
+        return this->direction;
+    }
+    
+    int FireCommand::getIDX (){
+        return this->idx;
+    }
+    
 }
