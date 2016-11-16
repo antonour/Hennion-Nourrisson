@@ -69,11 +69,11 @@ namespace engine{
             e->setY(el->getY());
             int idx;
             
-            if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT and m->getDir()==state::Direction::OUEST){
+            if ((bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT || bla->getFowlStatus()==state::FowlStatus::ALIVE_FACE) and m->getDir()==state::Direction::OUEST){
                 e->setX(el->getX()-125);
                 idx = e->getIDXbyXY()+1;
             }
-            else if (bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT and m->getDir()==state::Direction::EST){
+            else if ((bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT || bla->getFowlStatus()==state::FowlStatus::ALIVE_FACE)  and m->getDir()==state::Direction::EST){
                 e->setX(el->getX()+125);
                 idx = e->getIDXbyXY();
             }
