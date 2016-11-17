@@ -25,15 +25,18 @@ int main(int argc,char* argv[])
     Time T;
     
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
-    Animation* A= new Animation(AnimID::HIT,&window);
+    Animation* A1= new Animation(AnimID::HIT,&window);
+    Animation* A2= new Animation(AnimID::JUMP,&window);
     
     ElementFactory* fac=new ElementFactory();
     CommandSet* CS=new CommandSet();
     Surface* area=new Surface();
     Layer l;
     l.setSurface(area);
-    l.setAnimation(1,A);
-    A->setSurface(area);
+    l.setAnimation(1,A1);
+    l.setAnimation(2,A2);
+    A1->setSurface(area);
+    A2->setSurface(area);
     bool autorundumb=false;
     bool autorunheuristic=false;
 
@@ -97,12 +100,19 @@ int main(int argc,char* argv[])
                                 e=s.getMobileElement(next);
                                 v->setCenter (e->getX(), e->getY());
                     }
-
+                    
+                    //Intelligence Artificielle Médiocre
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
                         autorundumb=true;
+                        autorunheuristic=false;
+                        ite_dia=0;
                     }
+                    
+                    //Intelligence Artificielle Moyenne
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)){
+                        autorundumb=false;
                         autorunheuristic=true;
+                        ite_hia=0;
                     }
                     
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
@@ -144,6 +154,7 @@ int main(int argc,char* argv[])
             ite_dia++;
             if (ite_dia==200){
                 next=s.selectNextFowl();
+                rules->resetJump();
                 ite_dia=0;
             }
         }
@@ -153,6 +164,7 @@ int main(int argc,char* argv[])
             ite_hia++;
             if (ite_hia==200){
                 next=s.selectNextFowl();
+                rules->resetJump();
                 ite_hia=0;
             }
         }
