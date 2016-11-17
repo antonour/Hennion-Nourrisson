@@ -34,7 +34,8 @@ int main(int argc,char* argv[])
     l.setSurface(area);
     l.setAnimation(1,A);
     A->setSurface(area);
-    bool autorun=false;
+    bool autorundumb=false;
+    bool autorunheuristic=false;
 
     
     //On crée l'état qui s'occupera de gérer les différents éléments
@@ -66,8 +67,10 @@ int main(int argc,char* argv[])
     e=s.getMobileElement(next);
     v->setCenter(e->getX(),e->getY());
     
-    DumbIA* ia = new DumbIA();
-    int ite_ia=0;
+    DumbIA* DIA = new DumbIA();
+    HeuristicIA* HIA= new HeuristicIA();
+    int ite_dia=0;
+    int ite_hia=0;
     
     //On instancie les différentes classes qui généreront les commandes
     MoveCommand* MC= new MoveCommand(0,0,MoveID::CAMERA,0,Direction::NONE);
@@ -96,10 +99,12 @@ int main(int argc,char* argv[])
                     }
 
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
-                        autorun=true;
+                        autorundumb=true;
                     }
-                   
-            
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)){
+                        autorunheuristic=true;
+                    }
+                    
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
                         s.killFowl();
                         //engine.addCommand(KC);
@@ -133,13 +138,22 @@ int main(int argc,char* argv[])
                         {v->ZoomOut();}
 
         }
-        if (autorun){
-            Command* cmd=ia->runDumbIA(&s,next);
+        if (autorundumb){
+            Command* cmd=DIA->runDumbIA(&s,next);
             engine.addCommand(cmd);
-            ite_ia++;
-            if (ite_ia==200){
+            ite_dia++;
+            if (ite_dia==200){
                 next=s.selectNextFowl();
-                ite_ia=0;
+                ite_dia=0;
+            }
+        }
+        if (autorunheuristic){
+            Command* cmd=HIA->runHeuristicIA(&s,next);
+            engine.addCommand(cmd);
+            ite_hia++;
+            if (ite_hia==200){
+                next=s.selectNextFowl();
+                ite_hia=0;
             }
         }
         //moving_fowl->isFlying (s,true);
