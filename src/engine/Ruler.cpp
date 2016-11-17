@@ -15,6 +15,7 @@ namespace engine{
          this->actions=a;
          this->currentState=s;
          this->commands=c;
+         this->jumped=false;
     }
     
     
@@ -44,6 +45,7 @@ namespace engine{
                         this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
                         }
                     else if (m->getMoveID()==MoveID::CHICKEN_JUMP and canJumpOver(this->currentState,m)){
+                        this->jumped=true;
                         this->actions->add(new FowlJump(m->getIDX()));
                     }
             }
@@ -149,8 +151,16 @@ namespace engine{
         return false;
         
        }
-        
+    
+    void Ruler::resetJump(){
+        this->jumped=false;
+    }
+    
     bool Ruler::canJumpOver (state::State* s, MoveCommand* m){
+        
+        if (this->jumped==true){
+            return false;
+        }
         
         state::Fowl* bla;
         state::Element * el=s->getMobileElement(m->getIDX());
