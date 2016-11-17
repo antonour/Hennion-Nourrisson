@@ -16,7 +16,7 @@ namespace ia{
     
     engine::Command* DumbIA::runDumbIA (state::State* s,int idx){
         srand(time(NULL));
-        int r=rand()%2 + 1;
+        int r=rand()%5 + 1;
         engine::Command* cmd;
       
         if (r==1){
@@ -37,6 +37,12 @@ namespace ia{
         else if (r==4){
             engine::Command* jumpright= new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_JUMP,idx,state::Direction::EST);
             cmd=jumpright;
+        }
+        
+        else if (r==5){
+            s->killFowl();
+            engine::Command* moveleft=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
+            cmd=moveleft;
         }
         
         return cmd;
