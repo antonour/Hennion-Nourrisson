@@ -18,12 +18,13 @@ namespace state {
   /// class WeaponCreator - 
   class WeaponCreator : public state::IElement {
     // Attributes
-  public:
+  private:
     WeaponStatus status;
+    bool visible;
     // Operations
   public:
     Element* create ();
-    WeaponCreator (WeaponStatus status);
+    WeaponCreator (WeaponStatus status, bool visible);
   };
 
 };

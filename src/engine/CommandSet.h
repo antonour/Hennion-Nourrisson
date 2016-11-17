@@ -2,7 +2,7 @@
 #ifndef ENGINE__COMMANDSET__H
 #define ENGINE__COMMANDSET__H
 
-#include <map>
+#include <vector>
 
 namespace engine {
   class Command;
@@ -18,7 +18,7 @@ namespace engine {
     // Associations
     // Attributes
   public:
-    std::map<int,Command*> commands;
+    std::vector<Command*> commands;
     // Operations
   public:
     CommandSet ();

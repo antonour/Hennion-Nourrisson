@@ -29,12 +29,10 @@ namespace engine {
     ~MoveFowl ();
     void setCoords (int dx, int dy, int dpos);
     void setDir (state::Direction direction);
-    void Jump (state::State& s, bool notify);
     void setIDX (int idx);
     int getIDX ();
     state::Fowl* getFowl ();
     void setFowl (state::Fowl* f);
-    void isFlying (state::State& s, bool notify);
     void apply (state::State* s, bool notify);
   };
 

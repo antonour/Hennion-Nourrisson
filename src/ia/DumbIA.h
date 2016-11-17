@@ -2,8 +2,8 @@
 #ifndef IA__DUMBIA__H
 #define IA__DUMBIA__H
 
-#include "../state.hpp"
 #include "../engine.hpp"
+#include "../state.hpp"
 
 namespace ia {
 
@@ -12,7 +12,7 @@ namespace ia {
     // Operations
   public:
     DumbIA ();
-    void runDumbIA (state::State& s, engine::MoveFowl* mv, engine::KillFowl* k, engine::MoveCamera* v, int ite);
+    engine::Command* runDumbIA (state::State* s, int idx);
   };
 
 };

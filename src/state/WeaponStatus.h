@@ -6,8 +6,11 @@
 namespace state {
 
   enum WeaponStatus {
-    VISIBLE     = 1,
-    INVISIBLE     = 2
+    GUN     = 1,
+    MELEE     = 2,
+    THROWABLE     = 3,
+    BOMB     = 4,
+    AMMO     = 5
   };
 
 };

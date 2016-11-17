@@ -17,8 +17,8 @@ namespace state {
   /// class MobileElement - 
   class MobileElement : public state::Element {
     // Associations
-    state::Orientation orient;
     state::Direction direction;
+    state::Orientation orient;
     // Attributes
   protected:
     /// 												

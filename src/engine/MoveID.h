@@ -8,7 +8,8 @@ namespace engine {
   enum MoveID {
     CAMERA     = 1,
     WEAPON     = 2,
-    CHICKEN     = 3
+    CHICKEN_WALK     = 3,
+    CHICKEN_JUMP     = 4
   };
 
 };

@@ -18,7 +18,8 @@ namespace state {
     FOWL_SELECTED     = 9,
     FOWL_FALL     = 10,
     FOWL_JUMP_RIGHT     = 11,
-    FOWL_JUMP_LEFT     = 12
+    FOWL_JUMP_LEFT     = 12,
+    FOWL_HITTING     = 13
   };
 
 };

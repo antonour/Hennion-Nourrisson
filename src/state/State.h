@@ -8,11 +8,13 @@
 namespace state {
   class Element;
   class ElementFactory;
+  class Weapon;
   class Observable;
   class StaticElement;
   class MobileElement;
 }
 
+#include "WeaponStatus.h"
 #include "Observable.h"
 #include "StaticElement.h"
 #include "ElementFactory.h"
@@ -26,8 +28,9 @@ namespace state {
     // Attributes
   protected:
     std::vector<Element*> elements;
-    ElementFactory* factory;
     std::vector<Element*> background;
+    ElementFactory* factory;
+    std::vector<Weapon*> weapons;
     // Operations
   public:
     void setElementFactory (ElementFactory* f);
@@ -39,8 +42,13 @@ namespace state {
     void loadLevel (const std::string& file_name);
     void loadChar (const std::string& file_name);
     virtual ~State ();
-    void killFowls ();
+    void killFowl ();
     int selectNextFowl ();
+    void selectWeapon (WeaponStatus status, int idx);
+    void setWeaponVisibility (bool visible, int idx);
+    std::vector<Weapon*> getWeaponElements ();
+    Weapon* getWeaponElement (int idx);
+    void setWeaponElement (Weapon* we, int idx);
   };
 
 };

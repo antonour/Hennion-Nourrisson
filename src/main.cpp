@@ -79,7 +79,7 @@ int main(int argc,char* argv[])
     MoveCommand* MC= new MoveCommand(0,0,MoveID::CAMERA,0,Direction::NONE);
     KillCommand* KC= new KillCommand(0);
 //    LoadCommand* LC= new LoadCommand(true);
-//    FireCommand* FC= new FireCommand(0,0,0,true);
+    FireCommand* FC= new FireCommand(0,Direction::NONE);
         
 
 
@@ -133,6 +133,13 @@ int main(int argc,char* argv[])
                         MC->setMoveID(MoveID::CHICKEN_JUMP);
                         engine.addCommand(MC);
                     }
+                    
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Space){
+                        //s.killFowl();
+                        FC->setFire(next,MC->getDir());
+                        engine.addCommand(FC);
+                    }
+                    
                     //Set de commandes permettant de bouger la caméra et de zoomer
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                         {v->MoveOnLeft();}

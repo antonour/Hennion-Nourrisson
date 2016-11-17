@@ -2,6 +2,7 @@
 #ifndef ENGINE__FIRECOMMAND__H
 #define ENGINE__FIRECOMMAND__H
 
+#include "../state.hpp"
 
 namespace engine {
   class Command;
@@ -16,18 +17,15 @@ namespace engine {
   class FireCommand : public engine::Command {
     // Attributes
   protected:
-    int power;
-    int x;
-    int y;
-    int dx;
-    int dy;
-    bool charging;
+    int idx;
+    state::Direction direction;
     // Operations
   public:
-    FireCommand (int power, int x, int y, bool charging);
+    FireCommand (int idx, state::Direction d);
     CmdTypeID getCmdTypeID ();
-    bool isCharging ();
-    void setFire (int power, int x, int y, bool charging);
+    void setFire (int idx, state::Direction d);
+    state::Direction getDirection ();
+    int getIDX ();
   };
 
 };

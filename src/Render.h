@@ -2,12 +2,8 @@
 #ifndef __RENDER__H
 #define __RENDER__H
 
-#include "Render/Tile.h"
-#include "Render/StaticTile.h"
-#include "Render/AnimatedTile.h"
 #include "Render/Surface.h"
 #include "Render/Animation.h"
 #include "Render/Layer.h"
-#include "Render/Scene.h"
-#include "Render/SceneLayer.h"
+#include "Render/AnimID.h"
 #endif

@@ -3,4 +3,5 @@
 #define __IA__H
 
 #include "ia/DumbIA.h"
+#include "ia/HeuristicIA.h"
 #endif

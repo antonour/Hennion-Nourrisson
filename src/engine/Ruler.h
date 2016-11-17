@@ -7,6 +7,8 @@
 namespace engine {
   class CommandSet;
   class ActionList;
+  class MoveCommand;
+  class FireCommand;
 }
 
 #include "ActionList.h"
@@ -21,19 +23,19 @@ namespace engine {
     state::State* currentState;
     CommandSet* commands;
     ActionList* actions;
+    bool jumped;
     // Operations
   public:
     Ruler (ActionList* a, state::State* s, CommandSet* c);
     ~Ruler ();
-    void collisions ();
     void apply ();
+    void resetJump ();
   protected:
-    void MoveMyFowl (int idx);
-    void MoveMyWeapon (int idx);
-    void ZoomInWanted ();
-    void ZoomOutWanted ();
-    void Shoot ();
-    void ChooseMyWeapon (int idx);
+    bool isMovable (state::State* s, MoveCommand* m);
+    bool isFalling (state::State* s, MoveCommand* m);
+    bool canJumpOver (state::State* s, MoveCommand* m);
+    bool canHit (state::State* s, FireCommand* fire);
+    int canKill (state::State* s, FireCommand* fire);
   };
 
 };

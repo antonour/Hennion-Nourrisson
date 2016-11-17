@@ -3,10 +3,12 @@
 #define STATE__IOBSERVER__H
 
 #include <vector>
+#include "../state.hpp"
 
 namespace state {
   class StateEvent;
   class Element;
+  class Weapon;
 }
 
 namespace state {
@@ -16,8 +18,7 @@ namespace state {
   class IObserver {
     // Operations
   public:
-    virtual void stateChanged (StateEvent* e) = 0;
-    virtual void stateChanged (StateEvent* e, std::vector<Element*>& list) = 0;
+    virtual void stateChanged (StateEvent* e, std::vector<Element*>& list, std::vector<state::Weapon*>& weaps) = 0;
   };
 
 };

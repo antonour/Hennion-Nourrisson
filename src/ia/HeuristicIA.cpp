@@ -30,7 +30,7 @@ namespace ia{
                 if (p->getX() <= X+50 && p->getX() >= X-50 && p->getY()==Y){
                     if (p->getFowlColor()!=state::FowlColor::BLANK && p->getFowlColor()!=FC){
                         s->killFowl();
-                        //engine::Command* hit=new engine::FireCommand();
+                        ///engine::Command* hit=new engine::FireCommand(idx,poule->getDirection());
                         //cmd=hit;
                     }
                 }

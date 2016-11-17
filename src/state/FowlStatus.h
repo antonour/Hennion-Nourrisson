@@ -11,7 +11,8 @@ namespace state {
     ALIVE_RIGHT     = 3,
     DEAD     = 4,
     TOUCHED     = 5,
-    WAITING     = 6
+    WAITING     = 6,
+    HITTING     = 7
   };
 
 };

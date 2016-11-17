@@ -3,11 +3,13 @@
 #define STATE__OBSERVABLE__H
 
 #include <vector>
+#include "../state.hpp"
 
 namespace state {
   class IObserver;
   class StateEvent;
   class Element;
+  class Weapon;
 }
 
 #include "IObserver.h"
@@ -24,8 +26,7 @@ namespace state {
   public:
     virtual ~Observable ();
     void registerObserver (IObserver* o);
-    void notifyObservers (StateEvent* e);
-    void notifyObservers (StateEvent* e, std::vector<Element*>& table);
+    void notifyObservers (StateEvent* e, std::vector<Element*>& table, std::vector<state::Weapon*>& weaps);
   };
 
 };

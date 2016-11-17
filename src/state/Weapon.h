@@ -20,20 +20,20 @@ namespace state {
     // Attributes
   protected:
     int power;
-    int weight;
     int ammo;
     TypeID type;
+    bool visible;
     // Operations
   public:
-    Weapon (WeaponStatus status);
+    Weapon (WeaponStatus status, bool visible);
     bool isFowl () const;
     TypeID getTypeID () const;
     int getPower () const;
-    int getWeight () const;
     void setPower (int power);
-    void setWeight (int weight);
     WeaponStatus getWeaponStatus ();
     void setWeaponStatus (WeaponStatus status);
+    bool isVisible ();
+    void setVisibility (bool visible);
   };
 
 };

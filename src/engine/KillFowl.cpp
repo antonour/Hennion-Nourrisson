@@ -21,57 +21,44 @@ namespace engine{
     KillFowl::~KillFowl (){}
   
     void KillFowl::apply(state::State* s, bool notify){
-        /*state::Element * pouledead;
-        pouledead= s->getMobileElement(this->idx);
-        if (pouledead->getTypeID()==state::TypeID::FOWL){
-            state::Fowl * poule;
-            poule=reinterpret_cast<state::Fowl*>(pouledead);
-            poule->setFowlStatus(state::FowlStatus::DEAD);
-            s->setMobileElement(poule, this->idx);
-            if (notify){
-                std::vector<state::Element*> listpoule=s->getMobileElements();
-                std::vector<state::Weapon*> wep=s->getWeaponElements();      
-                s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_DEAD),listpoule,wep);
         
-            }
-        }*/
-         state::Element* el=s->getMobileElement(this->idx);           
-        state::Fowl* bla=reinterpret_cast<state::Fowl*>(el);
+        state::Element* elementTueur = s->getMobileElement(this->idx);
+        int next;
+        next=s->selectNextFowl();
         
-        int i=0;
-
-        if (el->getTypeID()==state::TypeID::FOWL){
+        if (elementTueur->getTypeID()==state::TypeID::FOWL){
+            while (next!=this->idx){
+                state::Fowl* pouleTueuse = reinterpret_cast<state::Fowl*>(elementTueur);
+                state::Element* elementTue = s->getMobileElement(next);
             
-            for (state::Element* element: s->getMobileElements()){
-                state::Element* poupoule = s->getMobileElement(i);
-                state::Fowl* poule=reinterpret_cast<state::Fowl*>(poupoule);
-                                
-                if (element->getY()==el->getY()){
-                    
-                    if ((element->getX()<=(el->getX()+125)) and (element->getX()>=(el->getX()-125))){
-                        if (i!=this->idx){
-                            if(poule->getFowlColor()!=state::FowlColor::BLANK){
-                                if(bla->getFowlColor()!=poule->getFowlColor()){
-                                    if(bla->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
-                                        if(bla->getX()/125==poule->getX()/125){
-                                            poule->setFowlStatus(state::FowlStatus::DEAD);
-                                            s->setMobileElement(poule,i);
-                                        }}
-                                    if(bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
-                                        if((poule->getX()>=(bla->getX()-125)) and (poule->getX()<=bla->getX())){
-                                            poule->setFowlStatus(state::FowlStatus::DEAD);
-                                            s->setMobileElement(poule,i);
-                                        }}
-                                    if(bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
-                                        if((poule->getX()<=(bla->getX()+125)) and (poule->getX()>=bla->getX())){
-                                            poule->setFowlStatus(state::FowlStatus::DEAD);
-                                            s->setMobileElement(poule,i);
-                                        }}
-                                    
-                            }}
+                if (elementTue->getTypeID()==state::TypeID::FOWL){
+                    state::Fowl* pouleTuee = reinterpret_cast<state::Fowl*>(elementTue);
+                    if (pouleTuee->getY()==pouleTueuse->getY()){
+                        if (pouleTueuse->getFowlStatus()==state::FowlStatus::ALIVE_FACE){
+                            if ((pouleTueuse->getX())/125==(pouleTuee->getX())/125){
+                                if (pouleTueuse->getFowlColor()!=pouleTuee->getFowlColor()){
+                                    pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
+                                    s->setMobileElement(elementTue,next);
+                                }
+                            }
+                        }
+                        else if (pouleTueuse->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
+                            if ((pouleTuee->getX()>=(pouleTueuse->getX()-125)) and (pouleTuee->getX()<=pouleTueuse->getX())){
+                                if (pouleTueuse->getFowlColor()!=pouleTuee->getFowlColor()){
+                                    pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
+                                    s->setMobileElement(elementTue,next);
+                                }
+                            }                            
+                        }
+                        else if (pouleTueuse->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
+                            if ((pouleTuee->getX()<=(pouleTueuse->getX()+125)) and (pouleTuee->getX()>=pouleTueuse->getX())){
+                                if (pouleTueuse->getFowlColor()!=pouleTuee->getFowlColor()){
+                                    pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
+                                    s->setMobileElement(elementTue,next);
+                                }
+                            }
                         }
                     }
-                    
                 }
                 
                 if (notify){
@@ -79,13 +66,13 @@ namespace engine{
                 std::vector<state::Weapon*> wep=s->getWeaponElements();      
                 s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_DEAD),listpoule,wep);
                 }
-                
-                i++;
+            next=s->selectNextFowl();    
             }
-            
-            
-            
         }
+        
+        
+        
+        
     }
         
         
