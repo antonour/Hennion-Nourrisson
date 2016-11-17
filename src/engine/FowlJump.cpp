@@ -26,7 +26,7 @@ namespace engine{
             
             if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
                 bla->setX(bla->getX()-125);
-                bla->setY(bla->getY()-97);
+                bla->setY(bla->getY());
                 s->setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s->getMobileElements();
@@ -36,7 +36,7 @@ namespace engine{
             }
             else if (bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
                 bla->setX(bla->getX()+125);
-                bla->setY(bla->getY()-97);
+                bla->setY(bla->getY());
                 s->setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s->getMobileElements();
