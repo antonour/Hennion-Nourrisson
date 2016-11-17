@@ -47,8 +47,8 @@ namespace engine{
     }
     
     void Engine::loadlevel (){
-        this->currentState->loadChar("../src/fichierperso.txt");
-        this->currentState->loadLevel("../src/fichiermap.txt");
+        this->currentState->loadChar("./src/fichierperso.txt");
+        this->currentState->loadLevel("./src/fichiermap.txt");
     }
     
 }
