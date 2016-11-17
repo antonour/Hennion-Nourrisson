@@ -245,14 +245,44 @@ namespace Render{
                     if (poule->getFowlStatus()==state::FowlStatus::HITTING && poule->isSelected()==true){
                         X=poule->getX();
                         Y=poule->getY();
-                        cout << X << endl;
-                        cout << Y<< endl;
                         if (surface->fowltab[i]%9==2 || surface->fowltab[i]%9==3 || surface->fowltab[i]%9==4){
                             this->runAnimation(1,i,i/40,X,Y,state::Direction::OUEST);
                         }
                         else if (surface->fowltab[i]%9==5 || surface->fowltab[i]%9==6 || surface->fowltab[i]%9==7){
                             this->runAnimation(1,i,i/40,X,Y,state::Direction::EST);
                         }
+                    }
+                }
+                i++;
+            }
+        }
+        
+        if (e->getStateEventID()==state::StateEventID::FOWL_JUMP_LEFT){
+            int i=0,X=0,Y=0;
+            for (state::Element* pers: list){
+                if (pers->getTypeID()==state::TypeID::FOWL){
+                    state::Fowl* poule;
+                    poule=reinterpret_cast<state::Fowl*>(pers);
+                    if (poule->isSelected()){
+                        X=poule->getX();
+                        Y=poule->getY();
+                        this->runAnimation(2,i,i,X+125,Y,state::Direction::OUEST);
+                    }
+                }
+                i++;
+            }
+        }
+        
+        if (e->getStateEventID()==state::StateEventID::FOWL_JUMP_RIGHT){
+            int i=0,X=0,Y=0;
+            for (state::Element* pers: list){
+                if (pers->getTypeID()==state::TypeID::FOWL){
+                    state::Fowl* poule;
+                    poule=reinterpret_cast<state::Fowl*>(pers);
+                    if (poule->isSelected()){
+                        X=poule->getX();
+                        Y=poule->getY();
+                        this->runAnimation(2,i,i,X-125,Y,state::Direction::EST);
                     }
                 }
                 i++;
