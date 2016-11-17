@@ -43,6 +43,38 @@ namespace Render{
                 }
             this->surf->dispWeapon(i%40,j,X,Y,this->surf->weapontab[i]);
         }
+        if (this->getAnimID()==AnimID::JUMP && d==state::Direction::OUEST){
+            for(int k=0;k<194;k++){
+                if(k<=97){
+                    this->surf->moveArrow((i-40)%40,(j-40)/40,X-(125*k)/194,Y-97-k/2,this->surf->arrowtab[i-40]);
+                    this->surf->dispWeapon(i%40,j/40,X-(125*k)/194,Y-k/2,this->surf->weapontab[i]);
+                    this->surf->moveFowl(i%40,j/40,X-(125*k)/194,Y-k/2,this->surf->fowltab[i]);
+                    this->update(0);
+                }
+                else{
+                    this->surf->moveArrow((i-40)%40,(j-40)/40,X-(125*k)/194,Y-194+k/2,this->surf->arrowtab[i-40]);
+                    this->surf->dispWeapon(i%40,j/40,X-(125*k)/194,Y-97+k/2,this->surf->weapontab[i]);
+                    this->surf->moveFowl(i%40,j/40,X-(125*k)/194,Y-97+k/2,this->surf->fowltab[i]);
+                    this->update(0);
+                }
+            }
+        }
+        if (this->getAnimID()==AnimID::JUMP && d==state::Direction::EST){
+            for(int k=0;k<194;k++){
+                if(k<=97){
+                    this->surf->moveArrow((i-40)%40,(j-40)/40,X+(125*k)/194,Y-97-k/2,this->surf->arrowtab[i-40]);
+                    this->surf->dispWeapon(i%40,j/40,X+(125*k)/194,Y-k/2,this->surf->weapontab[i]);
+                    this->surf->moveFowl(i%40,j/40,X+(125*k)/194,Y-k/2,this->surf->fowltab[i]);
+                    this->update(0);
+                }
+                else{
+                    this->surf->moveArrow((i-40)%40,(j-40)/40,X+(125*k)/194,Y-194+k/2,this->surf->arrowtab[i-40]);
+                    this->surf->dispWeapon(i%40,j/40,X+(125*k)/194,Y-97+k/2,this->surf->weapontab[i]);
+                    this->surf->moveFowl(i%40,j/40,X+(125*k)/194,Y-97+k/2,this->surf->fowltab[i]);
+                    this->update(0);
+                }
+            }
+        }
     }
     
     void Animation::sync (int64_t time){}
