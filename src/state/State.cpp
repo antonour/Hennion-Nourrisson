@@ -35,19 +35,22 @@ namespace state{
         return this->background[idx];
     }
     
-    void State::killFowls(){
+    void State::killFowl(){
+        int i=0;
         for (Element* proc : this->elements){
             Fowl *fo;
             fo=reinterpret_cast<Fowl*>(proc);
-            fo->setFowlStatus(FowlStatus::DEAD);
+            if (fo->isSelected()==true && (fo->getFowlStatus()==FowlStatus::ALIVE_LEFT || fo->getFowlStatus()==FowlStatus::ALIVE_RIGHT)){
+                fo->setFowlStatus(FowlStatus::HITTING);
+                this->setMobileElement(fo,i);
+            }
+            i++;
         }
-        this->notifyObservers(new StateEvent(FOWL_DEAD),this->elements,this->weapons);
+        this->notifyObservers(new StateEvent(FOWL_HITTING),this->elements,this->weapons);
     }
     
     void State::loadLevel (const std::string& file_name){
         int a=1;
-        int k=0;
-        int l=0;
         int b=10;
         ifstream fichier1(file_name, ios::in);
         if(fichier1){
@@ -90,13 +93,6 @@ namespace state{
                         }
                         if(i%3==0){
                             Element * terr = this->factory->create(contenu,false);
-                            /*terr->setX(125*k);
-                            k++;
-                            if (k==40){
-                                l++;
-                                k=0;
-                            }
-                            terr->setY(97*l);*/
                             this->background.push_back(terr);
                             fichier3.get(poubelle);
                             contenu="";
