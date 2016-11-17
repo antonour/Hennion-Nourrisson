@@ -3,35 +3,38 @@
 #define RENDER__ANIMATION__H
 
 #include "../state.hpp"
+#include <SFML/Graphics.hpp>
 #include <stdint.h>
 
 namespace Render {
-  class Tile;
+  class Surface;
 }
 
 #include "state/Direction.h"
-#include "Tile.h"
+#include "AnimID.h"
+#include "Surface.h"
 
 namespace Render {
 
   /// class Animation - 
   class Animation {
     // Associations
+    Render::AnimID animID;
     // Attributes
   protected:
-    int i;
-    int x;
-    int y;
-    const Tile* tile;
     state::Direction direction;
-    float speed;
+    Surface* surf;
+    sf::RenderWindow* window;
     // Operations
   public:
-    Animation (int i, int x, int y, const Tile* a);
+    Animation (AnimID id, sf::RenderWindow* window);
     void setDirection (state::Direction d);
-    void setSpeed (float speed);
     void sync (int64_t time);
     void update (int64_t time);
+    void animate (int i, int j, int X, int Y);
+    void setSurface (Surface* su);
+    AnimID getAnimID ();
+    state::Direction getDirection ();
   };
 
 };

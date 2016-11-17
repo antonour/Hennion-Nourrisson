@@ -10,21 +10,17 @@
 namespace state {
   class Element;
 };
-namespace Render {
-  class Tile;
-};
 namespace sf {
   class Transformable;
   class Drawable;
 }
 
-#include "Tile.h"
+#include "state/Direction.h"
 
 namespace Render {
 
   /// class Surface - 
   class Surface : public sf::Transformable, public sf::Drawable {
-    // Associations
     // Attributes
   public:
     std::vector<int> fieldtab;
@@ -54,9 +50,8 @@ namespace Render {
     void moveFowl (int i, int j, int X, int Y, int tex);
     void moveArrow (int i, int j, int X, int Y, int tex);
     void kill (int i, int j, int tex);
-    Tile* getElementTile (state::Element* e);
-    Tile* getCharTile (state::Element* e);
     void dispWeapon (int i, int j, int X, int Y, int tex);
+    void rotateWeapon (int i, int j, int X, int Y, int tex, int rot, state::Direction d);
   };
 
 };

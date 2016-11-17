@@ -19,6 +19,7 @@ namespace state {
   class IObserver;
 }
 
+#include "state/Direction.h"
 #include "state/IObserver.h"
 #include "Animation.h"
 #include "Surface.h"
@@ -42,6 +43,7 @@ namespace Render {
     void stateChanged (state::StateEvent* e, std::vector<state::Element*>& list, std::vector<state::Weapon*>& weaps);
     void sync (int64_t time);
     void update (int64_t time);
+    void runAnimation (int idx, int i, int j, int X, int Y, state::Direction d);
   protected:
     void update (const state::State& elementList);
   };
