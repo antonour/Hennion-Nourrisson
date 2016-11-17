@@ -57,6 +57,7 @@ namespace engine{
             bla=reinterpret_cast<state::Fowl*>(el);
             if (this->Direction==state::Direction::OUEST){
                 bla->setFowlStatus(state::FowlStatus::ALIVE_LEFT);
+                bla->setX(bla->getX()-2);
                 s->setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s->getMobileElements();
@@ -66,6 +67,7 @@ namespace engine{
             }
             if (this->Direction==state::Direction::EST){
                 bla->setFowlStatus(state::FowlStatus::ALIVE_RIGHT);
+                bla->setX(bla->getX()+2);
                 s->setMobileElement(bla,this->idx);
                 if (notify){
                     std::vector<state::Element*> list=s->getMobileElements();
