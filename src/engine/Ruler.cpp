@@ -22,20 +22,6 @@ namespace engine{
     Ruler::~Ruler (){}
        
     void Ruler::apply (){
-        /*if (this->commands->commands[1]){
-            KillCommand* k;
-            k=reinterpret_cast<KillCommand*>(this->commands->commands[1]);
-            this->actions->add(new KillFowl(k->getIDX()));
-        }
-        if (this->commands->commands[0]){
-            MoveCommand* m;
-            m=reinterpret_cast<MoveCommand*>(this->commands->commands[0]);
-            if (m->getMoveID()==MoveID::CHICKEN){
-                cout << "apply" << endl;
-                this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
-            }
-        }*/
-        
         for (Command* cmd : this->commands->commands){
             if (cmd->getCmdTypeID()==CmdTypeID::MOVE_CMD){
                 MoveCommand* m;
@@ -59,6 +45,7 @@ namespace engine{
                 fire=reinterpret_cast<FireCommand*>(cmd);
                 this->actions->add(new Fire(fire->getIDX()));
                 if (canHit(this->currentState,fire)){
+                    cout << "COMMANDE FIRE" << endl;
                     this->actions->add(new KillFowl(fire->getIDX()));
                 }
             }
