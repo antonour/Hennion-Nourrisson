@@ -82,10 +82,9 @@ namespace Render{
                 if (el->getTypeID()==state::TypeID::FOWL){
                     state::Fowl* poulet;
                     poulet=reinterpret_cast<state::Fowl*>(el);
-                    if (poulet->getFowlStatus()==state::FowlStatus::DEAD && poulet->isSelected()){
+                    if (poulet->getFowlStatus()==state::FowlStatus::DEAD){
                         X=poulet->getX();
                         Y=poulet->getY();
-                        surface->arrowtab[i-40]=0;
                         if (surface->fowltab[i]%9==1){
                             surface->fowltab[i]+=7;
                         }
@@ -108,8 +107,7 @@ namespace Render{
                             surface->fowltab[i]+=1;
                         }
                 
-                        surface->kill(i%40,i/40,surface->fowltab[i]);
-                        surface->moveArrow((i-40)%40,(i-40)/40,X,Y-97,surface->arrowtab[i-40]);
+                        surface->kill(i%40,i/40,X,Y,surface->fowltab[i]);
                     }
                 }
                 i++;
@@ -251,6 +249,29 @@ namespace Render{
                         else if (surface->fowltab[i]%9==5 || surface->fowltab[i]%9==6 || surface->fowltab[i]%9==7){
                             this->runAnimation(1,i,i/40,X,Y,state::Direction::EST);
                         }
+                       surface->arrowtab[i-40]=1;
+                       surface->weapontab[i]=29;
+                       if (surface->fowltab[i]%9==2){
+                           surface->fowltab[i]-=1;
+                       }
+                       else if (surface->fowltab[i]%9==3){
+                           surface->fowltab[i]-=2;
+                       }
+                       else if (surface->fowltab[i]%9==4){
+                           surface->fowltab[i]-=3;
+                       }
+                       else if (surface->fowltab[i]%9==5){
+                           surface->fowltab[i]-=4;
+                       }
+                       else if (surface->fowltab[i]%9==6){
+                           surface->fowltab[i]-=5;
+                       }
+                       else if (surface->fowltab[i]%9==7){
+                           surface->fowltab[i]-=6;
+                       }
+                       surface->moveFowl(i%40,i/40,X,Y,surface->fowltab[i]);
+                       surface->moveArrow((i-40)%40,(i-40)/40,X,Y-97,surface->arrowtab[i-40]);
+                       surface->dispWeapon(i%40,i/40,X,Y,surface->weapontab[i]);
                     }
                 }
                 i++;
