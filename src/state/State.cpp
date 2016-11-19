@@ -41,6 +41,12 @@ namespace state{
             Fowl *fo;
             fo=reinterpret_cast<Fowl*>(proc);
             if (fo->isSelected()==true && (fo->getFowlStatus()==FowlStatus::ALIVE_LEFT || fo->getFowlStatus()==FowlStatus::ALIVE_RIGHT)){
+                if (fo->getFowlStatus()==FowlStatus::ALIVE_LEFT){
+                    fo->setDirection(state::Direction::OUEST);
+                }
+                else{
+                    fo->setDirection(state::Direction::EST);
+                }
                 fo->setFowlStatus(FowlStatus::HITTING);
                 this->setMobileElement(fo,i);
             }
@@ -202,18 +208,20 @@ namespace state{
         this->elements=newlist;
     }
     
-    int State::selectNextFowl() {
+    int State::selectNextFowl(bool keepview) {
         bool found=false;
         bool lastfound=false;
         int p=0,k=0;
         for (Element* el: this->elements){
             Fowl* f=reinterpret_cast<Fowl*>(el);
             if (found){
-                if (f->getFowlColor()==FowlColor::WHITE || f->getFowlColor()==FowlColor::GREEN){
+                if (f->getFowlColor()!=FowlColor::BLANK && f->getFowlStatus()!=FowlStatus::DEAD){
                     f->setSelected(true);
-                    this->setMobileElement(f,p);
                     lastfound=true;
-                    this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
+                    this->setMobileElement(f,p);
+                    if (!keepview){
+                        this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
+                    }
                     return p;
                 }
             }
@@ -221,20 +229,32 @@ namespace state{
                 if (f->isSelected()){
                     found=true;
                     f->setSelected(false);
-                    f->setFowlStatus(FowlStatus::ALIVE_FACE);
-                    this->setMobileElement(f,p);
-                    this->notifyObservers(new StateEvent(StateEventID::FOWL_STOP),this->elements,this->weapons);
+                    if (f->getFowlStatus()!=FowlStatus::HITTING && f->getFowlStatus()!=FowlStatus::DEAD){
+                        f->setFowlStatus(FowlStatus::ALIVE_FACE);
+                    }
+                    if(keepview){
+                        this->setMobileElement(f,p);
+                    }
+                    else{
+                        this->setMobileElement(f,p);
+                        this->notifyObservers(new StateEvent(StateEventID::FOWL_STOP),this->elements,this->weapons);
+                    }
                 }
             }
             p++;
         }
-        if (found==false|| lastfound==false){
+        if (found==false || lastfound==false){
                 for (Element* e: this->elements){
                     Fowl* fo=reinterpret_cast<Fowl*>(e);
-                    if (fo->getFowlColor()!=FowlColor::BLANK){
+                    if (fo->getFowlColor()!=FowlColor::BLANK && fo->getFowlStatus()!=FowlStatus::DEAD){
                         fo->setSelected(true);
-                        this->setMobileElement(fo,k);
-                        this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
+                        if (keepview){
+                            this->setMobileElement(fo,p);
+                        }
+                        else{
+                            this->setMobileElement(fo,k);
+                            this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
+                        }
                         return k;
                     }
                     k++;
