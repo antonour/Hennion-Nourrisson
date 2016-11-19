@@ -9,6 +9,9 @@
 #include "../state.hpp"
 #include "../engine.hpp"
 #include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 namespace ia{
     HeuristicIA::HeuristicIA(){}
@@ -27,38 +30,45 @@ namespace ia{
         for (state::Element* e : s->getMobileElements()){
             state::Fowl* p=reinterpret_cast<state::Fowl*>(e);
             if (i!=idx){
-                if (p->getX() <= X+50 && p->getX() >= X-50 && p->getY()==Y){
+                if (p->getX() <= X+50 && p->getX() >= X-50 && p->getY()==Y && p->getFowlStatus()!=state::FowlStatus::DEAD){
                     if (p->getFowlColor()!=state::FowlColor::BLANK && p->getFowlColor()!=FC){
-                        s->killFowl();
-                        ///engine::Command* hit=new engine::FireCommand(idx,poule->getDirection());
-                        //cmd=hit;
-                    }
-                }
-                if (p->getX() <= X+1000 && p->getX() >= X-1000 && p->getY()==Y){
-                    if (p->getFowlColor()!=state::FowlColor::BLANK && p->getFowlColor()!=FC){
-                        if (p->getX() < X){
-                            engine::Command* moveright=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
-                            cmd=moveright;
-                        }
-                        else{
-                            engine::Command* moveleft=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
-                            cmd=moveleft;
-                        }
-                    }
-                }
-                
-                else{
-                    if (r==1){
-                        engine::Command* moveleft=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
-                        cmd=moveleft;
-                    }
-                    else if (r==2){
-                        engine::Command* moveright=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
-                        cmd=moveright;
+                        cout << "ON TUE" << endl;
+                        engine::Command* hit=new engine::FireCommand(idx,poule->getDirection());
+                        cmd=hit;
+                        return cmd;
                     }
                 }
             }
         }
-        return cmd;
+        for (state::Element* e : s->getMobileElements()){
+            state::Fowl* p=reinterpret_cast<state::Fowl*>(e);
+            if (i!=idx){
+                if (p->getX() <= X+1000 && p->getX() >= X-1000 && p->getY()==Y && p->getFowlStatus()!=state::FowlStatus::DEAD){
+                    if (p->getFowlColor()!=state::FowlColor::BLANK && p->getFowlColor()!=FC){
+                        if (p->getX() < X){
+                            engine::Command* moveleft=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
+                            cmd=moveleft;
+                            return cmd;
+                        }
+                        else if (p->getX() > X){
+                            engine::Command* moveright=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
+                            cmd=moveright;
+                            return cmd;
+                        }
+                    }
+                }
+            }
+        }
+        if (r==1){
+            engine::Command* moveleft=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
+            cmd=moveleft;
+            return cmd;
+        }
+        else if (r==2){
+            engine::Command* moveright=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
+            cmd=moveright;
+            return cmd;
+        }
+                
     }
 }
