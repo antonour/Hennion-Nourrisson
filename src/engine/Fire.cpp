@@ -17,7 +17,7 @@ namespace engine{
     Fire::~Fire (){}
     
     void Fire::apply(state::State* s, bool notify){
-         
+        s->killFowl();
     }
     
 }
