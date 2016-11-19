@@ -284,12 +284,18 @@ namespace Render{
        
     }
     
-    void Surface::kill(int i, int j, int tex){
+    void Surface::kill(int i, int j,int X, int Y, int tex){
         sf::Vertex* quad =&m_vertices_fowl[(i + j * 40)*4];     
 
         // on en déduit sa position dans la texture du tileset
         int tu = tex % (m_tileset_fowl.getSize().x / 48);
         int tv = tex / (m_tileset_fowl.getSize().x / 48);
+        
+        // on définit ses quatre coins
+        quad[0].position = sf::Vector2f(X, Y);
+        quad[1].position = sf::Vector2f(X+125, Y);
+        quad[2].position = sf::Vector2f(X+125, Y+97);
+        quad[3].position = sf::Vector2f(X, Y+97);
         
         // on définit ses quatre coordonnées de texture
         quad[0].texCoords = sf::Vector2f(tu * 48, tv * 48);
