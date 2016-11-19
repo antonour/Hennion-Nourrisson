@@ -70,7 +70,7 @@ namespace state{
         this->enregistrer("36",new FieldCreator(FieldTypeID::NEANT), false);
         
         
-        this->enregistrer("00",new FowlCreator(FowlColor::BLANK,FowlStatus::DEAD), true);
+        this->enregistrer("00",new FowlCreator(FowlColor::BLANK,FowlStatus::NOTHING), true);
         this->enregistrer("01",new FowlCreator(FowlColor::WHITE,FowlStatus::ALIVE_FACE), true);
         this->enregistrer("03",new FowlCreator(FowlColor::WHITE,FowlStatus::ALIVE_LEFT), true);
         this->enregistrer("06",new FowlCreator(FowlColor::WHITE,FowlStatus::ALIVE_RIGHT), true);
