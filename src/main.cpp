@@ -57,7 +57,7 @@ int main(int argc,char* argv[])
     engine.setRuler(rules);   
     
     int next;
-    next=s.selectNextFowl();
+    next=s.selectNextFowl(false);
         
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
@@ -94,7 +94,7 @@ int main(int argc,char* argv[])
                     }    
 
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
-                                next=s.selectNextFowl();
+                                next=s.selectNextFowl(false);
                                 KC->setIDX(next);
                                 moving_fowl->setIDX(next);
                                 e=s.getMobileElement(next);
@@ -115,9 +115,6 @@ int main(int argc,char* argv[])
                         ite_hia=0;
                     }
                     
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-                        s.killFowl();
-                        //engine.addCommand(KC);
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
                         MC->setMove(0,0,next,Direction::OUEST);
                         MC->setMoveID(MoveID::CHICKEN_WALK);
@@ -135,7 +132,6 @@ int main(int argc,char* argv[])
                     }
                     
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Space){
-                        //s.killFowl();
                         FC->setFire(next,MC->getDir());
                         engine.addCommand(FC);
                     }
@@ -160,7 +156,7 @@ int main(int argc,char* argv[])
             engine.addCommand(cmd);
             ite_dia++;
             if (ite_dia==200){
-                next=s.selectNextFowl();
+                next=s.selectNextFowl(false);
                 rules->resetJump();
                 ite_dia=0;
             }
@@ -169,8 +165,15 @@ int main(int argc,char* argv[])
             Command* cmd=HIA->runHeuristicIA(&s,next);
             engine.addCommand(cmd);
             ite_hia++;
+            if (cmd->getCmdTypeID()==CmdTypeID::FIRE_CMD){
+                if (engine.update(200)){};
+                T=C.restart();
+                next=s.selectNextFowl(false);
+                rules->resetJump();
+                ite_hia=0;
+            }
             if (ite_hia==200){
-                next=s.selectNextFowl();
+                next=s.selectNextFowl(false);
                 rules->resetJump();
                 ite_hia=0;
             }
