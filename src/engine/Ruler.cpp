@@ -45,7 +45,6 @@ namespace engine{
                 fire=reinterpret_cast<FireCommand*>(cmd);
                 this->actions->add(new Fire(fire->getIDX()));
                 if (canHit(this->currentState,fire)){
-                    cout << "COMMANDE FIRE" << endl;
                     this->actions->add(new KillFowl(fire->getIDX()));
                 }
             }
