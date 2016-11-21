@@ -80,6 +80,7 @@ int main(int argc,char* argv[])
     KillCommand* KC= new KillCommand(0);
 //    LoadCommand* LC= new LoadCommand(true);
     FireCommand* FC= new FireCommand(0,Direction::NONE);
+    NextCommand* NC= new NextCommand(next,v,moving_fowl,KC,false);
         
 
 
@@ -88,17 +89,16 @@ int main(int argc,char* argv[])
         sf::Event event;
         while (window.pollEvent(event))
         {
+                    next=NC->getIDX();
+                    
                     if(event.type==sf::Event::Closed)
                     {
                         window.close();
                     }    
 
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
-                                next=s.selectNextFowl(false);
-                                KC->setIDX(next);
-                                moving_fowl->setIDX(next);
-                                e=s.getMobileElement(next);
-                                v->setCenter (e->getX(), e->getY());
+                                NC->setNextCommand(next,v,moving_fowl,KC,false);
+                                engine.addCommand(NC);
                     }
                     
                     //Intelligence Artificielle Médiocre
@@ -134,6 +134,8 @@ int main(int argc,char* argv[])
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Space){
                         FC->setFire(next,MC->getDir());
                         engine.addCommand(FC);
+                        NC->setNextCommand(next,v,moving_fowl,KC,true);
+                        engine.addCommand(NC);
                     }
                     
                     //Set de commandes permettant de bouger la caméra et de zoomer
