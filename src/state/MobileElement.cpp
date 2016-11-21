@@ -10,11 +10,7 @@ namespace state{
     
     MobileElement::MobileElement (){
         this->direction=NONE;
-        this->speed=0;
-        this->position=0;
     }
-    
-    //MobileElement::~MobileElement(){}
     
     bool MobileElement::isStatic () const{
         return false;
@@ -27,20 +23,5 @@ namespace state{
     void MobileElement::setDirection (Direction dir){
         this->direction=dir;
     }
-    
-    Orientation MobileElement::getOrientation () const{
-        return this->orient;
-    }
-    void MobileElement::setOrientation (Orientation ori){
-        this->orient=ori;
-    }
-    
-    void MobileElement::setSpeed (size_t s){
-        this->speed=s;
-    }
-    
-    void MobileElement::setPosition (size_t p){
-        this->position=p;
-    }
-    
+
 }
