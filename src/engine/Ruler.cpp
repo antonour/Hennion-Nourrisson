@@ -48,6 +48,11 @@ namespace engine{
                     this->actions->add(new KillFowl(fire->getIDX()));
                 }
             }
+            if (cmd->getCmdTypeID()==CmdTypeID::NEXT_CMD){
+                NextCommand* n;
+                n=reinterpret_cast<NextCommand*>(cmd);
+                this->actions->add(new SelectFowl(n));
+            }
         }
         this->actions->apply();
         this->commands->commands.clear();
@@ -105,13 +110,15 @@ namespace engine{
         if (el->getTypeID()==state::TypeID::FOWL){
         bla=reinterpret_cast<state::Fowl*>(el);
             state::Element* e=s->getStaticElement(m->getIDX());
-            e->setX(el->getX());
+            //e->setX(el->getX());
             e->setY(el->getY()+97);
             int idx;
             if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT || m->getDir()==state::Direction::OUEST){
+                e->setX(el->getX()-50);
                 idx = e->getIDXbyXY()+1;
             }
             else if (bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT || m->getDir()==state::Direction::EST){
+                e->setX(el->getX()+50);
                 idx = e->getIDXbyXY();
             }
             else{
@@ -157,15 +164,15 @@ namespace engine{
             
             int idx;
             
-            if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT and m->getDir()==state::Direction::OUEST){
+            if (bla->getFowlStatus()==state::FowlStatus::ALIVE_LEFT){
                 e->setX(el->getX()-125);
                 e->setY(el->getY()-97);
-                idx = e->getIDXbyXY()+1;
+                idx = e->getIDXbyXY();
             }
-            else if (bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT and m->getDir()==state::Direction::EST){
+            else if (bla->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT){
                 e->setX(el->getX()+125);
                 e->setY(el->getY()-97);
-                idx = e->getIDXbyXY();
+                idx = e->getIDXbyXY()+1;
             }
             else{
                 return true;
