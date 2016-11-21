@@ -32,7 +32,6 @@ namespace ia{
             if (i!=idx){
                 if (p->getX() <= X+50 && p->getX() >= X-50 && p->getY()==Y && p->getFowlStatus()!=state::FowlStatus::DEAD){
                     if (p->getFowlColor()!=state::FowlColor::BLANK && p->getFowlColor()!=FC){
-                        cout << "ON TUE" << endl;
                         engine::Command* hit=new engine::FireCommand(idx,poule->getDirection());
                         cmd=hit;
                         return cmd;
