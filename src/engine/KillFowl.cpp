@@ -23,13 +23,11 @@ namespace engine{
     KillFowl::~KillFowl (){}
   
     void KillFowl::apply(state::State* s, bool notify){
-        cout << "apply" << endl;
         state::Element* elementTueur = s->getMobileElement(this->idx);
         int X=elementTueur->getX();
         int Y=elementTueur->getY();
         state::Fowl* pouleTueuse = reinterpret_cast<state::Fowl*>(elementTueur);
         state::FowlColor col=pouleTueuse->getFowlColor();
-        cout << pouleTueuse->getDirection() << endl;
         int next;
         next=s->selectNextFowl(true);
         
@@ -38,12 +36,9 @@ namespace engine{
             if (elementTue->getTypeID()==state::TypeID::FOWL){
                 state::Fowl* pouleTuee = reinterpret_cast<state::Fowl*>(elementTue);
                 if (pouleTuee->getY()==Y && pouleTuee->getFowlColor()!=col){
-                    cout << "meme ligne ennemie" << endl;
                     if (pouleTueuse->getFowlStatus()==state::FowlStatus::HITTING){
-                        cout << "elle frappe" << endl;
                         if (pouleTueuse->getDirection()==state::Direction::OUEST){
                             if (pouleTuee->getX() <=X && pouleTuee->getX() >= X-125){
-                                cout << "TUE" << endl;
                                 pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
                             }
                         }
