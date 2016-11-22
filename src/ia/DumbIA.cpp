@@ -16,9 +16,10 @@ namespace ia{
         this->futurState=currentState;
     }
     
-    engine::Command* DumbIA::run (state::State* s,int idx){
+    engine::Command* DumbIA::run (state::State* s){
         srand(time(NULL));
         int r=rand()%4 + 1;
+        int idx=s->getSelected();
         engine::Command* cmd;
       
         if (r==1){

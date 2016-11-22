@@ -78,6 +78,6 @@ namespace ia{
             }
         }
         
-        return DumbIA::run(s,this->currentState->getSelected());
+        return DumbIA::run(s);
     }
 }
