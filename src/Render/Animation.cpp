@@ -4,10 +4,13 @@
  * and open the template in the editor.
  */
 #include <iostream>
+#include <string>
 #include <map>
 #include <memory>
 #include "Animation.h"
 #include <SFML/Graphics.hpp>
+
+using namespace std;
 
 namespace Render{
     
@@ -15,7 +18,7 @@ namespace Render{
         this->animID=id;
         this->window=window;
     }
-    
+   
     void Animation::setDirection (state::Direction d){
         this->direction=d;        
     }
@@ -80,9 +83,11 @@ namespace Render{
     void Animation::sync (int64_t time){}
     
     void Animation::update (int64_t time){
-        this->window->clear(sf::Color(102,102,225,255));
-        this->window->draw(*surf);
-        this->window->display();
+        if (time==0){
+            this->window->clear(sf::Color(102,102,225,255));
+            this->window->draw(*surf);
+            this->window->display();
+        }
     }
     
 }

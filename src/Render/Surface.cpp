@@ -7,14 +7,28 @@
 using namespace std;
 
 namespace Render{
-    Surface::Surface(){
+    Surface::Surface(sf::RenderWindow* w){
         for (int i=0;i<1200;i++){
             this->arrowtab.push_back(1);
             this->weapontab.push_back(29);
         }
+        this->window=w;
+        if(!this->font.loadFromFile("./res/arial.ttf")){
+            throw runtime_error("BOUH");
+        }
+        this->mouvements.setPosition(10,20);
+        this->mouvements.setString("200");
+        this->mouvements.setScale(2,2);
+        this->mouvements.setFont(this->font);
     }
     
     Surface::~Surface(){}
+     
+    void Surface::setMouvements(int X, int Y, int units){
+        this->mouvements.setPosition(X,Y);
+        this->mouvements.setString(to_string(units));
+    }
+    
     
     bool Surface::loadMap(const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2, const int* tiles, unsigned int width, unsigned int height)
     {
@@ -306,6 +320,8 @@ namespace Render{
 
     void Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
+        
+        this->window->draw(this->mouvements);
         // on applique la transformation
         states.transform *= getTransform();
 
@@ -328,7 +344,6 @@ namespace Render{
         states.texture = &m_tileset_weapon;
         // et on dessine enfin le tableau de vertex
         target.draw(m_vertices_weapon, states);
-        
     }
     
     void Surface::clear(){}

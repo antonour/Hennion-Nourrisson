@@ -123,7 +123,7 @@ namespace Render{
                     if (poule->getFowlStatus()==state::FowlStatus::ALIVE_RIGHT && poule->isSelected()){
                        X=poule->getX();
                        Y=poule->getY();
-                       surface->arrowtab[i-40]=0;
+                       surface->arrowtab[i-40]=1;
                        surface->weapontab[i]=10;
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=4;
@@ -142,6 +142,8 @@ namespace Render{
                        surface->moveFowl(i%40,i/40,X,Y,surface->fowltab[i]);
                        surface->moveArrow((i-40)%40,(i-40)/40,X,Y-97,surface->arrowtab[i-40]);
                        surface->dispWeapon(i%40,i/40,X,Y,surface->weapontab[i]);
+                       this->surface->setMouvements(X,Y-97,poule->getMU());
+                       
                     }
                     
                 }
@@ -158,7 +160,7 @@ namespace Render{
                     if (poule->getFowlStatus()==state::FowlStatus::ALIVE_LEFT && poule->isSelected()){
                        X=poule->getX();
                        Y=poule->getY();
-                       surface->arrowtab[i-40]=0;
+                       surface->arrowtab[i-40]=1;
                        surface->weapontab[i]=10;
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=1;
@@ -177,6 +179,7 @@ namespace Render{
                        surface->moveFowl(i%40,i/40,X,Y,surface->fowltab[i]);
                        surface->moveArrow((i-40)%40,(i-40)/40,X,Y-97,surface->arrowtab[i-40]);
                        surface->dispWeapon(i%40,i/40,X,Y,surface->weapontab[i]);
+                       this->surface->setMouvements(X,Y-97,poule->getMU());
                     }
                 }
                 i++;
