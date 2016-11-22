@@ -51,7 +51,9 @@ namespace engine{
             if (cmd->getCmdTypeID()==CmdTypeID::NEXT_CMD){
                 NextCommand* n;
                 n=reinterpret_cast<NextCommand*>(cmd);
+                if (n->getFowlHasMoved()==false){
                 this->actions->add(new SelectFowl(n));
+                }
             }
         }
         this->actions->apply();

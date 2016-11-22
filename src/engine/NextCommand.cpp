@@ -8,12 +8,13 @@
 
 namespace engine{
     
-    NextCommand::NextCommand(int idx, MoveCamera* v, MoveFowl* mv, KillCommand* KC, bool TeamChange){
+    NextCommand::NextCommand(int idx, MoveCamera* v, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved){
         this->idx=idx;
         this->v=v;
         this->mv=mv;
         this->KC=KC;
         this->TeamChange=TeamChange;
+        this->FowlHasMoved=FowlHasMoved;
     }
     
     CmdTypeID NextCommand::getCmdTypeID (){
@@ -36,12 +37,13 @@ namespace engine{
         return this->KC;
     }
     
-    void NextCommand::setNextCommand(int idx, MoveCamera* v, MoveFowl* mv, KillCommand* KC, bool TeamChange){
+    void NextCommand::setNextCommand(int idx, MoveCamera* v, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved){
         this->idx=idx;
         this->v=v;
         this->mv=mv;
         this->KC=KC;
         this->TeamChange=TeamChange;
+        this->FowlHasMoved=FowlHasMoved;
     }
     
     
@@ -51,6 +53,14 @@ namespace engine{
     
     void NextCommand::setIDX (int idx){
         this->idx=idx;
+    }
+    
+    bool NextCommand::getFowlHasMoved (){
+        return this->FowlHasMoved;
+    }
+    
+    void NextCommand::setFowlHasMoved (bool FowlHasMoved){
+        this->FowlHasMoved=FowlHasMoved;
     }
     
 }
