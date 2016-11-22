@@ -157,7 +157,7 @@ int main(int argc,char* argv[])
 
         }
         if (autorundumb){
-            Command* cmd=DIA->run(&s,next);
+            Command* cmd=DIA->run(&s);
             engine.addCommand(cmd);
             ite_dia++;
             if (ite_dia==200){
