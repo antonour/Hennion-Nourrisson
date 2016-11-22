@@ -56,28 +56,48 @@ namespace engine{
         if (el->getTypeID()==state::TypeID::FOWL){
             bla=reinterpret_cast<state::Fowl*>(el);
             if (this->Direction==state::Direction::OUEST){
-                bla->setFowlStatus(state::FowlStatus::ALIVE_LEFT);
-                bla->setDirection(state::Direction::OUEST);
-                bla->setX(bla->getX()-2);
-                s->setMobileElement(bla,this->idx);
-                if (notify){
+                int moverestants=bla->getMU();
+                if (moverestants>0){
+                    bla->setFowlStatus(state::FowlStatus::ALIVE_LEFT);
+                    bla->setDirection(state::Direction::OUEST);
+                    bla->setX(bla->getX()-2);
+                    bla->setMoveUnits(moverestants-1);
+                    s->setMobileElement(bla,this->idx);
                     std::vector<state::Element*> list=s->getMobileElements();
                     std::vector<state::Weapon*> wep=s->getWeaponElements();
-                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_LEFT),list,wep);
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_LEFT),list,wep);                
+                }
+                else{
+                    bla->setFowlStatus(state::FowlStatus::ALIVE_FACE);
+                    s->setMobileElement(bla,this->idx);
+                    std::vector<state::Element*> list=s->getMobileElements();
+                    std::vector<state::Weapon*> wep=s->getWeaponElements();
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_STOP),list,wep);
+                    s->selectNextFowl(false);
                 }
             }
             if (this->Direction==state::Direction::EST){
-                bla->setFowlStatus(state::FowlStatus::ALIVE_RIGHT);
-                bla->setX(bla->getX()+2);
-                bla->setDirection(state::Direction::EST);
-                s->setMobileElement(bla,this->idx);
-                if (notify){
+                int moverestants=bla->getMU();
+                if (moverestants>0){
+                    bla->setFowlStatus(state::FowlStatus::ALIVE_RIGHT);
+                    bla->setX(bla->getX()+2);
+                    bla->setMoveUnits(moverestants-1);
+                    bla->setDirection(state::Direction::EST);
+                    s->setMobileElement(bla,this->idx);
                     std::vector<state::Element*> list=s->getMobileElements();
                     std::vector<state::Weapon*> wep=s->getWeaponElements();
-                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_RIGHT),list,wep);
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_MOVE_RIGHT),list,wep);                
+                }
+                else{
+                    bla->setFowlStatus(state::FowlStatus::ALIVE_FACE);
+                    s->setMobileElement(bla,this->idx);
+                    std::vector<state::Element*> list=s->getMobileElements();
+                    std::vector<state::Weapon*> wep=s->getWeaponElements();
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_STOP),list,wep);
+                    s->selectNextFowl(false);
                 }
             }
         }
-    }
     
     }
+}
