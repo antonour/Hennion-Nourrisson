@@ -14,60 +14,70 @@
 using namespace std;
 
 namespace ia{
-    HeuristicIA::HeuristicIA(){}
+    HeuristicIA::HeuristicIA(state::State* currentState):DumbIA(currentState){}
     
-    engine::Command* HeuristicIA::runHeuristicIA(state::State* s, int idx){
-        srand(time(NULL));
-        int r=rand()%2 + 1;
-        engine::Command* cmd;
+    std::map<int,int> HeuristicIA::givePonderation(){
+        std::map<int,int> tri;
+        tri[1]=0;
+        tri[2]=0;
         
-        state::Element * el= s->getMobileElement(idx);
+        int idx=this->currentState->getSelected();
+        
+        state::Element * el= this->currentState->getMobileElement(idx);
         state::Fowl * poule=reinterpret_cast<state::Fowl*>(el);
+        
         int X=el->getX();
         int Y=el->getY();
-        int i=0;
+        
         state::FowlColor FC= poule->getFowlColor();
-        for (state::Element* e : s->getMobileElements()){
+        
+        for (state::Element* e : this->currentState->getMobileElements()){
             state::Fowl* p=reinterpret_cast<state::Fowl*>(e);
-            if (i!=idx){
+            if (p->isSelected()!=true){
                 if (p->getX() <= X+50 && p->getX() >= X-50 && p->getY()==Y && p->getFowlStatus()!=state::FowlStatus::DEAD){
                     if (p->getFowlColor()!=state::FowlColor::BLANK && p->getFowlColor()!=FC){
-                        engine::Command* hit=new engine::FireCommand(idx,poule->getDirection());
-                        cmd=hit;
-                        return cmd;
+                        if (p->getDirection()==state::Direction::EST){
+                            tri[1]=10;
+                        }
+                        else tri[1]=11;
+                        return tri;
                     }
                 }
-            }
-        }
-        for (state::Element* e : s->getMobileElements()){
-            state::Fowl* p=reinterpret_cast<state::Fowl*>(e);
-            if (i!=idx){
                 if (p->getX() <= X+1000 && p->getX() >= X-1000 && p->getY()==Y && p->getFowlStatus()!=state::FowlStatus::DEAD){
                     if (p->getFowlColor()!=state::FowlColor::BLANK && p->getFowlColor()!=FC){
                         if (p->getX() < X){
-                            engine::Command* moveleft=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
-                            cmd=moveleft;
-                            return cmd;
+                            tri[2]=5;
                         }
                         else if (p->getX() > X){
-                            engine::Command* moveright=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
-                            cmd=moveright;
-                            return cmd;
+                            tri[2]=6;
                         }
+                        return tri;
                     }
                 }
             }
         }
-        if (r==1){
-            engine::Command* moveleft=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
-            cmd=moveleft;
-            return cmd;
+        return tri;
+    }
+    
+    engine::Command* HeuristicIA::run(state::State* s){
+        std::map<int,int> pond=this->givePonderation();
+        if (pond[1]!=0){
+            if (pond[1]==10){
+                return new engine::FireCommand(this->currentState->getSelected(),state::Direction::EST);
+            }
+            if (pond[1]==11){
+                return new engine::FireCommand(this->currentState->getSelected(),state::Direction::OUEST);
+            }
         }
-        else if (r==2){
-            engine::Command* moveright=new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
-            cmd=moveright;
-            return cmd;
+        if (pond[2]!=0){
+            if (pond[2]==5){
+                return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,this->currentState->getSelected(),state::Direction::OUEST);
+            }
+            if (pond[2]==6){
+                return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,this->currentState->getSelected(),state::Direction::EST);
+            }
         }
-                
+        
+        return DumbIA::run(s,this->currentState->getSelected());
     }
 }
