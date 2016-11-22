@@ -35,6 +35,17 @@ namespace state{
         return this->background[idx];
     }
     
+    int State::getSelected(){
+        int i=0;
+        for (Element* el: this->elements){
+            Fowl* f=reinterpret_cast<Fowl*>(el);
+            if (f->isSelected()){
+                return i;
+            }
+            i++;
+        }
+    }
+    
     void State::killFowl(){
         int i=0;
         for (Element* proc : this->elements){
