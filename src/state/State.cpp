@@ -229,6 +229,7 @@ namespace state{
                 if (f->getFowlColor()!=FowlColor::BLANK && f->getFowlStatus()!=FowlStatus::DEAD){
                     f->setSelected(true);
                     lastfound=true;
+                    f->setMoveUnits(200);
                     this->setMobileElement(f,p);
                     if (!keepview){
                         this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
@@ -240,6 +241,7 @@ namespace state{
                 if (f->isSelected()){
                     found=true;
                     f->setSelected(false);
+                    f->setMoveUnits(0);
                     if (f->getFowlStatus()!=FowlStatus::HITTING && f->getFowlStatus()!=FowlStatus::DEAD){
                         f->setFowlStatus(FowlStatus::ALIVE_FACE);
                     }
@@ -259,6 +261,7 @@ namespace state{
                     Fowl* fo=reinterpret_cast<Fowl*>(e);
                     if (fo->getFowlColor()!=FowlColor::BLANK && fo->getFowlStatus()!=FowlStatus::DEAD){
                         fo->setSelected(true);
+                        fo->setMoveUnits(200);
                         if (keepview){
                             this->setMobileElement(fo,p);
                         }

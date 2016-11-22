@@ -20,6 +20,14 @@ namespace state{
         return true;
     }
     
+    void Fowl::setMoveUnits(int units){
+        this->moveunits=units;
+    }
+    
+    int Fowl::getMU(){
+        return this->moveunits;
+    }
+    
     TypeID Fowl::getTypeID () const{
         return this->type;
     }
