@@ -80,7 +80,7 @@ int main(int argc,char* argv[])
     KillCommand* KC= new KillCommand(0);
 //    LoadCommand* LC= new LoadCommand(true);
     FireCommand* FC= new FireCommand(0,Direction::NONE);
-    NextCommand* NC= new NextCommand(next,v,moving_fowl,KC,false);
+    NextCommand* NC= new NextCommand(next,v,moving_fowl,KC,false,false);
         
 
 
@@ -97,7 +97,7 @@ int main(int argc,char* argv[])
                     }    
 
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
-                                NC->setNextCommand(next,v,moving_fowl,KC,false);
+                                NC->setNextCommand(next,v,moving_fowl,KC,false,NC->getFowlHasMoved());
                                 engine.addCommand(NC);
                     }
                     
@@ -119,22 +119,25 @@ int main(int argc,char* argv[])
                         MC->setMove(0,0,next,Direction::OUEST);
                         MC->setMoveID(MoveID::CHICKEN_WALK);
                         engine.addCommand(MC);
+                        NC->setFowlHasMoved(true);
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
                         MC->setMove(0,0,next,Direction::EST);
                         MC->setMoveID(MoveID::CHICKEN_WALK);
                         engine.addCommand(MC);
+                        NC->setFowlHasMoved(true);
                     }
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Return){
                         MC->setMove(0,0,next,MC->getDir());
                         MC->setMoveID(MoveID::CHICKEN_JUMP);
                         engine.addCommand(MC);
+                        NC->setFowlHasMoved(true);
                     }
                     
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Space){
                         FC->setFire(next,MC->getDir());
                         engine.addCommand(FC);
-                        NC->setNextCommand(next,v,moving_fowl,KC,true);
+                        NC->setNextCommand(next,v,moving_fowl,KC,true,false);
                         engine.addCommand(NC);
                     }
                     
