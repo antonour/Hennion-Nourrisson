@@ -16,6 +16,11 @@ namespace engine{
         this->idx=idx;
     }
     
+    KillFowl::KillFowl (int idx, FireCommand* fire){
+        this->idx=idx;
+        this->fire=fire;
+    }
+    
     void KillFowl::setIDX(int idx){
         this->idx=idx;
     }
@@ -40,11 +45,23 @@ namespace engine{
                         if (pouleTueuse->getDirection()==state::Direction::OUEST){
                             if (pouleTuee->getX() <=X && pouleTuee->getX() >= X-125){
                                 pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
+                                if(pouleTuee->getFowlColor()==state::FowlColor::GREEN){
+                                    fire->setNbGreenDead(fire->getNbGreenDead()+1);
+                                }
+                                else{
+                                    fire->setNbWhiteDead(fire->getNbWhiteDead()+1);
+                                }
                             }
                         }
                         else if (pouleTueuse->getDirection()==state::Direction::EST){
                             if (pouleTuee->getX() >=X && pouleTuee->getX() <= X+125){
                                 pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
+                                if(pouleTuee->getFowlColor()==state::FowlColor::GREEN){
+                                    fire->setNbGreenDead(fire->getNbGreenDead()+1);
+                                }
+                                else{
+                                    fire->setNbWhiteDead(fire->getNbWhiteDead()+1);
+                                }
                             }
                         }
                     }
@@ -58,6 +75,9 @@ namespace engine{
             std::vector<state::Weapon*> wep=s->getWeaponElements();      
             s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_DEAD),listpoule,wep);
         }
-    }    
+    }
+
+    
+    
 }
         

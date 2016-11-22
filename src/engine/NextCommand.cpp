@@ -63,4 +63,8 @@ namespace engine{
         this->FowlHasMoved=FowlHasMoved;
     }
     
+    void NextCommand::setTeamChange (bool TeamChange){
+        this->TeamChange=TeamChange;
+    }
+    
 }

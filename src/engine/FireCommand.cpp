@@ -31,4 +31,28 @@ namespace engine{
         return this->idx;
     }
     
+    void FireCommand::setNbGreenDead (int nb){
+        this->NbGreenDead=nb;
+    }
+    void FireCommand::setNbWhiteDead (int nb){
+        this->NbWhiteDead=nb;
+    }
+    
+    int FireCommand::getMaxFowlDeadByTeam (){
+        if (this->NbGreenDead>this->NbWhiteDead){
+            return this->NbGreenDead;
+        }
+        else{
+            return this->NbWhiteDead;
+        }
+    }
+    
+    int FireCommand::getNbGreenDead (){
+        return this->NbGreenDead;
+    }
+    
+    int FireCommand::getNbWhiteDead (){
+        return this->NbWhiteDead;
+    }
+    
 }

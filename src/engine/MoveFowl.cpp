@@ -6,6 +6,7 @@
 
 #include "../engine.hpp"
 #include "../state.hpp"
+#include "SelectFowl.h"
 #include <iostream>
 
 using namespace std;
@@ -48,10 +49,13 @@ namespace engine{
     state::Fowl* MoveFowl::getFowl(){
         return this->poule;
     }
-   
+     
     void MoveFowl::apply(state::State* s, bool notify){
         state::Fowl* bla;
         state::Element * el=s->getMobileElement(this->idx);
+        
+        
+        
         
         if (el->getTypeID()==state::TypeID::FOWL){
             bla=reinterpret_cast<state::Fowl*>(el);
@@ -73,7 +77,23 @@ namespace engine{
                     std::vector<state::Element*> list=s->getMobileElements();
                     std::vector<state::Weapon*> wep=s->getWeaponElements();
                     s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_STOP),list,wep);
-                    s->selectNextFowl(false);
+                    
+                        //changement de poule
+                      state::Element* e = s->getMobileElement(this->idx);
+                        int next=s->selectNextFowl(false);
+                        state::Element* eNext = s->getMobileElement(next);
+
+                        if (e->getTypeID()==state::TypeID::FOWL and eNext->getTypeID()==state::TypeID::FOWL){
+                            state::Fowl* f = reinterpret_cast<state::Fowl*>(e);
+                            state::Fowl* fNext = reinterpret_cast<state::Fowl*>(eNext);
+
+                            while (f->getFowlColor()==fNext->getFowlColor()){
+                                next=s->selectNextFowl(false);
+                                state::Element* eNext2 = s->getMobileElement(next);
+                                fNext = reinterpret_cast<state::Fowl*>(eNext2);
+                            }
+                                                       
+                        }
                 }
             }
             if (this->Direction==state::Direction::EST){
@@ -93,11 +113,29 @@ namespace engine{
                     s->setMobileElement(bla,this->idx);
                     std::vector<state::Element*> list=s->getMobileElements();
                     std::vector<state::Weapon*> wep=s->getWeaponElements();
-                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_STOP),list,wep);
-                    s->selectNextFowl(false);
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_STOP),list,wep); 
+                    
+                    //Changement de poule
+                        state::Element* e = s->getMobileElement(this->idx);
+                        int next=s->selectNextFowl(false);
+                        state::Element* eNext = s->getMobileElement(next);
+
+                        if (e->getTypeID()==state::TypeID::FOWL and eNext->getTypeID()==state::TypeID::FOWL){
+                            state::Fowl* f = reinterpret_cast<state::Fowl*>(e);
+                            state::Fowl* fNext = reinterpret_cast<state::Fowl*>(eNext);
+
+                            while (f->getFowlColor()==fNext->getFowlColor()){
+                                next=s->selectNextFowl(false);
+                                state::Element* eNext2 = s->getMobileElement(next);
+                                fNext = reinterpret_cast<state::Fowl*>(eNext2);
+                            }
+                        }
                 }
             }
         }
     
     }
+    
+    
+    
 }
