@@ -70,8 +70,8 @@ int main(int argc,char* argv[])
     e=s.getMobileElement(next);
     v->setCenter(e->getX(),e->getY());
     
-    DumbIA* DIA = new DumbIA();
-    HeuristicIA* HIA= new HeuristicIA();
+    DumbIA* DIA = new DumbIA(&s);
+    HeuristicIA* HIA= new HeuristicIA(&s);
     int ite_dia=0;
     int ite_hia=0;
     
@@ -154,7 +154,7 @@ int main(int argc,char* argv[])
 
         }
         if (autorundumb){
-            Command* cmd=DIA->runDumbIA(&s,next);
+            Command* cmd=DIA->run(&s,next);
             engine.addCommand(cmd);
             ite_dia++;
             if (ite_dia==200){
@@ -164,7 +164,7 @@ int main(int argc,char* argv[])
             }
         }
         if (autorunheuristic){
-            Command* cmd=HIA->runHeuristicIA(&s,next);
+            Command* cmd=HIA->run(&s);
             engine.addCommand(cmd);
             ite_hia++;
             if (cmd->getCmdTypeID()==CmdTypeID::FIRE_CMD){
