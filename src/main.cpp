@@ -18,8 +18,7 @@ using namespace engine;
 using namespace ia;
 
 int main(int argc,char* argv[]) 
-{
-    
+{   
     //Appel de diverses classes utiles aux grandes classes
     Clock C;
     Time T;
@@ -30,7 +29,7 @@ int main(int argc,char* argv[])
     
     ElementFactory* fac=new ElementFactory();
     CommandSet* CS=new CommandSet();
-    Surface* area=new Surface();
+    Surface* area=new Surface(&window);
     Layer l;
     l.setSurface(area);
     l.setAnimation(1,A1);
