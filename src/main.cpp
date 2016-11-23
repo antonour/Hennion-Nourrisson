@@ -165,12 +165,6 @@ int main(int argc,char* argv[])
             engine.addCommand(cmd);
         }
         
-        if(FC->getMaxFowlDeadByTeam()>=4)
-                    {
-            std::cout<<"Partie Finie"<<std::endl;
-                        window.close();
-                    }
-        //moving_fowl->isFlying (s,true);
         T=C.getElapsedTime();
         if (engine.update(T.asMilliseconds())){
             T=C.restart();
