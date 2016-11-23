@@ -59,7 +59,10 @@ namespace engine{
         return view;
     }
     
-    void MoveCamera::apply(state::State* s, bool notify){}
+    void MoveCamera::apply(state::State* s, bool notify){
+        state::Element* e = s->getMobileElement(s->getSelected());
+        view.setCenter(e->getX(),e->getY());
+    }
     
     void MoveCamera::setCenter (int x, int y){
         this->dxCenter=x;

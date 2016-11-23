@@ -55,12 +55,4 @@ namespace engine{
         return this->NbWhiteDead;
     }
     
-    NextCommand* FireCommand::getNextCommand (){
-        return this->n;
-    }
-    
-    void FireCommand::setNextCommand(NextCommand* n){
-        this->n=n;
-    }
-    
 }

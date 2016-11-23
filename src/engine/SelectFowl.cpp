@@ -10,9 +10,8 @@
 
 namespace engine{
     
-    SelectFowl::SelectFowl (int idx, MoveCamera* v, bool TeamChange){
+    SelectFowl::SelectFowl (int idx, bool TeamChange){
         this->idx=idx;
-        this->v=v;
         this->TeamChange=TeamChange;
     }
 
@@ -33,12 +32,8 @@ namespace engine{
                         next=s->selectNextFowl(false);
                         state::Element* eNext2 = s->getMobileElement(next);
                         fNext = reinterpret_cast<state::Fowl*>(eNext2);
-                    }
-                    
-                    this->n->updateIDX(next);                    
-                    state::Element* element=s->getMobileElement(next);
-                    this->v->setCenter (element->getX(), element->getY());
-                    
+                    }                 
+                                        
                     std::vector<state::Element*> listpoule=s->getMobileElements();
                     std::vector<state::Weapon*> wep=s->getWeaponElements();      
                     s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_SELECTED),listpoule,wep);
@@ -61,11 +56,7 @@ namespace engine{
                         state::Element* eNext2 = s->getMobileElement(next);
                         fNext = reinterpret_cast<state::Fowl*>(eNext2);
                     }
-                    
-                    this->n->updateIDX(next); 
-                    state::Element* element=s->getMobileElement(next);
-                    this->v->setCenter (element->getX(), element->getY());
-                    
+                                        
                     std::vector<state::Element*> listpoule=s->getMobileElements();
                     std::vector<state::Weapon*> wep=s->getWeaponElements();      
                     s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_SELECTED),listpoule,wep);
@@ -76,11 +67,6 @@ namespace engine{
         
         
         
-    }
-    
-    void SelectFowl::setNextCommand (NextCommand* n){
-        this->n=n;
-    }
-    
+    }    
     
 }

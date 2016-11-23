@@ -8,9 +8,8 @@
 
 namespace engine{
     
-    NextCommand::NextCommand(int idx, MoveCamera* v, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved){
+    NextCommand::NextCommand(int idx, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved){
         this->idx=idx;
-        this->v=v;
         this->mv=mv;
         this->KC=KC;
         this->TeamChange=TeamChange;
@@ -25,9 +24,6 @@ namespace engine{
         return this->idx;
     }
     
-    MoveCamera* NextCommand::getMoveCamera (){
-        return this->v;
-    }
     
     MoveFowl* NextCommand::getMoveFowl (){
         return this->mv;
@@ -37,9 +33,8 @@ namespace engine{
         return this->KC;
     }
     
-    void NextCommand::setNextCommand(int idx, MoveCamera* v, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved){
+    void NextCommand::setNextCommand(int idx, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved){
         this->idx=idx;
-        this->v=v;
         this->mv=mv;
         this->KC=KC;
         this->TeamChange=TeamChange;
@@ -66,11 +61,5 @@ namespace engine{
     void NextCommand::setTeamChange (bool TeamChange){
         this->TeamChange=TeamChange;
     }
-    
-    void NextCommand::updateIDX (int idx){
-        this->idx=idx;
-        this->mv->setIDX(idx);
-        this->KC->setIDX(idx);
-    }
-    
+       
 }

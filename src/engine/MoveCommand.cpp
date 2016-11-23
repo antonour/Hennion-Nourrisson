@@ -48,12 +48,4 @@ namespace engine{
     state::Direction MoveCommand::getDir(){
         return this->d;
     }
-    
-    void MoveCommand::setMoveCamera (MoveCamera* v){
-        this->v=v;
-    }
-    
-    MoveCamera* MoveCommand::getMoveCamera (){
-        return this->v;
-    }
 }

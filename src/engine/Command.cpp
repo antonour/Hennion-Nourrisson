@@ -11,4 +11,12 @@ namespace engine{
     
     Command::~Command (){}
     
+    void Command::setMoveCamera (MoveCamera* v){
+        this->v=v;
+    }
+    
+    MoveCamera* Command::getMoveCamera (){
+        return this->v;
+    }
+    
 }

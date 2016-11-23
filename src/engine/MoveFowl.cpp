@@ -95,8 +95,8 @@ namespace engine{
                                                        
                         }
                         
-                    state::Element* element=s->getMobileElement(next);
-                    this->v->setCenter(element->getX(),element->getY());
+                    //state::Element* element=s->getMobileElement(next);
+                    //this->v->setCenter(element->getX(),element->getY());
                         
                 }
             }
@@ -135,23 +135,13 @@ namespace engine{
                             }
                         }
                 
-                    state::Element* element=s->getMobileElement(next);
-                    this->v->setCenter(element->getX(),element->getY());
+                    //state::Element* element=s->getMobileElement(next);
+                    //this->v->setCenter(element->getX(),element->getY());
                 }
             }
         }
     
-    }
-    
-    
-    void MoveFowl::setMoveCamera (MoveCamera* v){
-        this->v=v;
-    }
-    
-    MoveCamera* MoveFowl::getMoveCamera (){
-        return this->v;
-    }
-    
+    }  
     
     
 }
