@@ -70,8 +70,7 @@ int main(int argc,char* argv[])
     
     DumbIA* DIA = new DumbIA(&s);
     HeuristicIA* HIA= new HeuristicIA(&s);
-    int ite_dia=0;
-    int ite_hia=0;
+    TrueIA* TIA= new TrueIA(&s);
     
     //On instancie les différentes classes qui généreront les commandes
     MoveCommand* MC= new MoveCommand(0,0,MoveID::CAMERA,0,Direction::NONE);
@@ -103,14 +102,12 @@ int main(int argc,char* argv[])
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
                         autorundumb=true;
                         autorunheuristic=false;
-                        ite_dia=0;
                     }
                     
                     //Intelligence Artificielle Moyenne
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)){
                         autorundumb=false;
                         autorunheuristic=true;
-                        ite_hia=0;
                     }
                     
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
@@ -139,6 +136,10 @@ int main(int argc,char* argv[])
                         rules->resetJump();
                         NC->setFowlHasMoved(false);
                         
+                    }
+                    
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::G){
+                        cout << TIA->findNearestWay() << endl;
                     }
                     
                     //Set de commandes permettant de bouger la caméra et de zoomer
