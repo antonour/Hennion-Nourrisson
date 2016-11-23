@@ -59,7 +59,6 @@ int main(int argc,char* argv[])
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
     MoveFowl* moving_fowl=new MoveFowl(499);
-    moving_fowl->setMoveCamera(v);
     
     state::Element * e=s.getMobileElement(499);
        
@@ -73,13 +72,16 @@ int main(int argc,char* argv[])
     TrueIA* TIA= new TrueIA(&s);
     
     //On instancie les différentes classes qui généreront les commandes
-    MoveCommand* MC= new MoveCommand(0,0,MoveID::CAMERA,0,Direction::NONE);
+    MoveCommand* MC= new MoveCommand(0,0,MoveID::NONE,0,Direction::NONE);
     KillCommand* KC= new KillCommand(0);
     //LoadCommand* LC= new LoadCommand(true);
     FireCommand* FC= new FireCommand(0,Direction::NONE); 
-    NextCommand* NC= new NextCommand(s.getSelected(),v,moving_fowl,KC,false,false);
+    NextCommand* NC= new NextCommand(s.getSelected(),moving_fowl,KC,false,false);
     
     MC->setMoveCamera(v);
+    KC->setMoveCamera(v);
+    FC->setMoveCamera(v);
+    NC->setMoveCamera(v);
 
 
     while (window.isOpen())
@@ -94,7 +96,7 @@ int main(int argc,char* argv[])
                     }    
 
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
-                                NC->setNextCommand(s.getSelected(),v,moving_fowl,KC,false,NC->getFowlHasMoved());
+                                NC->setNextCommand(s.getSelected(),moving_fowl,KC,false,NC->getFowlHasMoved());
                                 engine.addCommand(NC);
                     }
                     
@@ -131,7 +133,6 @@ int main(int argc,char* argv[])
                     
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Space){
                         FC->setFire(s.getSelected(),MC->getDir());
-                        FC->setNextCommand(NC);
                         engine.addCommand(FC);
                         rules->resetJump();
                         NC->setFowlHasMoved(false);
@@ -159,10 +160,12 @@ int main(int argc,char* argv[])
         }
         if (autorundumb){
             Command* cmd=DIA->run(&s);
+            cmd->setMoveCamera(v);
             engine.addCommand(cmd);
         }
         if (autorunheuristic){
             Command* cmd=HIA->run(&s);
+            cmd->setMoveCamera(v);
             engine.addCommand(cmd);
         }
         
