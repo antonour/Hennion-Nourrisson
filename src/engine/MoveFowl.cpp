@@ -94,6 +94,10 @@ namespace engine{
                             }
                                                        
                         }
+                        
+                    state::Element* element=s->getMobileElement(next);
+                    this->v->setCenter(element->getX(),element->getY());
+                        
                 }
             }
             if (this->Direction==state::Direction::EST){
@@ -130,10 +134,22 @@ namespace engine{
                                 fNext = reinterpret_cast<state::Fowl*>(eNext2);
                             }
                         }
+                
+                    state::Element* element=s->getMobileElement(next);
+                    this->v->setCenter(element->getX(),element->getY());
                 }
             }
         }
     
+    }
+    
+    
+    void MoveFowl::setMoveCamera (MoveCamera* v){
+        this->v=v;
+    }
+    
+    MoveCamera* MoveFowl::getMoveCamera (){
+        return this->v;
     }
     
     

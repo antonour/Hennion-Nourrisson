@@ -10,15 +10,18 @@
 
 namespace engine{
     
-    SelectFowl::SelectFowl (NextCommand* NC){
-        this->NC=NC;
+    SelectFowl::SelectFowl (int idx, MoveCamera* v, bool TeamChange){
+        this->idx=idx;
+        this->v=v;
+        this->TeamChange=TeamChange;
     }
+
     
     void SelectFowl::apply (state::State* s, bool notify){
         
-        if (NC->getTeamChange()==false){
+        if (this->TeamChange==false){
         
-                state::Element* e = s->getMobileElement(NC->getIDX());
+                state::Element* e = s->getMobileElement(this->idx);
                 int next=s->selectNextFowl(false);
                 state::Element* eNext = s->getMobileElement(next);
 
@@ -32,18 +35,20 @@ namespace engine{
                         fNext = reinterpret_cast<state::Fowl*>(eNext2);
                     }
                     
-                    NC->setIDX(next);
-                    NC->getKillCommand()->setIDX(next);
-                    NC->getMoveFowl()->setIDX(next);
+                    this->n->updateIDX(next);                    
                     state::Element* element=s->getMobileElement(next);
-                    NC->getMoveCamera()->setCenter (element->getX(), element->getY());
+                    this->v->setCenter (element->getX(), element->getY());
+                    
+                    std::vector<state::Element*> listpoule=s->getMobileElements();
+                    std::vector<state::Weapon*> wep=s->getWeaponElements();      
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_SELECTED),listpoule,wep);
                 }
                 
         }
         
-        else if (NC->getTeamChange()==true){
+        else if (this->TeamChange==true){
             
-            state::Element* e = s->getMobileElement(NC->getIDX());
+            state::Element* e = s->getMobileElement(this->idx);
                 int next=s->selectNextFowl(false);
                 state::Element* eNext = s->getMobileElement(next);
 
@@ -56,11 +61,14 @@ namespace engine{
                         state::Element* eNext2 = s->getMobileElement(next);
                         fNext = reinterpret_cast<state::Fowl*>(eNext2);
                     }
-                    NC->setIDX(next);
-                    NC->getKillCommand()->setIDX(next);
-                    NC->getMoveFowl()->setIDX(next);
+                    
+                    this->n->updateIDX(next); 
                     state::Element* element=s->getMobileElement(next);
-                    NC->getMoveCamera()->setCenter (element->getX(), element->getY());
+                    this->v->setCenter (element->getX(), element->getY());
+                    
+                    std::vector<state::Element*> listpoule=s->getMobileElements();
+                    std::vector<state::Weapon*> wep=s->getWeaponElements();      
+                    s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_SELECTED),listpoule,wep);
                 }
             
         }
@@ -68,6 +76,10 @@ namespace engine{
         
         
         
+    }
+    
+    void SelectFowl::setNextCommand (NextCommand* n){
+        this->n=n;
     }
     
     

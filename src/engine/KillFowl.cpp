@@ -35,12 +35,15 @@ namespace engine{
         state::FowlColor col=pouleTueuse->getFowlColor();
         int next;
         next=s->selectNextFowl(true);
+        int i=0;
         
-        while (next!=this->idx){ 
+        while (next!=this->idx or i<8){ 
+            
             state::Element* elementTue = s->getMobileElement(next);            
             if (elementTue->getTypeID()==state::TypeID::FOWL){
                 state::Fowl* pouleTuee = reinterpret_cast<state::Fowl*>(elementTue);
-                if (pouleTuee->getY()==Y && pouleTuee->getFowlColor()!=col){
+                i++;
+                if (pouleTuee->getY()==Y && pouleTuee->getFowlColor()!=col && pouleTuee->getFowlStatus()!=state::FowlStatus::DEAD){
                     if (pouleTueuse->getFowlStatus()==state::FowlStatus::HITTING){
                         if (pouleTueuse->getDirection()==state::Direction::OUEST){
                             if (pouleTuee->getX() <=X && pouleTuee->getX() >= X-125){

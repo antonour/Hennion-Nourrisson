@@ -28,7 +28,9 @@ namespace engine{
                 m=reinterpret_cast<MoveCommand*>(cmd);
                 while(isFalling(this->currentState,m)){}
                     if (m->getMoveID()==MoveID::CHICKEN_WALK and isMovable(this->currentState,m)){      
-                        this->actions->add(new MoveFowl(m->getIDX(),m->getDir()));
+                        MoveFowl* mv = new MoveFowl(m->getIDX(),m->getDir());
+                        mv->setMoveCamera(m->getMoveCamera());
+                        this->actions->add(mv);
                         }
                     else if (m->getMoveID()==MoveID::CHICKEN_JUMP and canJumpOver(this->currentState,m)){
                         this->jumped=true;
@@ -46,13 +48,23 @@ namespace engine{
                 this->actions->add(new Fire(fire->getIDX()));
                 if (canHit(this->currentState,fire)){
                     this->actions->add(new KillFowl(fire->getIDX(),fire));
+                    SelectFowl* sf = new SelectFowl(fire->getIDX(),fire->getNextCommand()->getMoveCamera(),true);
+                    sf->setNextCommand(fire->getNextCommand());
+                    this->actions->add(sf);
+                }
+                else{
+                    SelectFowl* sf = new SelectFowl(fire->getIDX(),fire->getNextCommand()->getMoveCamera(),true);
+                    sf->setNextCommand(fire->getNextCommand());
+                    this->actions->add(sf);
                 }
             }
             if (cmd->getCmdTypeID()==CmdTypeID::NEXT_CMD){
                 NextCommand* n;
                 n=reinterpret_cast<NextCommand*>(cmd);
                 if (n->getFowlHasMoved()==false){
-                this->actions->add(new SelectFowl(n));
+                    SelectFowl* sf = new SelectFowl(n->getIDX(),n->getMoveCamera(),false);
+                    sf->setNextCommand(n);
+                    this->actions->add(sf);
                 }
             }
         }

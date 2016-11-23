@@ -67,4 +67,10 @@ namespace engine{
         this->TeamChange=TeamChange;
     }
     
+    void NextCommand::updateIDX (int idx){
+        this->idx=idx;
+        this->mv->setIDX(idx);
+        this->KC->setIDX(idx);
+    }
+    
 }

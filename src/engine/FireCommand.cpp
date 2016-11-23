@@ -30,7 +30,7 @@ namespace engine{
     int FireCommand::getIDX (){
         return this->idx;
     }
-    
+       
     void FireCommand::setNbGreenDead (int nb){
         this->NbGreenDead=nb;
     }
@@ -53,6 +53,14 @@ namespace engine{
     
     int FireCommand::getNbWhiteDead (){
         return this->NbWhiteDead;
+    }
+    
+    NextCommand* FireCommand::getNextCommand (){
+        return this->n;
+    }
+    
+    void FireCommand::setNextCommand(NextCommand* n){
+        this->n=n;
     }
     
 }
