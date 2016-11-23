@@ -59,6 +59,7 @@ int main(int argc,char* argv[])
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
     MoveFowl* moving_fowl=new MoveFowl(499);
+    moving_fowl->setMoveCamera(v);
     
     state::Element * e=s.getMobileElement(499);
        
@@ -76,9 +77,10 @@ int main(int argc,char* argv[])
     MoveCommand* MC= new MoveCommand(0,0,MoveID::CAMERA,0,Direction::NONE);
     KillCommand* KC= new KillCommand(0);
     //LoadCommand* LC= new LoadCommand(true);
-    FireCommand* FC= new FireCommand(0,Direction::NONE);
+    FireCommand* FC= new FireCommand(0,Direction::NONE); 
     NextCommand* NC= new NextCommand(s.getSelected(),v,moving_fowl,KC,false,false);
-        
+    
+    MC->setMoveCamera(v);
 
 
     while (window.isOpen())
@@ -132,10 +134,11 @@ int main(int argc,char* argv[])
                     
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Space){
                         FC->setFire(s.getSelected(),MC->getDir());
+                        FC->setNextCommand(NC);
                         engine.addCommand(FC);
                         rules->resetJump();
-                        NC->setNextCommand(s.getSelected(),v,moving_fowl,KC,true,false);
-                        engine.addCommand(NC);
+                        NC->setFowlHasMoved(false);
+                        
                     }
                     
                     //Set de commandes permettant de bouger la caméra et de zoomer
@@ -161,6 +164,12 @@ int main(int argc,char* argv[])
             Command* cmd=HIA->run(&s);
             engine.addCommand(cmd);
         }
+        
+        if(FC->getMaxFowlDeadByTeam()>=4)
+                    {
+            std::cout<<"Partie Finie"<<std::endl;
+                        window.close();
+                    }
         //moving_fowl->isFlying (s,true);
         T=C.getElapsedTime();
         if (engine.update(T.asMilliseconds())){
