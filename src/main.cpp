@@ -133,6 +133,7 @@ int main(int argc,char* argv[])
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Space){
                         FC->setFire(s.getSelected(),MC->getDir());
                         engine.addCommand(FC);
+                        rules->resetJump();
                         NC->setNextCommand(s.getSelected(),v,moving_fowl,KC,true,false);
                         engine.addCommand(NC);
                     }
@@ -155,29 +156,10 @@ int main(int argc,char* argv[])
         if (autorundumb){
             Command* cmd=DIA->run(&s);
             engine.addCommand(cmd);
-            ite_dia++;
-            if (ite_dia==200){
-                next=s.selectNextFowl(false);
-                rules->resetJump();
-                ite_dia=0;
-            }
         }
         if (autorunheuristic){
             Command* cmd=HIA->run(&s);
             engine.addCommand(cmd);
-            ite_hia++;
-            if (cmd->getCmdTypeID()==CmdTypeID::FIRE_CMD){
-                if (engine.update(200)){};
-                T=C.restart();
-                next=s.selectNextFowl(false);
-                rules->resetJump();
-                ite_hia=0;
-            }
-            if (ite_hia==200){
-                next=s.selectNextFowl(false);
-                rules->resetJump();
-                ite_hia=0;
-            }
         }
         //moving_fowl->isFlying (s,true);
         T=C.getElapsedTime();
