@@ -20,6 +20,81 @@ namespace ia{
     }
     
     engine::Command* TrueIA::run(state::State* s){
+        int m = getMin();
+        int idx=s->getSelected();
+        
+        cout<<m<<".."<<idx<<".."<<this->ite1<<".."<<this->min<<endl;
+        
+        state::Element* e = s->getMobileElement(s->getSelected());
+        state::Fowl* f = reinterpret_cast<state::Fowl*>(e);
+        
+        if (f->getMU()==300){
+            this->ite1=0;
+            this->ite2=0;
+            this->ite3=0;            
+        }      
+        
+        
+        //Premier Déplacement aléatoire
+            if (this->ite1==0){
+                this->min=m;
+                srand(time(NULL));
+                int r=rand()%2 + 1;
+                this->ite2=1;
+                
+                if (r==1){
+                    this->ite1=1;
+                    this->ite3=1;
+                    return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
+                }
+                else{
+                    this->ite1=2;
+                    this->ite3=2;
+                    return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
+                }
+            }
+        
+        //On corrige si le 1er Deplacement était mauvais
+            if (this->min<m){
+                
+                if (this->ite1==1){
+                    this->ite3=2;
+                    return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);           
+                }
+                else{
+                    this->ite3=1;
+                    return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
+                } 
+            }
+        
+        //Si la cible est à portée
+        
+        if (m>0 and m<295){
+            
+            if (this->ite3==1){
+                return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
+            }
+            else{
+                return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
+            }
+        }
+        else if (m>305){
+            if (this->ite3==1){
+                return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
+            }
+            else{
+                return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);
+            }
+        }
+        else{
+            
+            if (this->ite3==1){
+                return new engine::FireCommand(this->currentState->getSelected(),state::Direction::OUEST);
+            }
+            else{
+                return new engine::FireCommand(this->currentState->getSelected(),state::Direction::EST);
+            }            
+        }
         
     }
     
@@ -91,7 +166,7 @@ namespace ia{
         for (state::Element* e: this->currentState->getMobileElements()){
             obstacle=false;
             state::Fowl* f=reinterpret_cast<state::Fowl*>(e);
-            if (f->getY()>=Y && f->isSelected()==false && f->getFowlColor()!=state::FowlColor::BLANK && f->getFowlColor()!=col){
+            if (f->getY()>=Y && f->isSelected()==false && f->getFowlColor()!=state::FowlColor::BLANK && f->getFowlColor()!=col && f->getFowlStatus()!=state::FowlStatus::DEAD){
                 if (f->getY()==Y && f->getX()>X){
                     for (int idx=(X/125+(Y/97)*40);idx<(f->getX()/125+(Y/97)*40)+1;idx++){
                         state::Element * elterr= this->currentState->getStaticElement(idx);
@@ -159,4 +234,81 @@ namespace ia{
         }
     return min;
     }
+
+    int TrueIA::getMin (){
+        
+        int idx1,idx2,idx3,idx4;
+        int min1,min2,min3,min4;
+        min1 = 500000;
+        min2 = 500000;
+        min3 = 500000;
+        min4 = 500000;
+        int mini;
+        int idx;
+        
+        if (this->ite2==0){
+        
+            idx1 = this->currentState->getSelected();
+            min1 = findNearestWay();
+        
+            mini = min1;
+            idx = idx1;
+        
+            engine::SelectFowl* Sel = new engine::SelectFowl(idx1,false);
+            Sel->apply(this->currentState,false);
+                
+            idx2 = this->currentState->getSelected();
+        
+            if (idx2!=idx1){
+                min2 = findNearestWay();  
+        
+                Sel->apply(this->currentState,false);
+        
+                idx3 = this->currentState->getSelected();
+        
+                if (idx3!=idx1){
+                    min3 = findNearestWay();
+                
+                    idx4 = this->currentState->getSelected();
+        
+                    if (idx4!=idx1){
+                        min4 = findNearestWay();
+                    }
+                }    
+        
+            }
+        
+        
+            if (min2<mini){
+                mini=min2;
+                idx=idx2;
+            }
+            if (min3<mini){
+                mini=min3;
+                idx=idx3;
+            }
+            if (min4<mini){
+                mini=min4;
+                idx=idx4;
+            }
+        
+            while (this->currentState->getSelected()!=idx){
+                Sel->apply(this->currentState,true);
+            }
+        }
+        
+        else{
+            mini=findNearestWay();
+        }
+        
+        return mini;
+    }
+    
+    void TrueIA::setIterateurs (int i, int j, int k){
+        this->ite1=i;
+        this->ite2=j;
+        this->ite3=k;
+    }
+
 }
+
