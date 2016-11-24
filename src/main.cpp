@@ -115,6 +115,14 @@ int main(int argc,char* argv[])
                         autorunTrueIA=false;
                     }
                     
+                    //Intelligence Artificielle Forte
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)){
+                        autorundumb=false;
+                        autorunheuristic=false;
+                        autorunTrueIA=true;
+                        //cout << TIA->findNearestWay() << endl;
+                    }
+                    
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
                         MC->setMove(0,0,s.getSelected(),Direction::OUEST);
                         MC->setMoveID(MoveID::CHICKEN_WALK);
@@ -140,13 +148,6 @@ int main(int argc,char* argv[])
                         rules->resetJump();
                         NC->setFowlHasMoved(false);
                         
-                    }
-                    
-                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::G){
-                        autorundumb=false;
-                        autorunheuristic=false;
-                        autorunTrueIA=true;
-                        //cout << TIA->findNearestWay() << endl;
                     }
                     
                     //Set de commandes permettant de bouger la caméra et de zoomer
