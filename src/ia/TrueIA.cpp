@@ -23,12 +23,12 @@ namespace ia{
         
     }
     
-    int TrueIA::findHole(int X, int Y, int& DX, int& DY){
+    int TrueIA::findHole(int X, int Y, int& DX){
         bool found=false;
         int nbrepas=0;
         int compteurgauche=15000;
         int compteurdroite=15000;
-        for (int idx=(X/125+(Y/97)*40);idx>((Y/97)*40-1)+1;idx--){
+        for (int idx=(X/125+(Y/97)*40);idx>((Y/97)*40)-1;idx--){
             state::Element * elterr= this->currentState->getStaticElement(idx);
             state::Field* terr=reinterpret_cast<state::Field*>(elterr);
             if (terr->getFieldTypeID()==state::FieldTypeID::NEANT && found==false){
@@ -41,7 +41,7 @@ namespace ia{
             }
         }
         found=false;
-        for (int idx=(X/125+(Y/97)*40);idx<(39+(Y/97)*40+1)+1;idx++){
+        for (int idx=(X/125+(Y/97)*40);idx<(39+(Y/97)*40)+1;idx++){
             state:: Element * elterr= this->currentState->getStaticElement(idx);
             state::Field* terr=reinterpret_cast<state::Field*>(elterr);
             if (terr->getFieldTypeID()==state::FieldTypeID::NEANT && found==false){
@@ -62,21 +62,25 @@ namespace ia{
             DX=X+compteurdroite;
             nbrepas=compteurdroite/2;
         }
-        for (int idx=(DX/125+(DY/97)*40);idx<DX/125+1160+1;idx+=40){
-            state::Element * air= this->currentState->getStaticElement(idx);
-            state::Field* terr=reinterpret_cast<state::Field*>(air);
-            if (terr->getFieldTypeID()!=state::FieldTypeID::NEANT && found==false){
-                found=true;
-                DY=terr->getY();
-            }                    
-        }
         return nbrepas;
+    }
+    
+    void TrueIA::findLanding(int X, int Y, int& DY){
+        for (int idx=(X/125+(Y/97)*40);idx<(X/125+29*40)+1;idx+=40){
+            state::Element * elterr= this->currentState->getStaticElement(idx);
+            state::Field* terr=reinterpret_cast<state::Field*>(elterr);
+            if (terr->getFieldTypeID()!=state::FieldTypeID::NEANT){
+                DY=terr->getY()-97;
+                return;
+            }
+        }
     }
     
     int TrueIA::findNearestWay(){
         int index=this->currentState->getSelected();
         state::Element* el= this->currentState->getMobileElement(index);
         state::Fowl* fowl=reinterpret_cast<state::Fowl*>(el);
+        state::FowlColor col=fowl->getFowlColor();
         bool obstacle=false;
         int X=fowl->getX();
         int Y=fowl->getY();
@@ -87,17 +91,17 @@ namespace ia{
         for (state::Element* e: this->currentState->getMobileElements()){
             obstacle=false;
             state::Fowl* f=reinterpret_cast<state::Fowl*>(e);
-            if (f->getY()>=Y){
+            if (f->getY()>=Y && f->isSelected()==false && f->getFowlColor()!=state::FowlColor::BLANK && f->getFowlColor()!=col){
                 if (f->getY()==Y && f->getX()>X){
-                    for (int idx=(X/125+(Y/97)*40);idx<(f->getX()/125+(f->getY()/97)*40)+1;idx++){
+                    for (int idx=(X/125+(Y/97)*40);idx<(f->getX()/125+(Y/97)*40)+1;idx++){
                         state::Element * elterr= this->currentState->getStaticElement(idx);
                         terr=reinterpret_cast<state::Field*>(elterr);
-                        if (terr->getFieldTypeID()==state::FieldTypeID::NEANT){
+                        if (terr->getFieldTypeID()!=state::FieldTypeID::NEANT){
                             obstacle=true;
                         }
                         elterr= this->currentState->getStaticElement(idx+40);
                         terr=reinterpret_cast<state::Field*>(elterr);
-                        if (terr->getFieldTypeID()!=state::FieldTypeID::NEANT){
+                        if (terr->getFieldTypeID()==state::FieldTypeID::NEANT){
                             obstacle=true;
                         }
                     }
@@ -105,19 +109,19 @@ namespace ia{
                         nbrepas=15000;
                     }
                     else {
-                        nbrepas=(f->getX()-X)/2;
+                        nbrepas=(f->getX()-X)/2 - 40;
                     }
                 }
                 if (f->getY()==Y && f->getX()<X){
-                    for (int idx=(X/125+(Y/97)*40);idx>(f->getX()/125+(f->getY()/97)*40)-1;idx--){
+                    for (int idx=(X/125+(Y/97)*40);idx>(f->getX()/125+(Y/97)*40)-1;idx--){
                         state::Element * elterr= this->currentState->getStaticElement(idx);
                         terr=reinterpret_cast<state::Field*>(elterr);
-                        if (terr->getFieldTypeID()==state::FieldTypeID::NEANT){
+                        if (terr->getFieldTypeID()!=state::FieldTypeID::NEANT){
                             obstacle=true;
                         }
                         elterr= this->currentState->getStaticElement(idx+40);
                         terr=reinterpret_cast<state::Field*>(elterr);
-                        if (terr->getFieldTypeID()!=state::FieldTypeID::NEANT){
+                        if (terr->getFieldTypeID()==state::FieldTypeID::NEANT){
                             obstacle=true;
                         }
                     }
@@ -125,20 +129,27 @@ namespace ia{
                         nbrepas=15000;
                     }
                     else {
-                        nbrepas=(X-f->getX())/2;
+                        nbrepas=(X-f->getX())/2 - 40;
                     }
                 }
                 if (f->getY()==Y && f->getX()==X){
                     nbrepas=0;
                 }
                 if (f->getY()>Y){
-                    int DX;
-                    DX=f->getX();
-                    int DY;
-                    DY=f->getY();
-                    cout << DY << endl;
-                    while (DY!=Y){
-                        nbrepas+=this->findHole(X,Y,DX,DY);
+                    int DX=X;
+                    int DY=Y;
+                    int DDX=X;
+                    int DDY=Y;
+                    nbrepas=this->findHole(X,Y,DX);
+                    this->findLanding(DX,Y,DY);
+                    while (DY<f->getY()){
+                        DDX=DX;
+                        DDY=DY;
+                        nbrepas+=this->findHole(DDX,DDY,DX);
+                        this->findLanding(DDX,DDY,DY);
+                    }
+                    if (DY>f->getY()){
+                        nbrepas=15000;
                     }
                 }
                 if (nbrepas<min){
