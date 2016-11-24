@@ -38,7 +38,7 @@ int main(int argc,char* argv[])
     A2->setSurface(area);
     bool autorundumb=false;
     bool autorunheuristic=false;
-
+    bool autorunTrueIA=false;
     
     //On crée l'état qui s'occupera de gérer les différents éléments
     State s;
@@ -70,6 +70,7 @@ int main(int argc,char* argv[])
     DumbIA* DIA = new DumbIA(&s);
     HeuristicIA* HIA= new HeuristicIA(&s);
     TrueIA* TIA= new TrueIA(&s);
+    TIA->setIterateurs(0,0,0);
     
     //On instancie les différentes classes qui généreront les commandes
     MoveCommand* MC= new MoveCommand(0,0,MoveID::NONE,0,Direction::NONE);
@@ -104,12 +105,14 @@ int main(int argc,char* argv[])
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
                         autorundumb=true;
                         autorunheuristic=false;
+                        autorunTrueIA=false;
                     }
                     
                     //Intelligence Artificielle Moyenne
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)){
                         autorundumb=false;
                         autorunheuristic=true;
+                        autorunTrueIA=false;
                     }
                     
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
@@ -140,7 +143,10 @@ int main(int argc,char* argv[])
                     }
                     
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::G){
-                        cout << TIA->findNearestWay() << endl;
+                        autorundumb=false;
+                        autorunheuristic=false;
+                        autorunTrueIA=true;
+                        //cout << TIA->findNearestWay() << endl;
                     }
                     
                     //Set de commandes permettant de bouger la caméra et de zoomer
@@ -165,6 +171,11 @@ int main(int argc,char* argv[])
         }
         if (autorunheuristic){
             Command* cmd=HIA->run(&s);
+            cmd->setMoveCamera(v);
+            engine.addCommand(cmd);
+        }
+        if (autorunTrueIA){
+            Command* cmd=TIA->run(&s);
             cmd->setMoveCamera(v);
             engine.addCommand(cmd);
         }
