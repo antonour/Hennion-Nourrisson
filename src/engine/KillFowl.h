@@ -5,6 +5,7 @@
 #include "../state.hpp"
 
 namespace engine {
+  class FireCommand;
   class Action;
 }
 
@@ -17,8 +18,10 @@ namespace engine {
     // Attributes
   protected:
     int idx;
+    FireCommand* fire;
     // Operations
   public:
+    KillFowl (int idx, FireCommand* fire);
     KillFowl (int idx);
     ~KillFowl ();
     void apply (state::State* s, bool notify);

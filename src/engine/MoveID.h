@@ -6,10 +6,10 @@
 namespace engine {
 
   enum MoveID {
-    CAMERA     = 1,
-    WEAPON     = 2,
-    CHICKEN_WALK     = 3,
-    CHICKEN_JUMP     = 4
+    NONE     = 0,
+    WEAPON     = 1,
+    CHICKEN_WALK     = 2,
+    CHICKEN_JUMP     = 3
   };
 
 };

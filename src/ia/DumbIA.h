@@ -2,17 +2,26 @@
 #ifndef IA__DUMBIA__H
 #define IA__DUMBIA__H
 
-#include "../engine.hpp"
 #include "../state.hpp"
+#include "../engine.hpp"
+
+namespace ia {
+  class AI;
+}
+
+#include "AI.h"
 
 namespace ia {
 
   /// class DumbIA - 
-  class DumbIA {
+  class DumbIA : public ia::AI {
+    // Attributes
+  protected:
+    state::State* futurState;
     // Operations
   public:
-    DumbIA ();
-    engine::Command* runDumbIA (state::State* s, int idx);
+    DumbIA (state::State* currentState);
+    virtual engine::Command* run (state::State* s);
   };
 
 };

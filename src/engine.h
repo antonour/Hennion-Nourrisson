@@ -21,4 +21,6 @@
 #include "engine/KillCommand.h"
 #include "engine/LoadCommand.h"
 #include "engine/FowlJump.h"
+#include "engine/NextCommand.h"
+#include "engine/SelectFowl.h"
 #endif

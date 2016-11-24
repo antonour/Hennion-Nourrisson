@@ -43,7 +43,8 @@ namespace state {
     void loadChar (const std::string& file_name);
     virtual ~State ();
     void killFowl ();
-    int selectNextFowl ();
+    int selectNextFowl (bool keepview);
+    int getSelected ();
     void selectWeapon (WeaponStatus status, int idx);
     void setWeaponVisibility (bool visible, int idx);
     std::vector<Weapon*> getWeaponElements ();

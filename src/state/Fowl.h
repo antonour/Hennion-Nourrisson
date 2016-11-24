@@ -25,6 +25,7 @@ namespace state {
     int HP;
     TypeID type;
     bool selected;
+    int moveunits;
     // Operations
   public:
     Fowl (FowlColor color, FowlStatus status);
@@ -38,6 +39,8 @@ namespace state {
     void setFowlColor (FowlColor color);
     bool isSelected ();
     void setSelected (bool sel);
+    void setMoveUnits (int units);
+    int getMU ();
   };
 
 };

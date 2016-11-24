@@ -12,7 +12,8 @@ namespace state {
     DEAD     = 4,
     TOUCHED     = 5,
     WAITING     = 6,
-    HITTING     = 7
+    HITTING     = 7,
+    NOTHING     = 0
   };
 
 };

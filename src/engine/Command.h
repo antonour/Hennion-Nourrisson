@@ -3,6 +3,10 @@
 #define ENGINE__COMMAND__H
 
 
+namespace engine {
+  class MoveCamera;
+}
+
 #include "CmdTypeID.h"
 
 namespace engine {
@@ -11,10 +15,15 @@ namespace engine {
   class Command {
     // Associations
     engine::CmdTypeID cmdType;
+    // Attributes
+  protected:
+    MoveCamera* v;
     // Operations
   public:
     virtual ~Command ();
     virtual CmdTypeID getCmdTypeID () = 0;
+    void setMoveCamera (MoveCamera* v);
+    MoveCamera* getMoveCamera ();
   };
 
 };

@@ -2,8 +2,9 @@
 #ifndef IA__HEURISTICIA__H
 #define IA__HEURISTICIA__H
 
-#include "../engine.hpp"
 #include "../state.hpp"
+#include "../engine.hpp"
+#include <map>
 
 namespace ia {
   class DumbIA;
@@ -17,8 +18,9 @@ namespace ia {
   class HeuristicIA : public ia::DumbIA {
     // Operations
   public:
-    engine::Command* runHeuristicIA (state::State* s, int idx);
-    HeuristicIA ();
+    HeuristicIA (state::State* currentState);
+    engine::Command* run (state::State* s);
+    std::map<int,int> givePonderation ();
   };
 
 };

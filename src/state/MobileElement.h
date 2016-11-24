@@ -2,14 +2,12 @@
 #ifndef STATE__MOBILEELEMENT__H
 #define STATE__MOBILEELEMENT__H
 
-#include <stdlib.h>
 
 namespace state {
   class Element;
 }
 
 #include "Direction.h"
-#include "Orientation.h"
 #include "Element.h"
 
 namespace state {
@@ -18,22 +16,12 @@ namespace state {
   class MobileElement : public state::Element {
     // Associations
     state::Direction direction;
-    state::Orientation orient;
-    // Attributes
-  protected:
-    /// 												
-    size_t speed;
-    size_t position;
     // Operations
   public:
     MobileElement ();
     virtual bool isStatic () const;
     Direction getDirection () const;
     void setDirection (Direction dir);
-    Orientation getOrientation () const;
-    void setOrientation (Orientation ori);
-    void setSpeed (size_t s);
-    void setPosition (size_t p);
     virtual bool isFowl () const = 0;
   };
 

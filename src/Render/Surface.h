@@ -36,9 +36,13 @@ namespace Render {
     sf::Texture m_tileset_arrow;
     sf::VertexArray m_vertices_weapon;
     sf::Texture m_tileset_weapon;
+  protected:
+    sf::Font font;
+    sf::Text mouvements;
+    sf::RenderWindow* window;
     // Operations
   public:
-    Surface ();
+    Surface (sf::RenderWindow* w);
     ~Surface ();
     virtual void clear ();
     bool loadChar (const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2,  const int* tiles, unsigned int width, unsigned int height);
@@ -49,9 +53,10 @@ namespace Render {
     void generateMap (std::vector<state::Element*>& list, std::vector<int>& tab);
     void moveFowl (int i, int j, int X, int Y, int tex);
     void moveArrow (int i, int j, int X, int Y, int tex);
-    void kill (int i, int j, int tex);
+    void kill (int i, int j, int X, int Y, int tex);
     void dispWeapon (int i, int j, int X, int Y, int tex);
     void rotateWeapon (int i, int j, int X, int Y, int tex, int rot, state::Direction d);
+    void setMouvements (int X, int Y, int units);
   };
 
 };

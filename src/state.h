@@ -27,5 +27,4 @@
 #include "state/IObserver.h"
 #include "state/StateEventID.h"
 #include "state/FowlColor.h"
-#include "state/Orientation.h"
 #endif
