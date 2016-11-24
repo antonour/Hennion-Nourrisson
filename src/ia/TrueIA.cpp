@@ -26,8 +26,11 @@ namespace ia{
         cout<<m<<".."<<idx<<".."<<this->ite1<<".."<<this->min<<endl;
         
         state::Element* e = s->getMobileElement(s->getSelected());
+        state::Element* bg=s->getStaticElement(s->getSelected()-1);
+        state::Element* bd=s->getStaticElement(s->getSelected()+1);
         state::Fowl* f = reinterpret_cast<state::Fowl*>(e);
-        
+        state::Field* blocgauche=reinterpret_cast<state::Field*>(bg);
+        state::Field* blocdroite=reinterpret_cast<state::Field*>(bd);
         if (f->getMU()==300){
             this->ite1=0;
             this->ite2=0;
@@ -42,7 +45,7 @@ namespace ia{
                 int r=rand()%2 + 1;
                 this->ite2=1;
                 
-                if (r==1){
+                if ((r==1 && blocgauche->getFieldTypeID()==state::FieldTypeID::NEANT) || blocdroite->getFieldTypeID()!=state::FieldTypeID::NEANT){
                     this->ite1=1;
                     this->ite3=1;
                     return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
@@ -57,7 +60,7 @@ namespace ia{
         //On corrige si le 1er Deplacement était mauvais
             if (this->min<m){
                 
-                if (this->ite1==1){
+                if ((this->ite1==1 && blocdroite->getFieldTypeID()==state::FieldTypeID::NEANT) || blocgauche->getFieldTypeID()!=state::FieldTypeID::NEANT){
                     this->ite3=2;
                     return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::EST);           
                 }
@@ -71,7 +74,7 @@ namespace ia{
         
         if (m>0 and m<295){
             
-            if (this->ite3==1){
+            if ((this->ite3==1  && blocgauche->getFieldTypeID()==state::FieldTypeID::NEANT) || blocdroite->getFieldTypeID()!=state::FieldTypeID::NEANT){
                 return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
             }
             else{
@@ -79,7 +82,7 @@ namespace ia{
             }
         }
         else if (m>305){
-            if (this->ite3==1){
+            if ((this->ite3==1  && blocgauche->getFieldTypeID()==state::FieldTypeID::NEANT) || blocdroite->getFieldTypeID()!=state::FieldTypeID::NEANT){
                 return new engine::MoveCommand(0,0,engine::MoveID::CHICKEN_WALK,idx,state::Direction::OUEST);
             }
             else{
@@ -88,7 +91,7 @@ namespace ia{
         }
         else{
             
-            if (this->ite3==1){
+            if ((this->ite3==1  && blocgauche->getFieldTypeID()==state::FieldTypeID::NEANT) || blocdroite->getFieldTypeID()!=state::FieldTypeID::NEANT){
                 return new engine::FireCommand(this->currentState->getSelected(),state::Direction::OUEST);
             }
             else{
@@ -225,6 +228,48 @@ namespace ia{
                     }
                     if (DY>f->getY()){
                         nbrepas=15000;
+                    }
+                    if (DY==f->getY()){
+                        if (DX<f->getX()){
+                            for (int idx=(DX/125+(DY/97)*40);idx<(f->getX()/125+(DY/97)*40)+1;idx++){
+                                state::Element * elterr= this->currentState->getStaticElement(idx);
+                                terr=reinterpret_cast<state::Field*>(elterr);
+                                if (terr->getFieldTypeID()!=state::FieldTypeID::NEANT){
+                                    obstacle=true;
+                                }
+                                elterr= this->currentState->getStaticElement(idx+40);
+                                terr=reinterpret_cast<state::Field*>(elterr);
+                                if (terr->getFieldTypeID()==state::FieldTypeID::NEANT){
+                                    obstacle=true;
+                                }
+                            }
+                            if (obstacle){
+                                nbrepas=15000;
+                            }
+                            else {
+                                nbrepas+=(f->getX()-DX)/2 - 40;
+                            }
+                        }
+                        if (DX>f->getX()){
+                            for (int idx=(DX/125+(DY/97)*40);idx>(f->getX()/125+(DY/97)*40)-1;idx--){
+                                state::Element * elterr= this->currentState->getStaticElement(idx);
+                                terr=reinterpret_cast<state::Field*>(elterr);
+                                if (terr->getFieldTypeID()!=state::FieldTypeID::NEANT){
+                                    obstacle=true;
+                                }
+                                elterr= this->currentState->getStaticElement(idx+40);
+                                terr=reinterpret_cast<state::Field*>(elterr);
+                                if (terr->getFieldTypeID()==state::FieldTypeID::NEANT){
+                                    obstacle=true;
+                                }
+                            }
+                            if (obstacle){
+                                nbrepas=15000;
+                            }
+                            else {
+                                nbrepas+=(DX-f->getX())/2 - 40;
+                            }
+                        }
                     }
                 }
                 if (nbrepas<min){
