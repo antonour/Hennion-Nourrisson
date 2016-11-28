@@ -26,6 +26,7 @@ int main(int argc,char* argv[])
     sf::RenderWindow window(sf::VideoMode(1500, 1500), "Map"/*, sf::Style::Fullscreen*/);
     Animation* A1= new Animation(AnimID::HIT,&window);
     Animation* A2= new Animation(AnimID::JUMP,&window);
+    Animation* A3= new Animation(AnimID::END,&window);
     
     ElementFactory* fac=new ElementFactory();
     CommandSet* CS=new CommandSet();
@@ -34,8 +35,11 @@ int main(int argc,char* argv[])
     l.setSurface(area);
     l.setAnimation(1,A1);
     l.setAnimation(2,A2);
+    l.setAnimation(3,A3);
+    
     A1->setSurface(area);
     A2->setSurface(area);
+    A3->setSurface(area);
     bool autorundumb=false;
     bool autorunheuristic=false;
     bool autorunTrueIA=false;
