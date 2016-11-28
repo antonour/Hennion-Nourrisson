@@ -12,7 +12,17 @@ using namespace std;
 
 namespace Render{
     
-    Layer::Layer (){}
+    Layer::Layer (){
+        this->game_stop=false;
+    }
+    
+    bool Layer::isPlaying(){
+        return !this->game_stop;
+    }
+    
+    void Layer::setGameStop(bool play){
+        this->game_stop=play;
+    }
     
     Layer::~Layer (){}
     
@@ -313,7 +323,19 @@ namespace Render{
             }
         }
         if (e->getStateEventID()==state::StateEventID::TEAM_WIN){
-            this->runAnimation(3,0,0,0,0,state::Direction::NONE);
+            int X=0,Y=0;
+            for (state::Element* pers: list){
+                if (pers->getTypeID()==state::TypeID::FOWL){
+                    state::Fowl* poule;
+                    poule=reinterpret_cast<state::Fowl*>(pers);
+                    if (poule->isSelected()){
+                        X=poule->getX();
+                        Y=poule->getY();
+                        this->surface->setEnd(X,Y-97);
+                    }
+                }
+            }
+        this->setGameStop(true);
         }
     }
     

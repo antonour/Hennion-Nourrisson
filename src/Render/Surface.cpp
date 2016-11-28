@@ -29,6 +29,11 @@ namespace Render{
         this->mouvements.setString(to_string(units));
     }
     
+    void Surface::setEnd(int X, int Y){
+        this->mouvements.setPosition(X,Y);
+        this->mouvements.setString("WIN");
+    }
+    
     
     bool Surface::loadMap(const std::string& tileset, sf::Vector2u tileSize1, sf::Vector2u tileSize2, const int* tiles, unsigned int width, unsigned int height)
     {
