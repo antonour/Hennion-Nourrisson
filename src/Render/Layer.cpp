@@ -312,6 +312,9 @@ namespace Render{
                 i++;
             }
         }
+        if (e->getStateEventID()==state::StateEventID::TEAM_WIN){
+            this->runAnimation(3,0,0,0,0,state::Direction::NONE);
+        }
     }
     
     void Layer::sync (int64_t time){}
