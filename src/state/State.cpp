@@ -15,6 +15,22 @@ namespace state{
     
     State::~State(){}
     
+    int State::getNbWhiteDead(){
+        return this->nbWhiteDead;
+    }
+    
+    int State::getNbGreenDead(){
+        return this->nbGreenDead;
+    }
+    
+    void State::setNbWhiteDead(int nb){
+        this->nbWhiteDead=nb;
+    }
+    
+    void State::setNbGreenDead(int nb){
+        this->nbGreenDead=nb;
+    }
+    
     void State::setElementFactory(ElementFactory* f){
         this->factory=f;
     }
@@ -130,6 +146,8 @@ namespace state{
             }
             //cout << contenu << endl;
             fichier3.close();
+            this->setNbGreenDead(0);
+            this->setNbWhiteDead(0);
             this->notifyObservers(new StateEvent(FILEMAP_LOADED),this->background,this->weapons);
         }
         else
