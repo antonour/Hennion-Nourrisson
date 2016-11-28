@@ -15,12 +15,6 @@ namespace engine{
     KillFowl::KillFowl (int idx){
         this->idx=idx;
     }
-    
-    KillFowl::KillFowl (int idx, FireCommand* fire){
-        this->idx=idx;
-        this->fire=fire;
-    }
-    
     void KillFowl::setIDX(int idx){
         this->idx=idx;
     }
@@ -38,7 +32,7 @@ namespace engine{
         int i=0;
         bool allkilled=false;
         
-        while (next!=this->idx or i<8){ 
+        while ((next!=this->idx or i<8) && !allkilled ){
             
             state::Element* elementTue = s->getMobileElement(next);            
             if (elementTue->getTypeID()==state::TypeID::FOWL){
@@ -48,23 +42,31 @@ namespace engine{
                     if (pouleTueuse->getFowlStatus()==state::FowlStatus::HITTING){
                         if (pouleTueuse->getDirection()==state::Direction::OUEST){
                             if (pouleTuee->getX() <=X && pouleTuee->getX() >= X-125){
-                                pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
-                                if(pouleTuee->getFowlColor()==state::FowlColor::GREEN){
-                                    fire->setNbGreenDead(fire->getNbGreenDead()+1);
-                                }
-                                else{
-                                    fire->setNbWhiteDead(fire->getNbWhiteDead()+1);
+                                if (pouleTueuse->getFowlColor()!=pouleTuee->getFowlColor()){
+                                    pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
+                                    if(pouleTuee->getFowlColor()==state::FowlColor::GREEN){
+                                        s->setNbGreenDead(s->getNbGreenDead()+1);
+                                        cout << s->getNbGreenDead() << endl;
+                                    }
+                                    else{
+                                        s->setNbWhiteDead(s->getNbWhiteDead()+1);
+                                        cout << s->getNbWhiteDead() << endl;
+                                    }
                                 }
                             }
                         }
                         else if (pouleTueuse->getDirection()==state::Direction::EST){
                             if (pouleTuee->getX() >=X && pouleTuee->getX() <= X+125){
-                                pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
-                                if(pouleTuee->getFowlColor()==state::FowlColor::GREEN){
-                                    fire->setNbGreenDead(fire->getNbGreenDead()+1);
-                                }
-                                else{
-                                    fire->setNbWhiteDead(fire->getNbWhiteDead()+1);
+                                if (pouleTueuse->getFowlColor()!=pouleTuee->getFowlColor()){
+                                    pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
+                                    if(pouleTuee->getFowlColor()==state::FowlColor::GREEN){
+                                        s->setNbGreenDead(s->getNbGreenDead()+1);
+                                        cout << s->getNbGreenDead() << endl;
+                                    }
+                                    else{
+                                        s->setNbWhiteDead(s->getNbWhiteDead()+1);
+                                        cout << s->getNbWhiteDead() << endl;
+                                    }
                                 }
                             }
                         }
@@ -72,7 +74,7 @@ namespace engine{
                 }
                 s->setMobileElement(pouleTuee,next);
             }
-            if (fire->getNbGreenDead()==4 || fire->getNbWhiteDead()==4){
+            if (s->getNbGreenDead()==4 || s->getNbWhiteDead()==4){
                 cout <<"TOUTES MORTES" << endl;
                 allkilled=true;
             }
