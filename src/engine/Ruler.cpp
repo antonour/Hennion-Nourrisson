@@ -23,7 +23,6 @@ namespace engine{
        
     void Ruler::apply (){
         for (Command* cmd : this->commands->commands){
-            
             if (cmd->getCmdTypeID()==CmdTypeID::MOVE_CMD){
                 MoveCommand* m;
                 m=reinterpret_cast<MoveCommand*>(cmd);
