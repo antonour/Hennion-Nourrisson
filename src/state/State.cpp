@@ -51,6 +51,14 @@ namespace state{
         return this->background[idx];
     }
     
+    void State::resetState(){
+        this->elements.clear();
+        this->background.clear();
+        this->weapons.clear();
+        this->nbGreenDead=0;
+        this->nbWhiteDead=0;
+    }
+    
     int State::getSelected(){
         int i=0;
         for (Element* el: this->elements){
