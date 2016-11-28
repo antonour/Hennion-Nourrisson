@@ -19,4 +19,8 @@ namespace engine{
         return this->v;
     }
     
+    void Command::setCmdTypeID (CmdTypeID type){
+        this->cmdType=type;
+    }
+    
 }
