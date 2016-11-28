@@ -23,6 +23,7 @@ namespace engine{
        
     void Ruler::apply (){
         for (Command* cmd : this->commands->commands){
+            
             if (cmd->getCmdTypeID()==CmdTypeID::MOVE_CMD){
                 MoveCommand* m;
                 m=reinterpret_cast<MoveCommand*>(cmd);
@@ -33,7 +34,9 @@ namespace engine{
                     else if (m->getMoveID()==MoveID::CHICKEN_JUMP and canJumpOver(this->currentState,m)){
                         this->jumped=true;
                         this->actions->add(new FowlJump(m->getIDX()));
-                    }          
+                    }
+                    else if (m->getMoveID()==MoveID::CAMERA){
+                    }
                     
             }
             if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
@@ -57,6 +60,10 @@ namespace engine{
                     this->actions->add(new SelectFowl(n->getIDX(),false));
                 }
             }
+            
+            int id = this->currentState->getSelected();
+            state::Element* e = this->currentState->getMobileElement(id);
+            cmd->getMoveCamera()->setCenter(e->getX(),e->getY());
             this->actions->add(cmd->getMoveCamera());            
         }
         this->actions->apply();
