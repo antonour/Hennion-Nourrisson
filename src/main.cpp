@@ -49,7 +49,6 @@ int main(int argc,char* argv[])
     s.setElementFactory(fac);
     s.registerObserver(&l);
     
-    
     ActionList* AL= new ActionList(&s,true);
     Ruler* rules= new Ruler(AL,&s,CS); 
     
@@ -62,13 +61,10 @@ int main(int argc,char* argv[])
         
     //On instancie la classe permettant de géer la caméra
     MoveCamera* v = new MoveCamera();
-    MoveFowl* moving_fowl=new MoveFowl(499);
-    
-    state::Element * e=s.getMobileElement(499);
+    MoveFowl* moving_fowl=new MoveFowl(next);
        
-
     moving_fowl->setIDX(s.getSelected());
-    e=s.getMobileElement(s.getSelected());
+    Element* e=s.getMobileElement(s.getSelected());
     v->setCenter(e->getX(),e->getY());
     
     DumbIA* DIA = new DumbIA(&s);
@@ -79,7 +75,7 @@ int main(int argc,char* argv[])
     //On instancie les différentes classes qui généreront les commandes
     MoveCommand* MC= new MoveCommand(0,0,MoveID::NONE,0,Direction::NONE);
     KillCommand* KC= new KillCommand(0);
-    //LoadCommand* LC= new LoadCommand(true);
+    LoadCommand* LC= new LoadCommand(true);
     FireCommand* FC= new FireCommand(0,Direction::NONE); 
     NextCommand* NC= new NextCommand(s.getSelected(),moving_fowl,KC,false,false);
     
@@ -124,7 +120,37 @@ int main(int argc,char* argv[])
                         autorundumb=false;
                         autorunheuristic=false;
                         autorunTrueIA=true;
-                        //cout << TIA->findNearestWay() << endl;
+                    }
+                    
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)){
+                        autorundumb=false;
+                        autorunheuristic=false;
+                        autorunTrueIA=false;
+                        l.setGameStop(false);
+                        s.resetState();
+                        area->resetSurface();
+                        delete CS;
+                        CommandSet* CS=new CommandSet();
+                        delete AL;
+                        ActionList* AL= new ActionList(&s,true);
+                        delete rules;
+                        Ruler* rules= new Ruler(AL,&s,CS);
+                        engine.takeCommands(CS);
+                        engine.setRuler(rules);
+                        engine.loadlevel();
+                        
+                        int next=s.selectNextFowl(false);
+                        moving_fowl->setIDX(s.getSelected());
+                        e=s.getMobileElement(s.getSelected());
+                        v->setCenter(e->getX(),e->getY());
+                        delete DIA;
+                        DumbIA* DIA = new DumbIA(&s);
+                        delete HIA;
+                        HeuristicIA* HIA= new HeuristicIA(&s);
+                        delete TIA;
+                        TrueIA* TIA= new TrueIA(&s);
+                        TIA->setIterateurs(0,0,0);
+                        
                     }
                     
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
@@ -170,26 +196,26 @@ int main(int argc,char* argv[])
 
         }
         if(l.isPlaying()){ 
-        if (autorundumb){
-            Command* cmd=DIA->run(&s);
-            cmd->setMoveCamera(v);
-            engine.addCommand(cmd);
-        }
-        if (autorunheuristic){
-            Command* cmd=HIA->run(&s);
-            cmd->setMoveCamera(v);
-            engine.addCommand(cmd);
-        }
-        if (autorunTrueIA){
-            Command* cmd=TIA->run(&s);
-            cmd->setMoveCamera(v);
-            engine.addCommand(cmd);
-        }
+            if (autorundumb){
+                Command* cmd=DIA->run(&s);
+                cmd->setMoveCamera(v);
+                engine.addCommand(cmd);
+            }
+            if (autorunheuristic){
+                Command* cmd=HIA->run(&s);
+                cmd->setMoveCamera(v);
+                engine.addCommand(cmd);
+            }
+            if (autorunTrueIA){
+                Command* cmd=TIA->run(&s);
+                cmd->setMoveCamera(v);
+                engine.addCommand(cmd);
+            }
         
-        T=C.getElapsedTime();
-        if (engine.update(T.asMilliseconds())){
-            T=C.restart();
-        }
+            T=C.getElapsedTime();
+            if (engine.update(T.asMilliseconds())){
+                T=C.restart();
+            }
         }
         window.clear(Color(102,102,225,255));
         window.setView(v->getView());
