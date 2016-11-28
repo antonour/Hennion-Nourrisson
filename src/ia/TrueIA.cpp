@@ -23,11 +23,13 @@ namespace ia{
         int m = getMin();
         int idx=s->getSelected();
         
-        cout<<m<<".."<<idx<<".."<<this->ite1<<".."<<this->min<<endl;
+        //cout<<m<<".."<<idx<<".."<<this->ite1<<".."<<this->min<<endl;
         
         state::Element* e = s->getMobileElement(s->getSelected());
-        state::Element* bg=s->getStaticElement(s->getSelected()-1);
-        state::Element* bd=s->getStaticElement(s->getSelected()+1);
+        int X=e->getX();
+        int Y=e->getY();
+        state::Element* bg=s->getStaticElement(X/125+(Y/97)*40-1);
+        state::Element* bd=s->getStaticElement(X/125+(Y/97)*40+1);
         state::Fowl* f = reinterpret_cast<state::Fowl*>(e);
         state::Field* blocgauche=reinterpret_cast<state::Field*>(bg);
         state::Field* blocdroite=reinterpret_cast<state::Field*>(bd);
