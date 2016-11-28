@@ -16,7 +16,7 @@ namespace Render{
         if(!this->font.loadFromFile("./res/arial.ttf")){
             throw runtime_error("BOUH");
         }
-        this->mouvements.setPosition(10,20);
+        this->mouvements.setPosition(10000,200000);
         this->mouvements.setString("200");
         this->mouvements.setScale(2,2);
         this->mouvements.setFont(this->font);
@@ -24,6 +24,19 @@ namespace Render{
     
     Surface::~Surface(){}
      
+    void Surface::resetSurface(){
+        this->arrowtab.clear();
+        this->fieldtab.clear();
+        this->fowltab.clear();
+        this->weapontab.clear();
+        for (int i=0;i<1200;i++){
+            this->arrowtab.push_back(1);
+            this->weapontab.push_back(29);
+        }
+        this->mouvements.setPosition(10000,200000);
+        this->mouvements.setString("200");
+    }
+    
     void Surface::setMouvements(int X, int Y, int units){
         this->mouvements.setPosition(X,Y);
         this->mouvements.setString(to_string(units));
