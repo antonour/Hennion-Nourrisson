@@ -47,11 +47,16 @@ namespace engine{
             if (cmd->getCmdTypeID()==CmdTypeID::FIRE_CMD){
                 FireCommand* fire;
                 fire=reinterpret_cast<FireCommand*>(cmd);
+                int index=this->currentState->getSelected();
+                state::Element* el=this->currentState->getMobileElement(index);
+                state::Fowl* f=reinterpret_cast<state::Fowl*>(el);
                 this->actions->add(new Fire(fire->getIDX()));
                 if (canHit(this->currentState,fire)){
                     this->actions->add(new KillFowl(fire->getIDX()));
                 }
-                this->actions->add(new SelectFowl(fire->getIDX(),true));
+                if ((this->currentState->getNbGreenDead()!=3 || f->getFowlColor()==state::FowlColor::GREEN) && (this->currentState->getNbWhiteDead()!=3 || f->getFowlColor()==state::FowlColor::WHITE)){
+                    this->actions->add(new SelectFowl(fire->getIDX(),true));
+                }
             }
             if (cmd->getCmdTypeID()==CmdTypeID::NEXT_CMD){
                 NextCommand* n;
