@@ -36,6 +36,7 @@ namespace engine{
         int next;
         next=s->selectNextFowl(true);
         int i=0;
+        bool allkilled=false;
         
         while (next!=this->idx or i<8){ 
             
@@ -71,16 +72,22 @@ namespace engine{
                 }
                 s->setMobileElement(pouleTuee,next);
             }
-        next=s->selectNextFowl(true);
+            if (fire->getNbGreenDead()==4 || fire->getNbWhiteDead()==4){
+                cout <<"TOUTES MORTES" << endl;
+                allkilled=true;
+            }
+            if (!allkilled){
+                next=s->selectNextFowl(true);
+            }
         }
         if (notify){
             std::vector<state::Element*> listpoule=s->getMobileElements();
             std::vector<state::Weapon*> wep=s->getWeaponElements();      
             s->notifyObservers(new state::StateEvent(state::StateEventID::FOWL_DEAD),listpoule,wep);
+            if (allkilled){
+                s->notifyObservers(new state::StateEvent(state::StateEventID::TEAM_WIN),listpoule,wep);
+            }
         }
     }
-
-    
-    
 }
         
