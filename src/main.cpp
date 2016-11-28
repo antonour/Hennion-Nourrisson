@@ -169,6 +169,7 @@ int main(int argc,char* argv[])
                         {v->ZoomOut();}
 
         }
+        if(l.isPlaying()){ 
         if (autorundumb){
             Command* cmd=DIA->run(&s);
             cmd->setMoveCamera(v);
@@ -188,6 +189,7 @@ int main(int argc,char* argv[])
         T=C.getElapsedTime();
         if (engine.update(T.asMilliseconds())){
             T=C.restart();
+        }
         }
         window.clear(Color(102,102,225,255));
         window.setView(v->getView());
