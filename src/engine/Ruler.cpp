@@ -49,7 +49,7 @@ namespace engine{
                 fire=reinterpret_cast<FireCommand*>(cmd);
                 this->actions->add(new Fire(fire->getIDX()));
                 if (canHit(this->currentState,fire)){
-                    this->actions->add(new KillFowl(fire->getIDX(),fire));
+                    this->actions->add(new KillFowl(fire->getIDX()));
                 }
                 this->actions->add(new SelectFowl(fire->getIDX(),true));
             }
