@@ -17,13 +17,6 @@ namespace Render{
     Animation::Animation (AnimID id, sf::RenderWindow* window){
         this->animID=id;
         this->window=window;
-        if(!this->font.loadFromFile("./res/arial.ttf")){
-            throw runtime_error("BOUH");
-        }
-        this->fin.setPosition(700,700);
-        this->fin.setString("FIN");
-        this->fin.setScale(5,5);
-        this->fin.setFont(this->font);
     }
    
     void Animation::setDirection (state::Direction d){
@@ -85,9 +78,6 @@ namespace Render{
                 }
             }
         }
-        if (this->getAnimID()==AnimID::END){
-            this->update(1);
-        }
     }
     
     void Animation::sync (int64_t time){}
@@ -98,14 +88,5 @@ namespace Render{
             this->window->draw(*surf);
             this->window->display();
         }
-        if (time==1){
-            while(window->isOpen()){
-                this->window->clear(sf::Color(102,102,225,255));
-                this->window->draw(this->fin);
-                this->window->draw(*surf);
-                this->window->display();
-            }
-        }
     }
-    
 }
