@@ -34,18 +34,17 @@ namespace engine{
     }
     
     void Engine::addCommand (Command* cmd){
-        this->currentCommands->set(cmd);
+        std::lock_guard<std::mutex> lock(commands_mutex);
+        this->waiting_commands->set(cmd);
     }
     
-    void Engine::takeCommands (CommandSet* commands){
+    void Engine::takeCommands (CommandSet* commands, CommandSet* commands1){
         this->currentCommands=commands;
+        this->waiting_commands=commands1;
     }
 
-    bool Engine::update (int64_t time, CommandSet* commands){
+    bool Engine::update (int64_t time){
         if (this->lastUpdateTime-time<=0){
-            this->apply_mutex.lock();
-            this->takeCommands(commands);
-            this->apply_mutex.unlock();
             return true;
         }
         else{
@@ -58,15 +57,22 @@ namespace engine{
         this->currentState->loadLevel("./src/fichiermap.txt");
     }
     
-    void Engine::runEngine(CommandSet* CS){
+    void Engine::runEngine(){
         Clock C;
         Time T;
         while(1){
             T=C.getElapsedTime();
-            if (this->update(T.asMilliseconds(),CS)){
-                this->apply_mutex.lock();
+            if (this->update(T.asMilliseconds())){
+                
+                {
+                    std::lock_guard<std::mutex> lock(commands_mutex);
+                    swap(this->currentCommands,this->waiting_commands);
+                    this->waiting_commands->commands.clear();
+                }
+                this->rules->takeCS(this->currentCommands);
+                
                 this->rules->apply();
-                this->apply_mutex.unlock();
+                
                 T=C.restart();
             }
         }

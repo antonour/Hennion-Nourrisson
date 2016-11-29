@@ -11,13 +11,15 @@ using namespace std;
 
 namespace engine{
     
-    Ruler::Ruler (ActionList* a, state::State* s, CommandSet* c){
+    Ruler::Ruler (ActionList* a, state::State* s){
          this->actions=a;
          this->currentState=s;
-         this->commands=c;
          this->jumped=false;
     }
     
+    void Ruler::takeCS(CommandSet* cs){
+        this->commands=cs;
+    }
     
     Ruler::~Ruler (){}
        
