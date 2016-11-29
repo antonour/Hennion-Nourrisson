@@ -75,7 +75,6 @@ int main(int argc,char* argv[])
     //On instancie les différentes classes qui généreront les commandes
     MoveCommand* MC= new MoveCommand(0,0,MoveID::NONE,0,Direction::NONE);
     KillCommand* KC= new KillCommand(0);
-    LoadCommand* LC= new LoadCommand(true);
     FireCommand* FC= new FireCommand(0,Direction::NONE); 
     NextCommand* NC= new NextCommand(s.getSelected(),moving_fowl,KC,false,false);
     
@@ -98,7 +97,7 @@ int main(int argc,char* argv[])
 
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
                                 NC->setNextCommand(s.getSelected(),moving_fowl,KC,false,NC->getFowlHasMoved());
-                                engine.addCommand(NC);
+                                CS->set(NC);
                     }
                     
                     //Intelligence Artificielle Médiocre
@@ -156,25 +155,25 @@ int main(int argc,char* argv[])
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
                         MC->setMove(0,0,s.getSelected(),Direction::OUEST);
                         MC->setMoveID(MoveID::CHICKEN_WALK);
-                        engine.addCommand(MC);
+                        CS->set(MC);
                         NC->setFowlHasMoved(true);
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
                         MC->setMove(0,0,s.getSelected(),Direction::EST);
                         MC->setMoveID(MoveID::CHICKEN_WALK);
-                        engine.addCommand(MC);
+                        CS->set(MC);
                         NC->setFowlHasMoved(true);
                     }
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Return){
                         MC->setMove(0,0,s.getSelected(),MC->getDir());
                         MC->setMoveID(MoveID::CHICKEN_JUMP);
-                        engine.addCommand(MC);
+                        CS->set(MC);
                         NC->setFowlHasMoved(true);
                     }
                     
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Space){
                         FC->setFire(s.getSelected(),MC->getDir());
-                        engine.addCommand(FC);
+                        CS->set(FC);
                         rules->resetJump();
                         NC->setFowlHasMoved(false);
                         
@@ -199,21 +198,21 @@ int main(int argc,char* argv[])
             if (autorundumb){
                 Command* cmd=DIA->run(&s);
                 cmd->setMoveCamera(v);
-                engine.addCommand(cmd);
+                CS->set(cmd);
             }
             if (autorunheuristic){
                 Command* cmd=HIA->run(&s);
                 cmd->setMoveCamera(v);
-                engine.addCommand(cmd);
+                CS->set(cmd);
             }
             if (autorunTrueIA){
                 Command* cmd=TIA->run(&s);
                 cmd->setMoveCamera(v);
-                engine.addCommand(cmd);
+                CS->set(cmd);
             }
         
             T=C.getElapsedTime();
-            if (engine.update(T.asMilliseconds())){
+            if (engine.update(T.asMilliseconds(),CS)){
                 T=C.restart();
             }
         }
