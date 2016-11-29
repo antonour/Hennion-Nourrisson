@@ -52,4 +52,5 @@ namespace engine{
         this->currentState->loadLevel("./src/fichiermap.txt");
     }
     
+    void Engine::runEngine(){}
 }
