@@ -22,7 +22,6 @@ namespace ia{
     engine::Command* TrueIA::run(state::State* s){
         int m = getMin();
         int idx=s->getSelected();
-        
         //cout<<m<<".."<<idx<<".."<<this->ite1<<".."<<this->min<<endl;
         
         state::Element* e = s->getMobileElement(s->getSelected());
@@ -93,7 +92,7 @@ namespace ia{
         }
         else{
             
-            if ((this->ite3==1  && blocgauche->getFieldTypeID()==state::FieldTypeID::NEANT) || blocdroite->getFieldTypeID()!=state::FieldTypeID::NEANT){
+            if (this->ite3==1){
                 return new engine::FireCommand(this->currentState->getSelected(),state::Direction::OUEST);
             }
             else{
