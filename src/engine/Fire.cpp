@@ -8,6 +8,7 @@
 #include "../state.hpp"
 #include <iostream>
 
+
 namespace engine{
     
     Fire::Fire (int idx){

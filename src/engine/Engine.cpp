@@ -7,6 +7,11 @@
 #include "../engine.hpp"
 #include "../state.hpp"
 #include <mutex>
+#include <ctime>
+#include <iostream>
+
+using namespace sf;
+using namespace std;
 
 namespace engine{
     
@@ -38,8 +43,9 @@ namespace engine{
 
     bool Engine::update (int64_t time, CommandSet* commands){
         if (this->lastUpdateTime-time<=0){
+            this->apply_mutex.lock();
             this->takeCommands(commands);
-            this->rules->apply();
+            this->apply_mutex.unlock();
             return true;
         }
         else{
@@ -52,5 +58,17 @@ namespace engine{
         this->currentState->loadLevel("./src/fichiermap.txt");
     }
     
-    void Engine::runEngine(){}
+    void Engine::runEngine(CommandSet* CS){
+        Clock C;
+        Time T;
+        while(1){
+            T=C.getElapsedTime();
+            if (this->update(T.asMilliseconds(),CS)){
+                this->apply_mutex.lock();
+                this->rules->apply();
+                this->apply_mutex.unlock();
+                T=C.restart();
+            }
+        }
+    }
 }
