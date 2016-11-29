@@ -68,7 +68,7 @@ namespace state{
             }
             i++;
         }
-        return -1;
+        cout << "BONJOUR" << endl;
     }
     
     void State::killFowl(){
@@ -298,14 +298,16 @@ namespace state{
                         fo->setSelected(true);
                         fo->setMoveUnits(300);
                         if (keepview){
-                            this->setMobileElement(fo,p);
+                            this->setMobileElement(fo,k);
                         }
                         else{
                             this->setMobileElement(fo,k);
                             this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
                         }
+                        cout << "k envoye:" << k << endl;
                         return k;
                     }
+                    cout << "k:" << k << endl;
                     k++;
                 }
         }
