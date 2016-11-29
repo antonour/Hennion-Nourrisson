@@ -134,12 +134,31 @@ namespace Render{
                        X=poule->getX();
                        Y=poule->getY();
                        surface->arrowtab[i-40]=1;
-                       if (poule->getFowlWeapon()==state::FowlWeapon::AXE){
-                        surface->weapontab[i]=9;
+                       if (poule->getFowlWeapon()==state::FowlWeapon::CHAINSAW){
+                        surface->weapontab[i]=0;
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::LIGHTSABER){
+                           surface->weapontab[i]=1;                           
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::AXE){
+                           surface->weapontab[i]=2;                           
                        }
                        else if (poule->getFowlWeapon()==state::FowlWeapon::SWORD){
-                           surface->weapontab[i]=10;                           
+                           surface->weapontab[i]=3;                           
                        }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::NINJASABER){
+                           surface->weapontab[i]=4;                           
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::SOCKET){
+                           surface->weapontab[i]=5;                           
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::MAGICWAND){
+                           surface->weapontab[i]=6;                           
+                       }
+                       else{
+                           surface->weapontab[i]=7;
+                       }
+                       
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=4;
                        }
@@ -176,11 +195,29 @@ namespace Render{
                        X=poule->getX();
                        Y=poule->getY();
                        surface->arrowtab[i-40]=1;
-                       if (poule->getFowlWeapon()==state::FowlWeapon::AXE){
-                        surface->weapontab[i]=9;
+                       if (poule->getFowlWeapon()==state::FowlWeapon::CHAINSAW){
+                        surface->weapontab[i]=0;
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::LIGHTSABER){
+                           surface->weapontab[i]=1;                           
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::AXE){
+                           surface->weapontab[i]=2;                           
                        }
                        else if (poule->getFowlWeapon()==state::FowlWeapon::SWORD){
-                           surface->weapontab[i]=10;                           
+                           surface->weapontab[i]=3;                           
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::NINJASABER){
+                           surface->weapontab[i]=4;                           
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::SOCKET){
+                           surface->weapontab[i]=5;                           
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::MAGICWAND){
+                           surface->weapontab[i]=6;                           
+                       }
+                       else{
+                           surface->weapontab[i]=7;
                        }
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=1;
