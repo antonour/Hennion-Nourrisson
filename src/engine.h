@@ -23,4 +23,6 @@
 #include "engine/FowlJump.h"
 #include "engine/NextCommand.h"
 #include "engine/SelectFowl.h"
+#include "engine/SwitchCommand.h"
+#include "engine/SelectWeapon.h"
 #endif

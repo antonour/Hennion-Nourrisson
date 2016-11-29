@@ -20,7 +20,8 @@ namespace state {
     // Attributes
   protected:
     int power;
-    int ammo;
+    int ammoGreen;
+    int ammoWhite;
     TypeID type;
     bool visible;
     // Operations
@@ -34,6 +35,10 @@ namespace state {
     void setWeaponStatus (WeaponStatus status);
     bool isVisible ();
     void setVisibility (bool visible);
+    void setAmmoGreen (int ammo);
+    int getAmmoGreen ();
+    void setAmmoWhite (int ammo);
+    int getAmmoWhite ();
   };
 
 };

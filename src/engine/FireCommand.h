@@ -19,8 +19,6 @@ namespace engine {
   protected:
     int idx;
     state::Direction direction;
-    int NbGreenDead;
-    int NbWhiteDead;
     // Operations
   public:
     FireCommand (int idx, state::Direction d);
@@ -28,11 +26,6 @@ namespace engine {
     void setFire (int idx, state::Direction d);
     state::Direction getDirection ();
     int getIDX ();
-    void setNbGreenDead (int nb);
-    void setNbWhiteDead (int nb);
-    int getMaxFowlDeadByTeam ();
-    int getNbGreenDead ();
-    int getNbWhiteDead ();
   };
 
 };

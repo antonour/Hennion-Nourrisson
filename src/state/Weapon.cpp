@@ -11,7 +11,6 @@ namespace state{
     Weapon::Weapon (WeaponStatus status, bool visible){
         this->power=1;
         this->visible=visible;
-        this->ammo=32;
         this->status=status;
         this->type=TypeID::WEAPON;
         
@@ -47,6 +46,22 @@ namespace state{
     
     void Weapon::setWeaponStatus (WeaponStatus status){
         this->status=status;
+    }
+    
+    void Weapon::setAmmoGreen (int ammo){
+        this->ammoGreen=ammo;
+    }
+    
+    int Weapon::getAmmoGreen (){
+        return this->ammoGreen;
+    }
+    
+    void Weapon::setAmmoWhite (int ammo){
+        this->ammoWhite=ammo;
+    }
+    
+    int Weapon::getAmmoWhite (){
+        return this->ammoWhite;
     }
     
 }

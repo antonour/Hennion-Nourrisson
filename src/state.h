@@ -27,4 +27,5 @@
 #include "state/IObserver.h"
 #include "state/StateEventID.h"
 #include "state/FowlColor.h"
+#include "state/FowlWeapon.h"
 #endif

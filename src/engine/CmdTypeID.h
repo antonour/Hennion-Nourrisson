@@ -10,7 +10,8 @@ namespace engine {
     KILL_CMD     = 1,
     FIRE_CMD     = 2,
     LOAD_CMD     = 3,
-    NEXT_CMD     = 4
+    NEXT_CMD     = 4,
+    SWITCH_CMD     = 5
   };
 
 };

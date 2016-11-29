@@ -31,6 +31,8 @@ namespace state {
     std::vector<Element*> background;
     ElementFactory* factory;
     std::vector<Weapon*> weapons;
+    int nbWhiteDead;
+    int nbGreenDead;
     // Operations
   public:
     void setElementFactory (ElementFactory* f);
@@ -50,6 +52,12 @@ namespace state {
     std::vector<Weapon*> getWeaponElements ();
     Weapon* getWeaponElement (int idx);
     void setWeaponElement (Weapon* we, int idx);
+    int getNbWhiteDead ();
+    int getNbGreenDead ();
+    void setNbWhiteDead (int nb);
+    void setNbGreenDead (int nb);
+    void resetState ();
+    void initializeWeaponAmmo ();
   };
 
 };

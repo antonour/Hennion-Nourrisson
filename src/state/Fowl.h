@@ -10,6 +10,7 @@ namespace state {
 #include "TypeID.h"
 #include "FowlColor.h"
 #include "FowlStatus.h"
+#include "FowlWeapon.h"
 #include "MobileElement.h"
 
 namespace state {
@@ -17,6 +18,7 @@ namespace state {
   /// class Fowl - 
   class Fowl : public state::MobileElement {
     // Associations
+    state::FowlWeapon weapon;
     state::FowlColor color;
     state::FowlStatus status;
     // Attributes
@@ -41,6 +43,8 @@ namespace state {
     void setSelected (bool sel);
     void setMoveUnits (int units);
     int getMU ();
+    void setFowlWeapon (FowlWeapon weapon);
+    FowlWeapon getFowlWeapon ();
   };
 
 };

@@ -30,7 +30,7 @@ namespace Render {
     Animation (AnimID id, sf::RenderWindow* window);
     void setDirection (state::Direction d);
     void sync (int64_t time);
-    void update (int64_t time);
+    bool update (int64_t time);
     void animate (int i, int j, int X, int Y);
     void setSurface (Surface* su);
     AnimID getAnimID ();

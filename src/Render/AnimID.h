@@ -7,7 +7,8 @@ namespace Render {
 
   enum AnimID {
     HIT     = 1,
-    JUMP     = 2
+    JUMP     = 2,
+    END     = 3
   };
 
 };

@@ -4,6 +4,7 @@
 
 #include "../state.hpp"
 #include <stdint.h>
+#include <mutex>
 
 namespace engine {
   class CommandSet;
@@ -24,8 +25,11 @@ namespace engine {
     state::ElementFactory factory;
     state::State* currentState;
     CommandSet* currentCommands;
+    CommandSet* waiting_commands;
     int64_t lastUpdateTime;
     Ruler* rules;
+    mutable std::mutex commands_mutex;
+    mutable std::mutex apply_mutex;
     // Operations
   public:
     void loadlevel ();
@@ -34,9 +38,10 @@ namespace engine {
     state::State* getState ();
     void setState (state::State* s);
     void addCommand (Command* cmd);
-    void takeCommands (CommandSet* commands);
-    bool update (int64_t time, int64_t* next_time = NULL);
+    void takeCommands (CommandSet* commands, CommandSet* commands1);
     void setRuler (Ruler* r);
+    bool update (int64_t time);
+    void runEngine ();
   };
 
 };

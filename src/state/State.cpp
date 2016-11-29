@@ -68,7 +68,7 @@ namespace state{
             }
             i++;
         }
-        cout << "BONJOUR" << endl;
+        throw std::runtime_error("Poule non sélectionnée");
     }
     
     void State::killFowl(){
@@ -304,10 +304,8 @@ namespace state{
                             this->setMobileElement(fo,k);
                             this->notifyObservers(new StateEvent(StateEventID::FOWL_SELECTED),this->elements,this->weapons);
                         }
-                        cout << "k envoye:" << k << endl;
                         return k;
                     }
-                    cout << "k:" << k << endl;
                     k++;
                 }
         }
@@ -351,6 +349,41 @@ namespace state{
         for (Weapon* parcours: this->weapons){
             if (i==idx){
                 parcours->setVisibility(visible);
+            }
+            i++;
+        }
+    }
+    
+    void State::initializeWeaponAmmo(){
+        int i=0;
+        for (Weapon* parcours: this->weapons){
+            if (i==0){ //Tronçonneuse
+                parcours->setAmmoGreen(6);
+                parcours->setAmmoWhite(6);
+            }
+            else if (i==1){ //Sabre Laser
+                parcours->setAmmoGreen(2);
+                parcours->setAmmoWhite(2);
+            }
+            else if (i==2){ // Hache
+                parcours->setAmmoGreen(4);
+                parcours->setAmmoWhite(4);
+            }
+            else if (i==3){ // Epee
+                parcours->setAmmoGreen(5);
+                parcours->setAmmoWhite(5);
+            }
+            else if (i==4){ // Sabre Ninja
+                parcours->setAmmoGreen(3);
+                parcours->setAmmoWhite(3);
+            }
+            else if (i==5){ // Prise Electrique
+                parcours->setAmmoGreen(-1);
+                parcours->setAmmoWhite(-1);
+            }
+            else if (i==6){ // Baguette Magique
+                parcours->setAmmoGreen(1);
+                parcours->setAmmoWhite(1);
             }
             i++;
         }

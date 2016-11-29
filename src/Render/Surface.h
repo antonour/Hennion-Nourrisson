@@ -57,6 +57,8 @@ namespace Render {
     void dispWeapon (int i, int j, int X, int Y, int tex);
     void rotateWeapon (int i, int j, int X, int Y, int tex, int rot, state::Direction d);
     void setMouvements (int X, int Y, int units);
+    void setEnd (int X, int Y);
+    void resetSurface ();
   };
 
 };

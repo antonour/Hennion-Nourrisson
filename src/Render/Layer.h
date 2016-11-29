@@ -33,6 +33,7 @@ namespace Render {
   protected:
     std::map<int,Animation*> animations;
     Surface* surface;
+    bool game_stop;
     // Operations
   public:
     Layer ();
@@ -44,6 +45,8 @@ namespace Render {
     void sync (int64_t time);
     void update (int64_t time);
     void runAnimation (int idx, int i, int j, int X, int Y, state::Direction d);
+    bool isPlaying ();
+    void setGameStop (bool play);
   protected:
     void update (const state::State& elementList);
   };

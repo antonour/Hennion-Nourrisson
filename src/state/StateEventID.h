@@ -19,7 +19,9 @@ namespace state {
     FOWL_FALL     = 10,
     FOWL_JUMP_RIGHT     = 11,
     FOWL_JUMP_LEFT     = 12,
-    FOWL_HITTING     = 13
+    FOWL_HITTING     = 13,
+    TEAM_WIN     = 14,
+    WEAPON_SWITCHED     = 15
   };
 
 };

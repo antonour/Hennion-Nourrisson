@@ -26,10 +26,11 @@ namespace engine {
     bool jumped;
     // Operations
   public:
-    Ruler (ActionList* a, state::State* s, CommandSet* c);
+    Ruler (ActionList* a, state::State* s);
     ~Ruler ();
     void apply ();
     void resetJump ();
+    void takeCS (CommandSet* cs);
   protected:
     bool isMovable (state::State* s, MoveCommand* m);
     bool isFalling (state::State* s, MoveCommand* m);
