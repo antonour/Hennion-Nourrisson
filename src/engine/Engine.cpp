@@ -36,8 +36,9 @@ namespace engine{
         this->currentCommands=commands;
     }
 
-    bool Engine::update (int64_t time, int64_t* next_time){
+    bool Engine::update (int64_t time, CommandSet* commands){
         if (this->lastUpdateTime-time<=0){
+            this->takeCommands(commands);
             this->rules->apply();
             return true;
         }

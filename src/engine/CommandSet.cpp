@@ -19,18 +19,6 @@ namespace engine{
     }
     
     void CommandSet::set (Command* cmd){
-       /* if (cmd->getCmdTypeID()==CmdTypeID::MOVE_CMD){
-            this->commands[0]=cmd;
-        }
-        if (cmd->getCmdTypeID()==CmdTypeID::KILL_CMD){
-            this->commands[1]=cmd;
-        }
-        if (cmd->getCmdTypeID()==CmdTypeID::FIRE_CMD){
-            this->commands[2]=cmd;
-        }
-        if (cmd->getCmdTypeID()==CmdTypeID::LOAD_CMD){
-            this->commands[3]=cmd;
-        }*/
         this->commands.push_back(cmd);
     }
     
