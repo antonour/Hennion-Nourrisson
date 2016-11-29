@@ -290,8 +290,12 @@ namespace ia{
         min2 = 500000;
         min3 = 500000;
         min4 = 500000;
-        int mini;
-        int idx;
+        idx1 = 0;
+        idx2 = 0;
+        idx3 = 0;
+        idx4 = 0;
+        int mini = 0;
+        int idx = 0;
         
         if (this->ite2==0){
         

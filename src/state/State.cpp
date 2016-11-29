@@ -68,6 +68,7 @@ namespace state{
             }
             i++;
         }
+        return -1;
     }
     
     void State::killFowl(){
