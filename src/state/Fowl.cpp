@@ -14,6 +14,7 @@ namespace state{
     this->status=status;
     this->type=TypeID::FOWL;
     this->selected=false;
+    this->weapon=FowlWeapon::SWORD;
     }
     
     bool Fowl::isFowl () const{
@@ -62,6 +63,14 @@ namespace state{
     
     void Fowl::setSelected(bool sel){
         this->selected=sel;
+    }
+    
+    void Fowl::setFowlWeapon (FowlWeapon weapon){
+        this->weapon=weapon;
+    }
+    
+    FowlWeapon Fowl::getFowlWeapon (){
+        return this->weapon;
     }
    
 }

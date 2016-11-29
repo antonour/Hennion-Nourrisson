@@ -134,7 +134,12 @@ namespace Render{
                        X=poule->getX();
                        Y=poule->getY();
                        surface->arrowtab[i-40]=1;
-                       surface->weapontab[i]=10;
+                       if (poule->getFowlWeapon()==state::FowlWeapon::AXE){
+                        surface->weapontab[i]=9;
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::SWORD){
+                           surface->weapontab[i]=10;                           
+                       }
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=4;
                        }
@@ -171,7 +176,12 @@ namespace Render{
                        X=poule->getX();
                        Y=poule->getY();
                        surface->arrowtab[i-40]=1;
-                       surface->weapontab[i]=10;
+                       if (poule->getFowlWeapon()==state::FowlWeapon::AXE){
+                        surface->weapontab[i]=9;
+                       }
+                       else if (poule->getFowlWeapon()==state::FowlWeapon::SWORD){
+                           surface->weapontab[i]=10;                           
+                       }
                        if (surface->fowltab[i]%9==1){
                            surface->fowltab[i]+=1;
                        }

@@ -104,6 +104,6 @@ namespace state{
         this->enregistrer("69",new FowlCreator(FowlColor::ORANGE,FowlStatus::ALIVE_RIGHT), true);
         this->enregistrer("71",new FowlCreator(FowlColor::ORANGE,FowlStatus::DEAD), true);
         
-        this->enregistrer("02",new WeaponCreator(WeaponStatus::AMMO,false), true);
+        this->enregistrer("02",new WeaponCreator(WeaponStatus::MELEE,false), true);
     }
 }
