@@ -62,8 +62,7 @@ namespace engine{
         Time T;
         while(1){
             T=C.getElapsedTime();
-            if (this->update(T.asMilliseconds())){
-                
+            if (this->update(T.asMilliseconds())){            
                 {
                     std::lock_guard<std::mutex> lock(commands_mutex);
                     swap(this->currentCommands,this->waiting_commands);

@@ -46,11 +46,9 @@ namespace engine{
                                     pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
                                     if(pouleTuee->getFowlColor()==state::FowlColor::GREEN){
                                         s->setNbGreenDead(s->getNbGreenDead()+1);
-                                        cout << s->getNbGreenDead() << endl;
                                     }
                                     else{
                                         s->setNbWhiteDead(s->getNbWhiteDead()+1);
-                                        cout << s->getNbWhiteDead() << endl;
                                     }
                                 }
                             }
@@ -61,11 +59,9 @@ namespace engine{
                                     pouleTuee->setFowlStatus(state::FowlStatus::DEAD);
                                     if(pouleTuee->getFowlColor()==state::FowlColor::GREEN){
                                         s->setNbGreenDead(s->getNbGreenDead()+1);
-                                        cout << s->getNbGreenDead() << endl;
                                     }
                                     else{
                                         s->setNbWhiteDead(s->getNbWhiteDead()+1);
-                                        cout << s->getNbWhiteDead() << endl;
                                     }
                                 }
                             }
@@ -75,7 +71,6 @@ namespace engine{
                 s->setMobileElement(pouleTuee,next);
             }
             if (s->getNbGreenDead()==4 || s->getNbWhiteDead()==4){
-                cout <<"TOUTES MORTES" << endl;
                 allkilled=true;
             }
             if (!allkilled){

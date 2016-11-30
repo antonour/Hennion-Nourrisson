@@ -172,7 +172,7 @@ int main(int argc,char* argv[])
                         NC->setFowlHasMoved(true);
                     }
                     
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+                    if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space){
                         FC->setFire(s.getSelected(),MC->getDir());
                         engine.addCommand(FC);
                         rules->resetJump();

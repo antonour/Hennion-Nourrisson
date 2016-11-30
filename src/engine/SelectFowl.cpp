@@ -44,8 +44,8 @@ namespace engine{
         else if (this->TeamChange==true){
             
             state::Element* e = s->getMobileElement(this->idx);
-                int next=s->selectNextFowl(false);
-                state::Element* eNext = s->getMobileElement(next);
+            int next=s->selectNextFowl(false);
+            state::Element* eNext = s->getMobileElement(next);
 
                 if (e->getTypeID()==state::TypeID::FOWL and eNext->getTypeID()==state::TypeID::FOWL){
                     state::Fowl* f = reinterpret_cast<state::Fowl*>(e);
@@ -63,10 +63,6 @@ namespace engine{
                 }
             
         }
-        
-        
-        
-        
     }    
     
 }
