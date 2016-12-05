@@ -8,6 +8,11 @@
 
 namespace engine{
     
+    SwitchCommand::SwitchCommand (int idx, int idw){
+        this->idx=idx;
+        this->idWeapon=idw;
+    }
+    
     CmdTypeID SwitchCommand::getCmdTypeID (){
         return SWITCH_CMD;
     }
@@ -20,4 +25,11 @@ namespace engine{
         return this->idx;
     }
     
+    void SwitchCommand::setIDw (int idw){
+        this->idWeapon=idw;
+    }
+    
+    int SwitchCommand::getIDw (){
+        return this->idWeapon;
+    }    
 }

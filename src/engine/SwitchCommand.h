@@ -17,11 +17,15 @@ namespace engine {
     // Attributes
   protected:
     int idx;
+    int idWeapon;
     // Operations
   public:
+    SwitchCommand (int idx, int idw);
     CmdTypeID getCmdTypeID ();
     void setIDX (int idx);
     int getIDX ();
+    void setIDw (int idw);
+    int getIDw ();
   };
 
 };

@@ -37,6 +37,7 @@ namespace engine {
     bool canJumpOver (state::State* s, MoveCommand* m);
     bool canHit (state::State* s, FireCommand* fire);
     int canKill (state::State* s, FireCommand* fire);
+    bool hasAmmo (state::State* s, int idx, int idw);
   };
 
 };

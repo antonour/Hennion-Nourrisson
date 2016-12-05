@@ -66,6 +66,12 @@ namespace engine{
                     this->actions->add(new SelectFowl(n->getIDX(),false));
                 }
             }
+            if (cmd->getCmdTypeID()==CmdTypeID::SWITCH_CMD){
+                SwitchCommand* s;
+                s=reinterpret_cast<SwitchCommand*>(cmd);
+                if (hasAmmo(this->currentState,s->getIDX(),s->getIDw())){
+                this->actions->add(new SelectWeapon(s->getIDX(),s->getIDw()));}
+            } 
             
             int id = this->currentState->getSelected();
             state::Element* e = this->currentState->getMobileElement(id);
@@ -264,5 +270,36 @@ namespace engine{
             return false;
         }
     }
+    
+    bool Ruler::hasAmmo (state::State* s, int idx, int idw){
+        
+        state::Weapon* w = s->getWeaponElement(idw);
+        state::Element* e = s->getMobileElement(idx);
+        state::Fowl* f = reinterpret_cast<state::Fowl*>(e);
+        
+        if (f->getFowlColor()==state::FowlColor::GREEN){
+            if (w->getAmmoGreen()!=0){
+                w->setAmmoGreen(w->getAmmoGreen()-1);
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else if (f->getFowlColor()==state::FowlColor::WHITE){
+            if(w->getAmmoWhite()!=0){
+                w->setAmmoWhite(w->getAmmoWhite()-1);
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+        
+    }
+        
     
 }
