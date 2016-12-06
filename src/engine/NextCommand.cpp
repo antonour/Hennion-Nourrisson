@@ -8,10 +8,8 @@
 
 namespace engine{
     
-    NextCommand::NextCommand(int idx, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved){
+    NextCommand::NextCommand(int idx, bool TeamChange, bool FowlHasMoved){
         this->idx=idx;
-        this->mv=mv;
-        this->KC=KC;
         this->TeamChange=TeamChange;
         this->FowlHasMoved=FowlHasMoved;
     }
@@ -25,18 +23,9 @@ namespace engine{
     }
     
     
-    MoveFowl* NextCommand::getMoveFowl (){
-        return this->mv;
-    }
-    
-    KillCommand* NextCommand::getKillCommand (){
-        return this->KC;
-    }
-    
-    void NextCommand::setNextCommand(int idx, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved){
+   
+    void NextCommand::setNextCommand(int idx, bool TeamChange, bool FowlHasMoved){
         this->idx=idx;
-        this->mv=mv;
-        this->KC=KC;
         this->TeamChange=TeamChange;
         this->FowlHasMoved=FowlHasMoved;
     }

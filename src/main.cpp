@@ -72,16 +72,20 @@ int main(int argc,char* argv[])
     TrueIA* TIA= new TrueIA(&s);
     TIA->setIterateurs(0,0,0);
     
+    //Fowl* f = reinterpret_cast<Fowl*>(e);
+    
     //On instancie les différentes classes qui généreront les commandes
     MoveCommand* MC= new MoveCommand(0,0,MoveID::NONE,0,Direction::NONE);
     KillCommand* KC= new KillCommand(0);
     FireCommand* FC= new FireCommand(0,Direction::NONE); 
-    NextCommand* NC= new NextCommand(s.getSelected(),moving_fowl,KC,false,false);
+    NextCommand* NC= new NextCommand(s.getSelected(),false,false);
+    //SwitchCommand* SC = new SwitchCommand(s.getSelected(),f->getFowlWeapon());
     
     MC->setMoveCamera(v);
     KC->setMoveCamera(v);
     FC->setMoveCamera(v);
     NC->setMoveCamera(v);
+    //SC->setMoveCamera(v);
 
     thread moteur(&Engine::runEngine,&engine);
     
@@ -97,9 +101,51 @@ int main(int argc,char* argv[])
                     }    
 
                     if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Tab){
-                                NC->setNextCommand(s.getSelected(),moving_fowl,KC,false,NC->getFowlHasMoved());
+                                NC->setNextCommand(s.getSelected(),false,NC->getFowlHasMoved());
                                 engine.addCommand(NC);
                     }
+                    
+                    /*if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::A){
+                                SC->setIDX(s.getSelected());
+                                SC->setIDw(00);
+                                engine.addCommand(SC);
+                    }
+                    
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Numpad8){
+                                SC->setIDX(s.getSelected());
+                                SC->setIDw(01);
+                                engine.addCommand(SC);
+                    }
+                    
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Numpad9){
+                                SC->setIDX(s.getSelected());
+                                SC->setIDw(02);
+                                engine.addCommand(SC);
+                    }
+                    
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Numpad4){
+                                SC->setIDX(s.getSelected());
+                                SC->setIDw(03);
+                                engine.addCommand(SC);
+                    }
+                    
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Numpad5){
+                                SC->setIDX(s.getSelected());
+                                SC->setIDw(04);
+                                engine.addCommand(SC);
+                    }
+                    
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Numpad6){
+                                SC->setIDX(s.getSelected());
+                                SC->setIDw(05);
+                                engine.addCommand(SC);
+                    }
+                    
+                    if (event.type==sf::Event::KeyReleased && event.key.code==sf::Keyboard::Numpad1){
+                                SC->setIDX(s.getSelected());
+                                SC->setIDw(06);
+                                engine.addCommand(SC);
+                    }*/
                     
                     //Intelligence Artificielle Médiocre
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){

@@ -51,12 +51,23 @@ namespace engine{
                 int index=this->currentState->getSelected();
                 state::Element* el=this->currentState->getMobileElement(index);
                 state::Fowl* f=reinterpret_cast<state::Fowl*>(el);
-                this->actions->add(new Fire(fire->getIDX()));
-                if (canHit(this->currentState,fire)){
-                    this->actions->add(new KillFowl(fire->getIDX()));
-                }
-                if ((this->currentState->getNbGreenDead()!=3 || f->getFowlColor()==state::FowlColor::GREEN) && (this->currentState->getNbWhiteDead()!=3 || f->getFowlColor()==state::FowlColor::WHITE)){
-                    this->actions->add(new SelectFowl(fire->getIDX(),true));
+                int idw = f->getFowlWeapon();
+                state::Weapon* w = this->currentState->getWeaponElement(idw);
+                
+                if(hasAmmo(this->currentState, index, idw)){
+                    this->actions->add(new Fire(fire->getIDX()));
+                    if (canHit(this->currentState,fire)){
+                        this->actions->add(new KillFowl(fire->getIDX()));
+                    }
+                    if ((this->currentState->getNbGreenDead()!=3 || f->getFowlColor()==state::FowlColor::GREEN) && (this->currentState->getNbWhiteDead()!=3 || f->getFowlColor()==state::FowlColor::WHITE)){
+                        this->actions->add(new SelectFowl(fire->getIDX(),true));
+                    }
+                    if (f->getFowlColor()==state::FowlColor::GREEN){
+                        w->setAmmoGreen(w->getAmmoGreen()-1);
+                    }
+                    else if (f->getFowlColor()==state::FowlColor::WHITE){
+                        w->setAmmoWhite(w->getAmmoWhite()-1);
+                    }
                 }
             }
             if (cmd->getCmdTypeID()==CmdTypeID::NEXT_CMD){
@@ -279,7 +290,7 @@ namespace engine{
         
         if (f->getFowlColor()==state::FowlColor::GREEN){
             if (w->getAmmoGreen()!=0){
-                w->setAmmoGreen(w->getAmmoGreen()-1);
+                //w->setAmmoGreen(w->getAmmoGreen()-1);
                 return true;
             }
             else{
@@ -288,7 +299,7 @@ namespace engine{
         }
         else if (f->getFowlColor()==state::FowlColor::WHITE){
             if(w->getAmmoWhite()!=0){
-                w->setAmmoWhite(w->getAmmoWhite()-1);
+                //w->setAmmoWhite(w->getAmmoWhite()-1);
                 return true;
             }
             else{
