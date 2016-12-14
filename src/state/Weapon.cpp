@@ -13,6 +13,8 @@ namespace state{
         this->visible=visible;
         this->status=status;
         this->type=TypeID::WEAPON;
+        this->ammoGreen=2;
+        this->ammoWhite=2;
         
     }
     
