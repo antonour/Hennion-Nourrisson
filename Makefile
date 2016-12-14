@@ -16,6 +16,7 @@ ${DIA2CODE_DIR}/bin/dia2code:
 	cd ${DIA2CODE_DIR} && ./build.sh
 
 configure:
+	@cd extern && ./configure ..
 	@mkdir -p build 
 	@cd build && cmake ..
 
@@ -31,6 +32,6 @@ test:
 	./docker/run_docker_x11.sh plt-build
 
 start-kit: distclean
-	@tar -czvf ../plt-start-kit.tar.gz CMakeLists.txt Makefile .gitignore dia2code src docker rapport res
+	@tar -czvf ../plt-start-kit.tar.gz CMakeLists.txt Makefile .gitignore dia2code src docker rapport res extern
 
 .PHONY: configure build clean run test start-kit
