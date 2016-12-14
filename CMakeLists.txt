@@ -23,6 +23,7 @@ set(DIA2CODE "${PROJECT_SOURCE_DIR}/dia2code/bin/dia2code")
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/projet.dia -cl Animation,Layer,Surface,Direction,Element,ElementFactory,Field,FieldCreator,FieldTypeID,Fowl,FowlColor,FowlCreator,FowlStatus,IElement,IObserver,MobileElement,Observable,Space,SpaceCreator,SpaceTypeID,State,StateEvent,StateEventID,StaticElement,TypeID,Weapon,WeaponCreator,WeaponStatus,AnimID,FowlWeapon)
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/engine.dia)
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/ia.dia)
+exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/webservices.dia)
 
 # Sources
 file(GLOB_RECURSE main_sources src/*.cpp)
