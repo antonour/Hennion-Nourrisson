@@ -4,8 +4,6 @@
 
 
 namespace engine {
-  class MoveFowl;
-  class KillCommand;
   class Command;
 }
 
@@ -19,18 +17,14 @@ namespace engine {
     // Attributes
   protected:
     int idx;
-    MoveFowl* mv;
-    KillCommand* KC;
     bool TeamChange;
     bool FowlHasMoved;
     // Operations
   public:
-    NextCommand (int idx, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved);
+    NextCommand (int idx, bool TeamChange, bool FowlHasMoved);
     CmdTypeID getCmdTypeID ();
-    void setNextCommand (int idx, MoveFowl* mv, KillCommand* KC, bool TeamChange, bool FowlHasMoved);
+    void setNextCommand (int idx, bool TeamChange, bool FowlHasMoved);
     int getIDX ();
-    MoveFowl* getMoveFowl ();
-    KillCommand* getKillCommand ();
     bool getTeamChange ();
     void setIDX (int idx);
     bool getFowlHasMoved ();
