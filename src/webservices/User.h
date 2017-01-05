@@ -2,6 +2,7 @@
 #ifndef WEBSERVICES__USER__H
 #define WEBSERVICES__USER__H
 
+#include <string>
 
 namespace webservices {
 
@@ -9,11 +10,11 @@ namespace webservices {
   class User {
     // Attributes
   public:
-    string name;
+    std::string name;
     int age;
     // Operations
   public:
-    User (string name, int age);
+    User (std::string name, int age);
   };
 
 };

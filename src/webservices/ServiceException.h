@@ -2,6 +2,7 @@
 #ifndef WEBSERVICES__SERVICEEXCEPTION__H
 #define WEBSERVICES__SERVICEEXCEPTION__H
 
+#include <string>
 
 namespace webservices {
   class AbstractService;
@@ -18,10 +19,10 @@ namespace webservices {
     webservices::HttpStatus httpStatus;
     // Attributes
   protected:
-    string msg;
+    std::string msg;
     // Operations
   public:
-    ServiceException (HttpStatus status, string msg);
+    ServiceException (HttpStatus status, std::string msg);
     HttpStatus status () const;
     const char* what () const;
   };

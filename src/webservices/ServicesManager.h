@@ -2,6 +2,9 @@
 #ifndef WEBSERVICES__SERVICESMANAGER__H
 #define WEBSERVICES__SERVICESMANAGER__H
 
+#include <vector>
+#include <memory>
+#include <string>
 
 namespace webservices {
   class AbstractService;
@@ -17,12 +20,12 @@ namespace webservices {
     // Associations
     // Attributes
   protected:
-    vector<unique_ptr<AbstractService> > services;
+    std::vector<std::unique_ptr<AbstractService> > services;
     // Operations
   public:
-    void registerService (unique_ptr<AbstractService> service);
-    AbstractService* findService (const string& url) const;
-    HttpStatus queryService (string& out, const string& in, const string& url, const string& method);
+    void registerService (std::unique_ptr<AbstractService> service);
+    AbstractService* findService (const std::string& url) const;
+    HttpStatus queryService (std::string& out, const std::string& in, const std::string& url, const std::string& method);
   };
 
 };

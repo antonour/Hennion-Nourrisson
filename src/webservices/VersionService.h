@@ -2,6 +2,7 @@
 #ifndef WEBSERVICES__VERSIONSERVICE__H
 #define WEBSERVICES__VERSIONSERVICE__H
 
+#include "../../extern/jsoncpp-0.10.5/include/json/json.h"
 
 namespace webservices {
   class AbstractService;

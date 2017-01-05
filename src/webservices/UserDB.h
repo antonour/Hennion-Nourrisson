@@ -2,6 +2,8 @@
 #ifndef WEBSERVICES__USERDB__H
 #define WEBSERVICES__USERDB__H
 
+#include <map>
+#include <memory>
 
 namespace webservices {
   class User;
@@ -17,13 +19,13 @@ namespace webservices {
     // Attributes
   protected:
     int idseq;
-    map<int,unique_ptr<User> > users;
+    std::map<int,std::unique_ptr<User> > users;
     // Operations
   public:
     UserDB ();
     const User* getUser (int id) const;
-    int addUser (unique_ptr<User> user);
-    void setUser (int id, unique_ptr<User> user);
+    int addUser (std::unique_ptr<User> user);
+    void setUser (int id, std::unique_ptr<User> user);
     void removeUser (int id);
   };
 
