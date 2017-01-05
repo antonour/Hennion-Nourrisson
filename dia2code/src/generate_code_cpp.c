@@ -593,6 +593,7 @@ struct stdlib_includes {
    int Render;
    int engine;
    int ia;
+   int json;
 };
 
 void print_include_stdlib(struct stdlib_includes* si,char* name) {
@@ -699,6 +700,12 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
        && (strstr(name,"ia::"))) {
            print ("#include \"../ia.hpp\"\n");
            si->ia = 1;
+       }
+
+       if (!si->json 
+       && (strstr(name,"Json::"))) {
+           print ("#include \"../../extern/jsoncpp-0.10.5/include/json/json.h\"\n");
+           si->json = 1;
        }
 	      
     }
